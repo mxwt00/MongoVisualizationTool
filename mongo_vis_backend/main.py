@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 import pymongo
 from pymongo import MongoClient
 from json import JSONEncoder
@@ -21,10 +21,12 @@ class Table:
         return s
 
 
-@app.route("/")
+@app.post("/")
 def get_tables_and_keys():
-    mongodb_client = MongoClient("mongodb+srv://mvt:mvt@testcluster.biadm2g.mongodb.net/?retryWrites=true&w=majority")
-    database = mongodb_client["sample_mflix"]
+    connection_string = request.json.get("connection_string")
+    database = request.json.get("database")
+    mongodb_client = MongoClient(connection_string)
+    database = mongodb_client[database]
 
     collection_names = database.list_collection_names()
 
