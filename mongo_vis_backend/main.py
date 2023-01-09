@@ -1,7 +1,7 @@
 from flask import Flask, request
 import pymongo
 from pymongo import MongoClient
-from json import JSONEncoder
+import json
 
 app = Flask("Mongodb Visualization Tool")
 
@@ -20,6 +20,13 @@ class Table:
             s += f"  {key}"
         return s
 
+    def to_dict(self):
+        data = {
+            "name": self.name,
+            "keys": self.keys
+        }
+        return data
+
 
 @app.post("/")
 def get_tables_and_keys():
@@ -30,7 +37,7 @@ def get_tables_and_keys():
 
     collection_names = database.list_collection_names()
 
-    tables = list()
+    tables_dict = {"tables": []}
     for name in collection_names:
         collection = database.get_collection(name)
         doc = collection.find_one()
@@ -38,8 +45,7 @@ def get_tables_and_keys():
         for key in doc:
             keys.append(key)
         table = Table(name, keys)
-        tables.append(table.to_string())
+        tables_dict["tables"].append(table.to_dict())
 
     mongodb_client.close()
-    print(tables)
-    return tables
+    return json.dumps(tables_dict)
