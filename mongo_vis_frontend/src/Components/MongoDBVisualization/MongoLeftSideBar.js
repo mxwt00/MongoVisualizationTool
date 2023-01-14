@@ -1,5 +1,6 @@
 import React from "react";
 import DisplayConfiguration from "../../Services/Configurations/DisplayConfiguration";
+import {TextField} from "@mui/material";
 
 /**
  * Renders the hole left side bare by orchestrating DragBarManagers for all ErTypes
@@ -16,6 +17,14 @@ const MongoLeftSideBar = () => {
                 <div className="leftSidebarMainTitle">Database Connection</div>
                 <div className="spacerBig"></div>
                 <hr className="sidebarDivider"/>
+
+                <TextField
+                    id="connectionString"
+                    label="Connection String"
+                    variant="standard"
+                    defaultValue="connection string"
+                    //color="white"
+                />
 
                 <div className="leftSidebarTitle">Attributes</div>
                 <hr className="sidebarDivider"/>
