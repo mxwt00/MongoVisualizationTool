@@ -19,10 +19,17 @@ import {ImportRelContent, selectRelationalContentSlice} from "../../ReduxStore/R
  * @param changeToRelationalDiagram     Function to execute when changing to the relational diagram tab
  * @param changeToMongoDiagram     Function to execute when changing to the mongo diagram tab
  */
-export function ContentManager({children, metaInformation, diagramType, changeToErDiagram, changeToRelationalDiagram, changeToMongoDiagram}){
+export function ContentManager({
+                                   children,
+                                   metaInformation,
+                                   diagramType,
+                                   changeToErDiagram,
+                                   changeToRelationalDiagram,
+                                   changeToMongoDiagram
+                               }) {
 
     let baseUrl;
-    if(process.env.NODE_ENV !== "development") baseUrl = process.env.REACT_APP_BACKEND_BASEURL_PRODUCTION;
+    if (process.env.NODE_ENV !== "development") baseUrl = process.env.REACT_APP_BACKEND_BASEURL_PRODUCTION;
     else baseUrl = process.env.REACT_APP_BACKEND_BASEURL_DEVELOPMENT;
 
     const erContentStore = useSelector(selectErContentSlice);
@@ -34,11 +41,13 @@ export function ContentManager({children, metaInformation, diagramType, changeTo
     const [currentDiagram, updateDiagram] = useState(DiagramTypes.erDiagram)
 
     const [importExecuted, setImportExecuted] = useState(false);
-    const triggerImportComplete = () => {setImportExecuted(false)}
+    const triggerImportComplete = () => {
+        setImportExecuted(false)
+    }
 
-    useEffect( () => {
-        if(currentDiagram !== diagramType) updateDiagram(diagramType)
-    },[diagramType])
+    useEffect(() => {
+        if (currentDiagram !== diagramType) updateDiagram(diagramType)
+    }, [diagramType])
 
 
     // ----------------------------------------- Upload and Download of Json-Files -----------------------------------//
@@ -52,14 +61,22 @@ export function ContentManager({children, metaInformation, diagramType, changeTo
      * To handle multiple versions the meta-information property "projectVersion" can be used
      * @returns {string}
      */
-    function createDownloadPackage(){
+    function createDownloadPackage() {
 
         let downloadPackage = {
             ...metaInformation,
-            erContent:  {
-                drawBoardContent: {drawBoardElements: erContentStore.drawBoardElements, connections: erContentStore.connections}},
+            erContent: {
+                drawBoardContent: {
+                    drawBoardElements: erContentStore.drawBoardElements,
+                    connections: erContentStore.connections
+                }
+            },
             relContent: {
-                drawBoardContent: {tables: relationalContentStore.drawBoardElements, connections: relationalContentStore.connections}}
+                drawBoardContent: {
+                    tables: relationalContentStore.drawBoardElements,
+                    connections: relationalContentStore.connections
+                }
+            }
         }
 
         return JSON.stringify(downloadPackage, null, 2);
@@ -67,7 +84,7 @@ export function ContentManager({children, metaInformation, diagramType, changeTo
 
 
     //Upload
-    function importDrawBoardData(importedContent){
+    function importDrawBoardData(importedContent) {
 
         let importedJson = JSON.parse(importedContent)
 
@@ -83,21 +100,20 @@ export function ContentManager({children, metaInformation, diagramType, changeTo
     // noinspection JSUnusedLocalSymbols, Justification, no enhanced error handling implemented
     const [relationalEndpointError, setRelationalEndpointError] = useState(false)
 
-    function transformToRel(){
+    function transformToRel() {
 
         let contentToSend = {
             ...metaInformation,
             drawBoardContent: {
                 elements: erContentStore.drawBoardElements,
                 connections: erContentStore.connections
-            }};
+            }
+        };
 
-        axios.post(url, contentToSend).
-        then((response) => {
+        axios.post(url, contentToSend).then((response) => {
             relationalContentStoreAccess(ImportRelContent(response.data));
             changeToRelationalDiagram();
-        }).
-        catch(error => setRelationalEndpointError(error));
+        }).catch(error => setRelationalEndpointError(error));
     }
 
 
@@ -106,19 +122,17 @@ export function ContentManager({children, metaInformation, diagramType, changeTo
     // noinspection JSUnusedLocalSymbols, Justification, no enhanced error handling implemented
     const [sqlEndpointError, setSqlEndpointError] = useState(null)
 
-    function generateSql(dto){
+    function generateSql(dto) {
 
-        axios.post(urlSql, dto).
-            then((response) => {
-                setSqlSeverResult(response.data);
-            }).
-            catch(error => setSqlEndpointError(error));
+        axios.post(urlSql, dto).then((response) => {
+            setSqlSeverResult(response.data);
+        }).catch(error => setSqlEndpointError(error));
     }
 
     //noinspection JSUnusedGlobalSymbols, Justification properties are used in Er and relational manager
     const SaveAndLoadProps = {
         transformToRel: transformToRel,
-        generateSql:generateSql,
+        generateSql: generateSql,
         sqlServerResult: sqlServerResult,
         importExecuted: importExecuted,
         triggerImportComplete: triggerImportComplete
@@ -143,8 +157,9 @@ export function ContentManager({children, metaInformation, diagramType, changeTo
                 <Download createDownloadPackage={createDownloadPackage}/>
                 <Upload importDrawBoardData={importDrawBoardData}/>
             </div>
-            {React.cloneElement(children, { ...SaveAndLoadProps  })}
+            {React.cloneElement(children, {...SaveAndLoadProps})}
         </React.Fragment>
     )
 }
+
 export default ContentManager;
