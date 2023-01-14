@@ -1,4 +1,4 @@
-import LeftSideBar from "../ErModel/LeftSideBar/LeftSideBar";
+import MongoLeftSideBar from "./MongoLeftSideBar";
 
 const MongoManager = () => {
 
@@ -7,7 +7,7 @@ const MongoManager = () => {
         <div>
             <div className="canvasStyle" id="canvas">
                 {/* The left toolbar, containing the elements to drag into the draw board  */}
-                <LeftSideBar/>
+                <MongoLeftSideBar/>
             </div>
         </div>
     );
