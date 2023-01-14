@@ -17,8 +17,9 @@ import {ImportRelContent, selectRelationalContentSlice} from "../../ReduxStore/R
  * @param diagramType                   The currently displayed diagram type
  * @param changeToErDiagram             Function to execute when changing to the Er diagram tab
  * @param changeToRelationalDiagram     Function to execute when changing to the relational diagram tab
+ * @param changeToMongoDiagram     Function to execute when changing to the mongo diagram tab
  */
-export function ContentManager({children, metaInformation, diagramType, changeToErDiagram, changeToRelationalDiagram}){
+export function ContentManager({children, metaInformation, diagramType, changeToErDiagram, changeToRelationalDiagram, changeToMongoDiagram}){
 
     let baseUrl;
     if(process.env.NODE_ENV !== "development") baseUrl = process.env.REACT_APP_BACKEND_BASEURL_PRODUCTION;
@@ -137,7 +138,7 @@ export function ContentManager({children, metaInformation, diagramType, changeTo
             <div className="Head">
                 <button className={erTabStyle} onClick={changeToErDiagram}>Er Diagram</button>
                 <button className={relationalTabStyle} onClick={changeToRelationalDiagram}>Relational Diagram</button>
-                <button className={relationalTabStyle} >MongoDB Visualization</button>
+                <button className={relationalTabStyle} onClick={changeToMongoDiagram}>MongoDB Visualization</button>
                 <PrivacyPolicy/>
                 <Download createDownloadPackage={createDownloadPackage}/>
                 <Upload importDrawBoardData={importDrawBoardData}/>
