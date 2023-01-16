@@ -14,6 +14,7 @@ function DatabaseModellingTool() {
 
     const [diagramType, setDiagramType] = useState(DiagramTypes.erDiagram)
 
+    //TODO funktion verallgemeinern
     function changeToErDiagram() {
         if (diagramType === DiagramTypes.erDiagram) return;
         setDiagramType(DiagramTypes.erDiagram);

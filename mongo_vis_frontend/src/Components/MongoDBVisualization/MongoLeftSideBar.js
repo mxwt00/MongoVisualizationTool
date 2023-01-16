@@ -1,12 +1,17 @@
-import React from "react";
-import DisplayConfiguration from "../../Services/Configurations/DisplayConfiguration";
+import React, {useState} from "react";
 import {TextField} from "@mui/material";
+import {ConnectionStates} from "./ConnectionState";
 
 /**
  * Renders the hole left side bare by orchestrating DragBarManagers for all ErTypes
  * @see DragBarManager
  */
 const MongoLeftSideBar = () => {
+    const [connectionState, setConnectionState] = useState(ConnectionStates.connectionPending)
+
+    function connectToDB() {
+
+    }
 
     return (
 
@@ -23,27 +28,17 @@ const MongoLeftSideBar = () => {
                     label="Connection String"
                     variant="standard"
                     defaultValue="connection string"
-                    //color="white"
                 />
-
-                <div className="leftSidebarTitle">Attributes</div>
-                <hr className="sidebarDivider"/>
-
-                <div className="leftSidebarTitle">Entities</div>
-                <hr className="sidebarDivider"/>
-
-                <div className="leftSidebarTitle">Relations</div>
-                <hr className="sidebarDivider"/>
-
-                <div className="leftSidebarTitle">IsA Structure</div>
-                <hr className="sidebarDivider"/>
+                <div className="spacerSmall"></div>
+                <TextField
+                    id="dbName"
+                    label="DB name"
+                    variant="standard"
+                    defaultValue="database"
+                />
+                <div className="spacerSmall"></div>
+                <div>{connectionState}</div>
             </div>
-            <div>
-                <label htmlFor="rightBarInputField" className="rightBarInputFieldLabel">Name:</label>
-                <input type="text" className="rightBarInput" id="rightBarInputField"
-                       maxLength={DisplayConfiguration.maxLengthForElements}
-                    //onChange={(e) => { setDisplayName(selectedObject.id, e.target.value)}}
-                       value={"default DB"}/></div>
         </div>
 
     )
