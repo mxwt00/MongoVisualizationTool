@@ -1,9 +1,11 @@
-from flask import Flask, request
-import pymongo
+import pymongo.errors
+from flask import Flask, request, Response
 from pymongo import MongoClient
+from flask_cors import CORS
 import json
 
 app = Flask("Mongodb Visualization Tool")
+CORS(app)
 
 
 class Table:
@@ -28,12 +30,17 @@ class Table:
         return data
 
 
-@app.post("/")
+@app.post("/connect")
 def get_tables_and_keys():
     connection_string = request.json.get("connection_string")
     database = request.json.get("database")
-    mongodb_client = MongoClient(connection_string)
-    database = mongodb_client[database]
+
+    try:
+        mongodb_client = MongoClient(connection_string, serverSelectionTimeoutMS=5000)
+        database = mongodb_client[database]
+    except pymongo.errors.ServerSelectionTimeoutError:
+        return Response(status=406)
+
 
     collection_names = database.list_collection_names()
 
