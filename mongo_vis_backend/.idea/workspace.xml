@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3cc488a3-3fa5-48eb-b8ae-caa43520d08e" name="Changes" comment="response of request is now json">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../mongo_vis_frontend/src/Components/MongoDBVisualization/MongoLeftSideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mongo_vis_frontend/src/Components/MongoDBVisualization/MongoLeftSideBar.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,6 +79,7 @@
       <workItem from="1673252176838" duration="3673000" />
       <workItem from="1673255874705" duration="611000" />
       <workItem from="1673693639047" duration="1060000" />
+      <workItem from="1673862283981" duration="3946000" />
     </task>
     <task id="LOCAL-00001" summary="connecting to db">
       <created>1673187807625</created>
@@ -111,6 +114,9 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="requirements.txt" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="connecting to db" />
