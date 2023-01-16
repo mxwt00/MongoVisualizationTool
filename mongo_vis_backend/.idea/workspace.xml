@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3cc488a3-3fa5-48eb-b8ae-caa43520d08e" name="Changes" comment="response of request is now json">
-      <change beforePath="$PROJECT_DIR$/../backend/Server/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/Server/mvnw" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/Server/src/main/java/com/databaseModeling/Server/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/Server/src/main/java/com/databaseModeling/Server/controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/Server/src/main/java/com/databaseModeling/Server/controller/MongoDBUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/Server/src/main/java/com/databaseModeling/Server/dto/MongoDBConnectionDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/Server/src/main/java/com/databaseModeling/Server/model/MongoDBModel/Table.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mongo_vis_frontend/src/Components/MongoDBVisualization/MongoLeftSideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mongo_vis_frontend/src/Components/MongoDBVisualization/MongoLeftSideBar.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,6 +76,7 @@
       <workItem from="1673183370406" duration="7139000" />
       <workItem from="1673252176838" duration="3673000" />
       <workItem from="1673255874705" duration="611000" />
+      <workItem from="1673693639047" duration="1060000" />
     </task>
     <task id="LOCAL-00001" summary="connecting to db">
       <created>1673187807625</created>
