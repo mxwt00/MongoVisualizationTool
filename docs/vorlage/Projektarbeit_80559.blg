@@ -1,17 +1,18 @@
 [0] Config.pm:307> INFO - This is Biber 2.17
 [0] Config.pm:310> INFO - Logfile is 'Projektarbeit_80559.blg'
-[51] biber:340> INFO - === Fri Jan 20, 2023, 13:48:25
+[51] biber:340> INFO - === Fri Jan 20, 2023, 14:35:19
 [61] Biber.pm:418> INFO - Reading 'Projektarbeit_80559.bcf'
-[110] Biber.pm:972> INFO - Found 6 citekeys in bib section 0
+[111] Biber.pm:972> INFO - Found 8 citekeys in bib section 0
 [121] Biber.pm:4383> INFO - Processing section 0
-[132] Biber.pm:4574> INFO - Looking for bibtex file 'latexlit.bib' for section 0
-[133] bibtex.pm:1713> INFO - LaTeX decoding ...
-[144] bibtex.pm:1518> INFO - Found BibTeX data source 'latexlit.bib'
-[195] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[195] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[195] Biber.pm:4203> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
-[195] Biber.pm:4209> INFO - No sort tailoring available for locale 'en-US'
-[206] bbl.pm:654> INFO - Writing 'Projektarbeit_80559.bbl' with encoding 'UTF-8'
-[207] bbl.pm:757> INFO - Output to Projektarbeit_80559.bbl
-[207] Biber.pm:130> WARN - I didn't find a database entry for 'schicker:datenbanken' (section 0)
-[207] Biber.pm:132> INFO - WARNINGS: 1
+[128] Biber.pm:4574> INFO - Looking for bibtex file 'latexlit.bib' for section 0
+[129] bibtex.pm:1713> INFO - LaTeX decoding ...
+[141] bibtex.pm:1518> INFO - Found BibTeX data source 'latexlit.bib'
+[345] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[346] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[346] Biber.pm:4203> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
+[346] Biber.pm:4209> INFO - No sort tailoring available for locale 'en-US'
+[407] bbl.pm:654> INFO - Writing 'Projektarbeit_80559.bbl' with encoding 'UTF-8'
+[425] bbl.pm:757> INFO - Output to Projektarbeit_80559.bbl
+[425] Biber.pm:130> WARN - I didn't find a database entry for 'schicker:datenbanken' (section 0)
+[426] Biber.pm:130> WARN - I didn't find a database entry for 'freecodecamp:redux' (section 0)
+[426] Biber.pm:132> INFO - WARNINGS: 2

@@ -1,16 +1,16 @@
 # Fdb version 3
-["biber Projektarbeit_80559"] 1674218905 "Projektarbeit_80559.bcf" "Projektarbeit_80559.bbl" "Projektarbeit_80559" 1674218913
-  "Projektarbeit_80559.bcf" 1674218913 107651 48a60b48a758d86f6410078f9d2812c1 "pdflatex"
-  "latexlit.bib" 1674214294 6140 196b41a355cb5c1662d02c41b08a6c6e ""
+["biber Projektarbeit_80559"] 1674221719 "Projektarbeit_80559.bcf" "Projektarbeit_80559.bbl" "Projektarbeit_80559" 1674221725
+  "Projektarbeit_80559.bcf" 1674221725 107881 54b33f12550c8ca7cccc9c8aaa69bfb5 "pdflatex"
+  "latexlit.bib" 1674221679 6593 469e8d9a50e505ba0ff4fe232d692be1 ""
   (generated)
   "Projektarbeit_80559.bbl"
   "Projektarbeit_80559.blg"
-["makeindex Projektarbeit_80559.idx"] 1674218648 "Projektarbeit_80559.idx" "Projektarbeit_80559.ind" "Projektarbeit_80559" 1674218913
-  "Projektarbeit_80559.idx" 1674218911 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+["makeindex Projektarbeit_80559.idx"] 1674220096 "Projektarbeit_80559.idx" "Projektarbeit_80559.ind" "Projektarbeit_80559" 1674221725
+  "Projektarbeit_80559.idx" 1674221723 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   (generated)
   "Projektarbeit_80559.ilg"
   "Projektarbeit_80559.ind"
-["pdflatex"] 1674218910 "Projektarbeit_80559.tex" "Projektarbeit_80559.pdf" "Projektarbeit_80559" 1674218913
+["pdflatex"] 1674221722 "Projektarbeit_80559.tex" "Projektarbeit_80559.pdf" "Projektarbeit_80559" 1674221725
   "/etc/texmf/web2c/texmf.cnf" 1659429625 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -290,19 +290,19 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1659445475 165012 f177baa1c39a3ebd62c3096a43521a0d ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1659445575 1930194 b132e3e82d470c232956ad382309e348 ""
-  "Projektarbeit_80559.aux" 1674218913 25645 80a9e47a79e237f68bbf0ccc16ee255a "pdflatex"
-  "Projektarbeit_80559.bbl" 1674218905 6036 8a2b6596978ea7484867ac525907880f "biber Projektarbeit_80559"
-  "Projektarbeit_80559.ind" 1674218648 0 d41d8cd98f00b204e9800998ecf8427e "makeindex Projektarbeit_80559.idx"
-  "Projektarbeit_80559.lof" 1674218913 771 04a70c53b393b657f471d18eeb1e53dc "pdflatex"
-  "Projektarbeit_80559.lol" 1674218913 314 c452d43a95828b4479b12d91c22f02d5 "pdflatex"
-  "Projektarbeit_80559.lot" 1674218913 391 b3af536a85c61ba1deb5e53a588148aa "pdflatex"
-  "Projektarbeit_80559.out" 1674218912 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "Projektarbeit_80559.run.xml" 1674218913 2469 b50745b13fb3979bc3104e29e152b513 "pdflatex"
-  "Projektarbeit_80559.tex" 1674218897 4209 2239610d8e5d21ce61acb19ee319df65 ""
-  "Projektarbeit_80559.toc" 1674218913 3407 1ec9a8c9aabfebf4970576b3437159b4 "pdflatex"
+  "Projektarbeit_80559.aux" 1674221725 25949 7a95a99c0fa7f15c4fc9c411c4571a64 "pdflatex"
+  "Projektarbeit_80559.bbl" 1674221719 7205 8f53d794175198b7b54be8e5389d2e17 "biber Projektarbeit_80559"
+  "Projektarbeit_80559.ind" 1674220096 0 d41d8cd98f00b204e9800998ecf8427e "makeindex Projektarbeit_80559.idx"
+  "Projektarbeit_80559.lof" 1674221725 771 04a70c53b393b657f471d18eeb1e53dc "pdflatex"
+  "Projektarbeit_80559.lol" 1674221725 314 c452d43a95828b4479b12d91c22f02d5 "pdflatex"
+  "Projektarbeit_80559.lot" 1674221725 391 2ae617b8464eb4fe50f24a5f28df280f "pdflatex"
+  "Projektarbeit_80559.out" 1674221723 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "Projektarbeit_80559.run.xml" 1674221725 2469 b50745b13fb3979bc3104e29e152b513 "pdflatex"
+  "Projektarbeit_80559.tex" 1674219584 4209 2239610d8e5d21ce61acb19ee319df65 ""
+  "Projektarbeit_80559.toc" 1674221725 3407 0daedf3252688ba927f79e61f32c1616 "pdflatex"
   "ausarbeitung.cls" 1674218647 15004 5b09a0dc04be91cc04bc71aff13beeb4 ""
   "einleitung.tex" 1674214294 2018 5e77f304dd197afb9702bb015b4b9d5f ""
-  "grundlagen.tex" 1674214294 7271 432b95167158ac3f4383766176bdbda6 ""
+  "grundlagen.tex" 1674221714 8081 6f6eed37d2bfd3ed4dee07336e95d1f1 ""
   "images/htw-aalen.pdf" 1674214294 11222 64ce5a1dc53002ef8d3743668038b8a4 ""
   "images/json_array.png" 1674214294 11454 ca9a1b655ab529f7aad476e91147e2b5 ""
   "images/json_number.png" 1674214294 37014 a0ff23ec2525daafc0e2a6db95135a74 ""

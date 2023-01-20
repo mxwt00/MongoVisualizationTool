@@ -19,6 +19,35 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global}
+    \entry{banks:react}{book}{}
+      \name{author}{2}{}{%
+        {{hash=6611f68d993477a1078ecf350add0286}{%
+           family={Banks},
+           familyi={B\bibinitperiod},
+           given={Alex},
+           giveni={A\bibinitperiod}}}%
+        {{hash=a931131208802fa3000a53dd3e87bbca}{%
+           family={Porcello},
+           familyi={P\bibinitperiod},
+           given={Eve},
+           giveni={E\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {O'Reilly Media}%
+      }
+      \strng{namehash}{7646e1ed14965980c5bfbf5d108be9b1}
+      \strng{fullhash}{7646e1ed14965980c5bfbf5d108be9b1}
+      \strng{bibnamehash}{7646e1ed14965980c5bfbf5d108be9b1}
+      \strng{authorbibnamehash}{7646e1ed14965980c5bfbf5d108be9b1}
+      \strng{authornamehash}{7646e1ed14965980c5bfbf5d108be9b1}
+      \strng{authorfullhash}{7646e1ed14965980c5bfbf5d108be9b1}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Learning React: Modern Patterns for Developing React Apps}
+      \field{year}{2020}
+    \endentry
     \entry{bradshaw:mongodb}{book}{}
       \name{author}{3}{}{%
         {{hash=73da16e749fc561cf8ce526572aba550}{%
@@ -160,6 +189,7 @@
       \field{year}{2020}
     \endentry
   \enddatalist
+  \missing{freecodecamp:redux}
   \missing{schicker:datenbanken}
 \endrefsection
 \endinput

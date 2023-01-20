@@ -2350,12 +2350,16 @@
     <bcf:citekey order="4">schiesser:javaEE7</bcf:citekey>
     <bcf:citekey order="5">van:python</bcf:citekey>
     <bcf:citekey order="6">grindberg:flask</bcf:citekey>
-    <bcf:citekey order="7">json:json</bcf:citekey>
-    <bcf:citekey order="8">schicker:datenbanken</bcf:citekey>
-    <bcf:citekey order="9">bradshaw:mongodb</bcf:citekey>
-    <bcf:citekey order="10">schiesser:javaEE7</bcf:citekey>
-    <bcf:citekey order="11">van:python</bcf:citekey>
-    <bcf:citekey order="12">grindberg:flask</bcf:citekey>
+    <bcf:citekey order="7">banks:react</bcf:citekey>
+    <bcf:citekey order="8">freecodecamp:redux</bcf:citekey>
+    <bcf:citekey order="9">json:json</bcf:citekey>
+    <bcf:citekey order="10">schicker:datenbanken</bcf:citekey>
+    <bcf:citekey order="11">bradshaw:mongodb</bcf:citekey>
+    <bcf:citekey order="12">schiesser:javaEE7</bcf:citekey>
+    <bcf:citekey order="13">van:python</bcf:citekey>
+    <bcf:citekey order="14">grindberg:flask</bcf:citekey>
+    <bcf:citekey order="15">banks:react</bcf:citekey>
+    <bcf:citekey order="16">freecodecamp:redux</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">
