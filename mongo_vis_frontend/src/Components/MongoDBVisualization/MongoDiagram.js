@@ -16,14 +16,14 @@ const MongoDiagram = () => {
     ];
 
     return (
-        <div>
+        <div style={{paddingLeft: 300, display: 'inline-block'}}>
             <TableContainer component={Paper}>
                 <Table size = "small" aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell style={{width: '1px', whiteSpace: 'nowrap'}}
+                            <TableCell style={{width: 1, whiteSpace: 'nowrap'}}
                                        align="left">Key</TableCell>
-                            <TableCell style={{width: '1px', whiteSpace: 'nowrap'}}
+                            <TableCell style={{width: 1, whiteSpace: 'nowrap'}}
                                        align="left">Type</TableCell>
                         </TableRow>
                     </TableHead>
@@ -33,9 +33,9 @@ const MongoDiagram = () => {
                                 key={row.name}
                                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
-                                <TableCell style={{width: '1px', whiteSpace: 'nowrap'}}
+                                <TableCell style={{width: 1, whiteSpace: 'nowrap'}}
                                            align="left">{row.key}</TableCell>
-                                <TableCell style={{width: '1px', whiteSpace: 'nowrap'}}
+                                <TableCell style={{width: 1, whiteSpace: 'nowrap'}}
                                            align="left">{row.type}</TableCell>
                             </TableRow>
                         ))}

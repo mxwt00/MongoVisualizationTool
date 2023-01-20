@@ -9,7 +9,6 @@ const MongoManager = () => {
         <ThemeProvider theme={theme}>
             <div>
                 <div className="canvasStyle" id="canvas">
-                    {/* The left toolbar, containing the elements to drag into the draw board  */}
                     <MongoLeftSideBar/>
                     <MongoDiagram/>
                 </div>
