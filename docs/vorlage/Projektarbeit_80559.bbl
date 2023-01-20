@@ -82,6 +82,37 @@
       \field{title}{MongoDB: the definitive guide: powerful and scalable data storage}
       \field{year}{2019}
     \endentry
+    \entry{freecodecamp:redux}{online}{}
+      \name{author}{1}{}{%
+        {{hash=cb24b7847eebb971bffd50d0a617aaa4}{%
+           family={De\bibnamedelima Roy},
+           familyi={D\bibinitperiod\bibinitdelim R\bibinitperiod},
+           given={Soham},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{cb24b7847eebb971bffd50d0a617aaa4}
+      \strng{fullhash}{cb24b7847eebb971bffd50d0a617aaa4}
+      \strng{bibnamehash}{cb24b7847eebb971bffd50d0a617aaa4}
+      \strng{authorbibnamehash}{cb24b7847eebb971bffd50d0a617aaa4}
+      \strng{authornamehash}{cb24b7847eebb971bffd50d0a617aaa4}
+      \strng{authorfullhash}{cb24b7847eebb971bffd50d0a617aaa4}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{What is Redux? Store, Actions, and Reducers Explained for Beginners}
+      \field{urlday}{20}
+      \field{urlmonth}{1}
+      \field{urlyear}{2023}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.freecodecamp.org/news/what-is-redux-store-actions-reducers-explained/
+      \endverb
+      \verb{url}
+      \verb https://www.freecodecamp.org/news/what-is-redux-store-actions-reducers-explained/
+      \endverb
+    \endentry
     \entry{grindberg:flask}{book}{}
       \name{author}{1}{}{%
         {{hash=eeba7ae00fae9a99a709f6f40abb3917}{%
@@ -189,7 +220,6 @@
       \field{year}{2020}
     \endentry
   \enddatalist
-  \missing{freecodecamp:redux}
   \missing{schicker:datenbanken}
 \endrefsection
 \endinput

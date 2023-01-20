@@ -1,16 +1,16 @@
 # Fdb version 3
-["biber Projektarbeit_80559"] 1674221719 "Projektarbeit_80559.bcf" "Projektarbeit_80559.bbl" "Projektarbeit_80559" 1674221725
-  "Projektarbeit_80559.bcf" 1674221725 107881 54b33f12550c8ca7cccc9c8aaa69bfb5 "pdflatex"
-  "latexlit.bib" 1674221679 6593 469e8d9a50e505ba0ff4fe232d692be1 ""
+["biber Projektarbeit_80559"] 1674222302 "Projektarbeit_80559.bcf" "Projektarbeit_80559.bbl" "Projektarbeit_80559" 1674222506
+  "Projektarbeit_80559.bcf" 1674222505 107881 54b33f12550c8ca7cccc9c8aaa69bfb5 "pdflatex"
+  "latexlit.bib" 1674222120 6600 8d125fc30e5847c44afa4d4b23764c99 ""
   (generated)
   "Projektarbeit_80559.bbl"
   "Projektarbeit_80559.blg"
-["makeindex Projektarbeit_80559.idx"] 1674220096 "Projektarbeit_80559.idx" "Projektarbeit_80559.ind" "Projektarbeit_80559" 1674221725
-  "Projektarbeit_80559.idx" 1674221723 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+["makeindex Projektarbeit_80559.idx"] 1674220096 "Projektarbeit_80559.idx" "Projektarbeit_80559.ind" "Projektarbeit_80559" 1674222506
+  "Projektarbeit_80559.idx" 1674222504 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   (generated)
   "Projektarbeit_80559.ilg"
   "Projektarbeit_80559.ind"
-["pdflatex"] 1674221722 "Projektarbeit_80559.tex" "Projektarbeit_80559.pdf" "Projektarbeit_80559" 1674221725
+["pdflatex"] 1674222503 "Projektarbeit_80559.tex" "Projektarbeit_80559.pdf" "Projektarbeit_80559" 1674222506
   "/etc/texmf/web2c/texmf.cnf" 1659429625 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -290,19 +290,19 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1659445475 165012 f177baa1c39a3ebd62c3096a43521a0d ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1659445575 1930194 b132e3e82d470c232956ad382309e348 ""
-  "Projektarbeit_80559.aux" 1674221725 25949 7a95a99c0fa7f15c4fc9c411c4571a64 "pdflatex"
-  "Projektarbeit_80559.bbl" 1674221719 7205 8f53d794175198b7b54be8e5389d2e17 "biber Projektarbeit_80559"
+  "Projektarbeit_80559.aux" 1674222505 25634 6dbd6ef86cdcb34efe610ade012b679e "pdflatex"
+  "Projektarbeit_80559.bbl" 1674222303 8495 4c5a5fb9e6e22286d7dba463f67a798e "biber Projektarbeit_80559"
   "Projektarbeit_80559.ind" 1674220096 0 d41d8cd98f00b204e9800998ecf8427e "makeindex Projektarbeit_80559.idx"
-  "Projektarbeit_80559.lof" 1674221725 771 04a70c53b393b657f471d18eeb1e53dc "pdflatex"
-  "Projektarbeit_80559.lol" 1674221725 314 c452d43a95828b4479b12d91c22f02d5 "pdflatex"
-  "Projektarbeit_80559.lot" 1674221725 391 2ae617b8464eb4fe50f24a5f28df280f "pdflatex"
-  "Projektarbeit_80559.out" 1674221723 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "Projektarbeit_80559.run.xml" 1674221725 2469 b50745b13fb3979bc3104e29e152b513 "pdflatex"
-  "Projektarbeit_80559.tex" 1674219584 4209 2239610d8e5d21ce61acb19ee319df65 ""
-  "Projektarbeit_80559.toc" 1674221725 3407 0daedf3252688ba927f79e61f32c1616 "pdflatex"
+  "Projektarbeit_80559.lof" 1674222505 771 04a70c53b393b657f471d18eeb1e53dc "pdflatex"
+  "Projektarbeit_80559.lol" 1674222505 314 c452d43a95828b4479b12d91c22f02d5 "pdflatex"
+  "Projektarbeit_80559.lot" 1674222505 391 2ae617b8464eb4fe50f24a5f28df280f "pdflatex"
+  "Projektarbeit_80559.out" 1674222504 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "Projektarbeit_80559.run.xml" 1674222505 2469 b50745b13fb3979bc3104e29e152b513 "pdflatex"
+  "Projektarbeit_80559.tex" 1674222120 4209 2239610d8e5d21ce61acb19ee319df65 ""
+  "Projektarbeit_80559.toc" 1674222505 3326 cd7564da78495665264b78104f278ced "pdflatex"
   "ausarbeitung.cls" 1674218647 15004 5b09a0dc04be91cc04bc71aff13beeb4 ""
   "einleitung.tex" 1674214294 2018 5e77f304dd197afb9702bb015b4b9d5f ""
-  "grundlagen.tex" 1674221714 8081 6f6eed37d2bfd3ed4dee07336e95d1f1 ""
+  "grundlagen.tex" 1674222499 8183 dbe38eaf79317133bdbe308566e04ac1 ""
   "images/htw-aalen.pdf" 1674214294 11222 64ce5a1dc53002ef8d3743668038b8a4 ""
   "images/json_array.png" 1674214294 11454 ca9a1b655ab529f7aad476e91147e2b5 ""
   "images/json_number.png" 1674214294 37014 a0ff23ec2525daafc0e2a6db95135a74 ""

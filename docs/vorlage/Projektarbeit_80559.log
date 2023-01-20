@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.8.2)  20 JAN 2023 14:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.8.2)  20 JAN 2023 14:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1454,13 +1454,6 @@ Package biblatex Info: ... file 'Projektarbeit_80559.bbl' found.
 
 Package biblatex Warning: The following entry could not be found
 (biblatex)                in the database:
-(biblatex)                freecodecamp:redux
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
 (biblatex)                schicker:datenbanken
 (biblatex)                Please verify the spelling and rerun
 (biblatex)                LaTeX afterwards.
@@ -1642,27 +1635,27 @@ chapter 2.
 (./grundlagen.tex
 Package acronym Info: Label `acro:json' newly defined as it shall be overridden
 although it is yet undefined on input line 23.
-<images/json_object.png, id=215, 553.16663pt x 258.06412pt>
+<images/json_object.png, id=213, 553.16663pt x 258.06412pt>
 File: images/json_object.png Graphic file (type png)
 <use images/json_object.png>
 Package pdftex.def Info: images/json_object.png  used on input line 31.
 (pdftex.def)             Requested size: 169.39119pt x 79.02248pt.
-<images/json_array.png, id=216, 553.16663pt x 144.23888pt>
+<images/json_array.png, id=214, 553.16663pt x 144.23888pt>
 File: images/json_array.png Graphic file (type png)
 <use images/json_array.png>
 Package pdftex.def Info: images/json_array.png  used on input line 37.
 (pdftex.def)             Requested size: 169.39119pt x 44.16776pt.
-<images/json_value.png, id=217, 552.8655pt x 389.35463pt>
+<images/json_value.png, id=215, 552.8655pt x 389.35463pt>
 File: images/json_value.png Graphic file (type png)
 <use images/json_value.png>
 Package pdftex.def Info: images/json_value.png  used on input line 46.
 (pdftex.def)             Requested size: 169.39119pt x 119.29065pt.
-<images/json_string.png, id=218, 553.16663pt x 656.4525pt>
+<images/json_string.png, id=216, 553.16663pt x 656.4525pt>
 File: images/json_string.png Graphic file (type png)
 <use images/json_string.png>
 Package pdftex.def Info: images/json_string.png  used on input line 52.
 (pdftex.def)             Requested size: 169.39119pt x 201.01404pt.
-<images/json_number.png, id=219, 552.8655pt x 618.81187pt>
+<images/json_number.png, id=217, 552.8655pt x 618.81187pt>
 File: images/json_number.png Graphic file (type png)
 <use images/json_number.png>
 Package pdftex.def Info: images/json_number.png  used on input line 61.
@@ -1720,10 +1713,6 @@ Overfull \hbox (32.01985pt too wide) in paragraph at lines 112--118
 [6]
 Package acronym Info: Label `acro:ui' newly defined as it shall be overridden
 although it is yet undefined on input line 156.
-
-
-LaTeX Warning: Citation 'freecodecamp:redux' on page 7 undefined on input line 166.
-
 ) [7]
 chapter 3.
 (./problemanalyse.tex
@@ -1796,18 +1785,18 @@ Package logreq Info: Writing requests to 'Projektarbeit_80559.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 45170 strings out of 480080
- 907666 string characters out of 5891146
- 1788602 words of memory out of 5000000
- 62021 multiletter control sequences out of 15000+600000
+ 45171 strings out of 480080
+ 907811 string characters out of 5891146
+ 1788584 words of memory out of 5000000
+ 62022 multiletter control sequences out of 15000+600000
  539158 words of font info for 220 fonts, out of 8000000 for 9000
  83 hyphenation exceptions out of 8191
  122i,19n,120p,10638b,2663s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/urw/avantgar/uagd8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/avantgar/uagk8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/ncntrsbk/uncb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/ncntrsbk/uncr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/ncntrsbk/uncr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/ncntrsbk/uncri8a.pfb>
-Output written on Projektarbeit_80559.pdf (27 pages, 419713 bytes).
+Output written on Projektarbeit_80559.pdf (27 pages, 420322 bytes).
 PDF statistics:
- 537 PDF objects out of 1000 (max. 8388607)
- 478 compressed objects within 5 object streams
+ 536 PDF objects out of 1000 (max. 8388607)
+ 477 compressed objects within 5 object streams
  116 named destinations out of 1000 (max. 500000)
- 72603 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 72595 words of extra memory for PDF output out of 74296 (max. 10000000)
 
