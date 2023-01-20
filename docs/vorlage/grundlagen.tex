@@ -1,0 +1,159 @@
+\if False
+In diesem Kapitel das für das Praktikum relevante Grundlagenwissen 
+dargestellt. Der Praktikant soll hierzu das ihm durch Vorlesungen 
+bekannte, bzw. durch Recherchen vertiefte theoretische Wissen 
+darstellen, das für die Lösung der im Praktikum gestellten Probleme 
+notwendig ist.
+
+Dabei ist darauf zu achten, nur solche Inhalte in das Grundlagenkapitel 
+aufzunehmen, die später auch verwendet werden (Problembezogenheit). 
+Ebenso ist auf eine ausreichend tiefe und vollständige Darstellung der 
+Grundlagen zu achten.
+
+Für die Erstellung des Literaturverzeichnisses 
+wird das Werkzeug JabRef\autocite{JabRef:JabRef} verwendet. 
+
+Sie können aber auch das Werkzeug Citavi\autocite{SAS:Citavi} benutzen
+und dort nach \textsc{Bib}\TeX{} exportieren.
+\fi
+
+\section{JSON}
+\label{sec:json}
+
+\ac{json} ist ein Format zum Datenaustausch.
+\ac{json} basiert auf der Syntax von JavaScript Objekten, ist jedoch unabhängig von der Programmiersprache einsetzbar.
+Vorteile von \ac{json} sind die einfache Lesbarkeit für Menschen und das einfache parsen und generieren für Maschinen.
+~\autocite{json:json}
+
+\begin{figure}[H]
+    \begin{minipage}[t]{0.45\textwidth}
+        \flushleft\textbf{Object} ist ein Set aus Key/Value Paaren.
+        \includegraphics[width=0.9\textwidth]{images/json_object}
+        \caption{JSON Object}
+        \label{fig:json_object}
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.45\textwidth}
+        \flushleft\textbf{Array} ist eine geordnete Liste von Values.
+        \includegraphics[width=0.9\textwidth]{images/json_array}
+        \caption{JSON Array}
+        \label{fig:json_array}
+    \end{minipage}\hfill
+\end{figure}
+\begin{figure}[H]
+    \begin{minipage}[t]{0.45\textwidth}
+        \textbf{Value} kann ein String, eine Zahl, ein Boolean, ein Objekt, ein Array oder null sein.
+        Dabei können beliebig viele Values ineinander verschachtelt sein.
+        \includegraphics[width=0.9\textwidth]{images/json_value}
+        \caption{JSON Value}
+        \label{fig:json_value}
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.45\textwidth}
+        \flushleft\textbf{String} ist eine Sequenz aus Unicode Buchstaben.
+        \includegraphics[width=0.9\textwidth]{images/json_string}
+        \caption{JSON String}
+        \label{fig:json_string}
+    \end{minipage}\hfill
+\end{figure}
+\begin{figure}[H]
+    \begin{minipage}[t]{0.45\textwidth}
+        \textbf{Number} ist eine Zahl.
+        Number kann sowohl eine Gleitkommazahl als auch eine Ganzzahl sein, und kann positiv sowie negativ sein.
+        \includegraphics[width=0.9\textwidth]{images/json_number}
+        \caption{JSON Number}
+        \label{fig:json_number}
+    \end{minipage}\hfill
+\end{figure}
+
+\section{HTTP}
+\label{sec:http}
+
+\ac{http} ist ein Protokoll, das benutzt wird, um über das Internet zu kommunizieren.
+Hauptsächlich wird \ac{http} für die Kommunikation zwischen einem Webbrowser und einem Webserver benutzt.
+In \ac{http} wird mittels Nachrichten kommuniziert.
+Es wird erst ein Request vom Client abgesetzt, der daraufhin von dem Server mit einer Response beantwortet wird.
+Diese Nachrichten bestehen aus einem Header und einem Body.
+Der Body enthält die Nachricht selbst.
+Der Header enthält Meta-Daten über einen Request, wie beispielsweise die angefragten Ressourcen und Datentypen des Body.
+
+\section{SQL}
+\label{sec:sql}
+
+Die \ac{sql} ist eine Datenbanksprache für relationale Datenbanken.
+In \ac{sql} werden die Daten in Tabellen organisiert, die ein festes Schema definieren.
+Man kann \ac{sql} in 2 Teile aufteilen:
+Die \ac{ddl} definiert den Aufbau des Schemas.
+Mit ihr können Datenbankobjekte erzeugt und gelöscht werden.
+Zur \ac{ddl} gehören unter anderem die Befehle CREATE, ALTER, DROP und TRUNCATE\@.
+Mit der \ac{dml} können Daten manipuliert, also eingefügt, geändert, gelesen und gelöscht werden.
+Die Befehle hierfür lauten SELECT, INSERT, UPDATE, DELETE, MERGE und noch weitere.
+~\autocite{schicker:datenbanken}
+
+\subsection{Normalformen}
+\label{sub:normalformen}
+
+\section{MongoDB}
+\label{sec:mongodb}
+
+MongoDB ist eine Dokument-Orientierte Datenbank. 
+In Dokument-Orientierten Datenbanken wird das aus SQL bekannte Konzept von Reihen durch Dokumente ersetzt.
+Dokumente haben im Gegensatz zu Reihen in Tabellen kein fixes Schema, dass sie erfüllen müssen, sondern sind sehr flexibel.
+Grundsätzlich bestehen Dokumente aus Key - Value Paaren, welche in einer JSON-Ähnlichen Struktur gespeichert werden.
+Dokumente können, wie auch in JSON, ineinander verschachtelt sein, was Hierarchische Strukturen und dadurch Denormalisierung ermöglicht.
+Die Dokumente werden in Collections Organisiert.
+Eine Collection entspricht in SQL einer Tabelle ohne das fixe Schema.
+Diese Collections befinden sich wiederum in Datenbanken.
+Eine MongoDB Instanz kann mehrere voneinander unabhängige Datenbanken beinhalten.
+Man kann sich mit der MongoShell mit einer MongoDB Instanz verbinden um mit der Mongo Query Language oder mit JavaScript die Instanz administrieren und Daten manipulieren.
+~\autocite{bradshaw:mongodb}
+
+\section{REST API}
+\label{sec:rest}
+
+Ein \ac{api} ist eine Schnittstelle, über die von außen mit einem Programm interagiert werden kann.
+Das Grundprinzip von \ac{rest} ist ein Backend, welches Resourcen beinhaltet.
+Ein Client kann über die gängigen \nameref{sec:http} Operationen mit diesen Resourcen interagieren.
+Jede Resource hat eine global eindeutige ID und wird meist durch \ac{json} oder \ac{xml} repräsentiert.
+In Java wird ein \ac{rest}ful Webservice für gewöhnlich mit \ac{jaxrs} umgesetzt.
+~\autocite{schiesser:javaEE7}
+
+\section{Python}
+\label{sec:python}
+
+Python ist eine Objektorientierte High-Level Programmiersprache, die besonderen Wert auf Lesbarkeit legt.
+Variablen in Python werden dynamisch getyped.
+Das bedeutet, dass eine Variable in Python keinen festen Typ hat, sondern dieser dynamisch über den ihr zugewiesenen Wert bestimmt wird.
+Python ist keine Compilierte, sondern eine interpretierte Programmiersprache.
+Diese Eigenschaften machen Python zu der idealen Sprache für das Schreiben von Skripten, sowie für Anwendungen, die schnell und simpel entwickelt werden sollen.
+PIP ist ein in Python integrierter Paketmanager, der das installieren von Packages erleichtert.
+Der Python Interpreter ist in C geschrieben, weshalb man die Funktionalität des Interpreters durch C-Programme erweitern kann, um beispielsweise laufzeitkritische Funktionen in C auszuführen.
+~\autocite{van:python}
+
+\section{Flask}
+\label{sec:flask}
+
+Flask ist ein minimalistisches Open-Source Web Framework.
+Flask kommt mit ein paar Kernpaketen, welche für Web Apps benötigt werden.
+Alles weitere muss der Nutzer selbst über PIP installieren:
+Durch diesen minimalistischen Ansatz kann man Flask sehr flexibel einsetzen.
+Flask ist beispielsweise flexibel mit SQL oder NoSQL Datenbanken, aber auch ohne Datenbanken einsetzbar.
+~\autocite{grindberg:flask}
+
+\section{JavaScript}
+\label{sec:js}
+
+JavaScript ist eine High-Level Programmiersprache, die Just-in-time kompiliert wird.
+JavaScript ist besonders bekannt als Skriptsprache für Webseiten.
+
+\section{React}
+\label{sec:react}
+
+
+
+\subsection{Redux Store}
+\label{sub:redux}
+
+\subsection{Axios}
+\label{sub:axios}
+
+\subsection{Material UI}
+\label{sub:mui}

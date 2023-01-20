@@ -1,0 +1,185 @@
+
+\documentclass[oneside]{ausarbeitung}
+\bibliography{latexlit}
+
+
+% ----------------------------------------------------------------------
+
+\begin{document}
+
+%--- Sprachauswahl
+% Erlaubte Werte:
+%   \selectlanguage{english}
+%   \selectlanguage{ngerman}
+\selectlanguage{ngerman}
+
+%--- Art der Arbeit
+% Erlaubte Werte:
+%   \Praxissemesterbericht
+%   \Projektbericht
+%   \Bachelorarbeit
+%   \Seminararbeit
+%   \Masterarbeit
+
+\Projektbericht
+
+%--- Studiengang:
+% Erlaubte Werte:
+%   \Informatik
+%   \Elektronik
+%   \DataScience
+\Informatik
+
+\title{Visualisierung von MongoDB Datenbanken}
+
+\author{Max Winter}
+\matrikelnr{80559}
+
+%--- Ist der Erstbetreuer (\examinerA) an der Hochschule ein Professor?
+% Erlaubte Werte:
+%   \examinerIsAProfessortrue   % Ja
+%   \examinerIsAProfessorfalse  % Nein
+\examinerIsAProfessortrue   % Ja
+
+%--- Betreuer
+\examinerA{Prof.~Dr.~Gregor Grambow}
+%\examinerB{Prof.~Dr.~Ulrich~Klauck}
+
+%--- Einreichungsdatum
+\date{01. Dezember 2016}
+
+%--- Angaben zur Firma
+% Auskommentieren, wenn die Arbeit nicht bei einer ext. Firma gemacht wurde.
+%\companyname{Beispielfirma}
+%\industrialsector{Beispielbranche}
+%\department{Beispielabteilung}
+%\companystreet{Beispielstr. 1}
+%\companycity{12345 Musterstadt}
+
+%--- Angaben zum Betreuer bei dieser Firma
+%\advisorname{Name des Betreuers}
+%\advisorphone{(01234) 567-890}
+%\advisoremail{name@company.xxx}
+
+%--- Titelseite Anzeigen
+\maketitle
+\cleardoublepage
+
+%---
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+%--- Firmendaten Anzeigen
+% Auskommentieren, wenn die Arbeit nicht bei einer ext. Firma gemacht wurde.
+%\makeworkplace
+%\cleardoublepage
+
+%--- Eidesstattliche Erklärung anzeigen
+\makeaffirmation
+\cleardoublepage
+
+%---
+\input{kurzfassung.tex}
+%-----------------------------------------------------------------------
+\cleardoublepage
+\tableofcontents
+
+%---
+\listoffigures
+
+%---
+\listoftables
+
+%---
+\lstlistoflistings
+
+%---
+\listofabbreviations
+\begin{acronym}[Bsp.]  % Längstes Kürzel in der nachfolgenden
+                       % Liste um die Breite der Spalte für die
+                       % Abkürzungen zu bestimmen.
+
+%% Eintrag: \acro{Referenzname}[Kürzel]{Langform}
+%% Im Text wird die Abkürzung dann mit \ac{Referenzname} benutzt.
+\acro{rup}[RUP]{Rational Unified Process}
+\acro{sql}[SQL]{Structured Query Language}
+\acro{http}[HTTP]{Hypertext Transfer Protocol}
+\acro{api}[API]{Application Programming Interface}
+\acro{rest}[REST]{Representational State Transfer}
+\acro{json}[JSON]{JavaScript Object Notation}
+\acro{url}[URL]{Uniform Resource Locator}
+\acro{ui}[UI]{User Interface}   
+\acro{uri}[URI]{Uniform Resource Identifier}
+\acro{uuid}[UUID]{Universally Unique Identifier}
+\acro{dto}[DTO]{Data Transfer Object}
+\acro{ddl}[DDL]{Data Definition Language}
+\acro{dml}[DML]{Data Manipulation Language}
+\acro{xml}[XML]{Extensible Markup Language}
+\end{acronym}
+%---
+
+
+\cleardoublepage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+% ----------------------------------------------------------------------
+\chapter{Einleitung}
+\label{cha:einleitung}
+\input{einleitung.tex}
+
+% ---
+\chapter{Grundlagen}
+\label{cha:grundlagen}
+\input{grundlagen.tex}
+
+%---
+\chapter{Problemanalyse}
+\label{cha:problemanalyse}
+\input{problemanalyse.tex}
+
+%---
+\chapter{Lösungskonzept}
+\label{cha:loesungskonzept}
+\input{loesungskonzept.tex}
+
+%---
+\chapter{Implementierung}
+\label{cha:implementierung}
+\input{implementierung.tex}
+
+%---
+\chapter{Inbetriebnahme}
+\label{cha:inbetriebnahme}
+\input{inbetriebnahme.tex}
+
+%---
+\chapter{Evaluierung}
+\label{cha:evaluierung}
+
+Aufgabe des Kapitels Evaluierung ist es, in wie weit die Ziele der 
+Arbeit erreicht wurden. Es sollen also die erreichten Arbeitsergebnisse 
+mit den Zielen verglichen werden. Ergebnis der Evaluierung kann auch 
+sein, das bestimmte Ziele nicht erreicht werden konnten, wobei die 
+Ursachen hierfür auch außerhalb des Verantwortungsbereichs des 
+Praktikanten liegen können.
+
+%---
+\chapter{Zusammenfassung und Ausblick}
+\label{cha:zusammenfassung}
+\input{zusammenfassung_und_ausblick.tex}
+
+%-----------------------------------------------------------------------
+\appendix
+
+%---
+\printbibliography[heading=bibintoc]
+
+%---
+\chapter{Anhang A}
+
+%---
+\chapter{Anhang B}
+
+
+\end{document}
