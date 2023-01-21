@@ -2,15 +2,15 @@ import {Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper}
 import {useSelector} from "react-redux";
 
 const MongoDiagram = () => {
-    let documents = useSelector((state) => state.mongoContent.documents)
+    let data = useSelector((state) => state.mongoContent.documents)
 
     function renderTables() {
-        if (!documents)
+        if (!data)
             return
         console.log("rendering tables")
-        console.log(documents)
+        console.log(data)
         let tables = []
-        for (let doc of documents.payload.tables) {
+        for (let doc of data.payload.documents) {
             console.log(doc)
             tables.push(renderTable(doc))
         }

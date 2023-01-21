@@ -8,7 +8,7 @@ app = Flask("Mongodb Visualization Tool")
 CORS(app)
 
 
-class Table:
+class ProcessedDocument:
     keys = None
     name = ""
 
@@ -44,15 +44,15 @@ def get_tables_and_keys():
 
     collection_names = database.list_collection_names()
 
-    tables_dict = {"tables": []}
+    docs_dict = {"documents": []}
     for name in collection_names:
         collection = database.get_collection(name)
-        doc = collection.find_one()
+        document = collection.find_one()
         keys = list()
-        for key in doc:
+        for key in document:
             keys.append(key)
-        table = Table(name, keys)
-        tables_dict["tables"].append(table.to_dict())
+        processed_doc = ProcessedDocument(name, keys)
+        docs_dict["documents"].append(processed_doc.to_dict())
 
     mongodb_client.close()
-    return json.dumps(tables_dict)
+    return json.dumps(docs_dict)
