@@ -2,6 +2,10 @@ import React, {useState} from "react";
 import {Button, TextField} from "@mui/material";
 import {ConnectionStates} from "./ConnectionState";
 import axios from "axios";
+import MongoDiagram from "./MongoDiagram";
+import {mongoContentSlice, setDocuments} from "../../ReduxStore/MongoContentSlice";
+import store from "../../ReduxStore/Store";
+import {useDispatch, useSelector} from "react-redux";
 
 /**
  * Renders the hole left side bare by orchestrating DragBarManagers for all ErTypes
@@ -9,15 +13,18 @@ import axios from "axios";
  */
 const MongoLeftSideBar = () => {
     const [connectionState, setConnectionState] = useState(ConnectionStates.connectionPending)
-    const [connectionString, setConnectionString] = useState("connection string")
-    const [dbName, setDbName] = useState("database")
+    const [connectionString, setConnectionString] = useState("mongodb+srv://mvt:mvt@testcluster.biadm2g.mongodb.net/?retryWrites=true&w=majority")
+    const [dbName, setDbName] = useState("sample_mflix")
+
+    let documents = useSelector((state) => state.mongoContent.documents)
+    const dispatch = useDispatch()
 
     //TODO markierung von tab fixen
 
     function connectToDB() {
         console.log("connecting to db")
         //TODO url relativ abfragen
-        const url = "http://127.0.0.1:8081/connect"
+        const url = "http://127.0.0.1:5000/connect"
 
         let contentToSend = {
             connection_string: connectionString,
@@ -26,6 +33,7 @@ const MongoLeftSideBar = () => {
 
         axios.post(url, contentToSend).then((response) => {
             connectionSuccessful(response)
+            dispatch(setDocuments(response.data))
         }).catch(error => connectionFailed(error))
     }
 
