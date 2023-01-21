@@ -41,7 +41,6 @@ def get_tables_and_keys():
     except pymongo.errors.ServerSelectionTimeoutError:
         return Response(status=406)
 
-
     collection_names = database.list_collection_names()
 
     docs_dict = {"documents": []}
