@@ -31,15 +31,15 @@ const MongoDiagram = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {doc.keys.map((key) => (
+                            {doc.values.map((value) => (
                                 <TableRow
-                                    key={key}
+                                    key={value.key}
                                     sx={{'&:last-child td, &:last-child th': {border: 0}}}
                                 >
                                     <TableCell style={{width: 1, whiteSpace: 'nowrap'}}
-                                               align="left">{key}</TableCell>
+                                               align="left">{value.key}</TableCell>
                                     <TableCell style={{width: 1, whiteSpace: 'nowrap'}}
-                                               align="left">{"dummyType"}</TableCell>
+                                               align="left">{value.type}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
