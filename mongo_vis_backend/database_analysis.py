@@ -62,11 +62,17 @@ class DatabaseAnalysis:
         values = list()
         for key, value in zip(document, document.values()):
             val_type = get_type(value)
-            # if val_type == "Object ID" and key != "_id":
-                # self.get_referenced_collection(value)
-
-            value = Value(key, val_type)
+            ref = None
+            if val_type == "Object ID" and key != "_id":
+                ref = self.get_referenced_collection(value)
+            value = Value(key, val_type, ref)
             values.append(value)
         return values
 
-    # def get_referenced_collection(self, id):
+    def get_referenced_collection(self, id_):
+        for collection_name in self.collection_names:
+            collection = self.database.get_collection(collection_name)
+            document = collection.find_one({"id_": id_})
+            if document is not None:
+                return collection_name
+        return None
