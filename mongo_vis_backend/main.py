@@ -1,6 +1,7 @@
+import json
+
 from flask import Flask, request, Response
 from flask_cors import CORS
-import json
 
 from database_analysis import DatabaseAnalysis
 

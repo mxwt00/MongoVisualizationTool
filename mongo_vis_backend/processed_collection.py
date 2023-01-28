@@ -3,6 +3,9 @@ import datetime
 
 import bson
 
+from processed_document import ProcessedDocument
+from value import Value
+
 
 def get_type(value):
     if value is None or type(value) is None:
@@ -32,60 +35,6 @@ def extract_values(document):
         value = Value(key, val_type, ref)
         values.append(value)
     return values
-
-
-class Value:
-    def __init__(self, key, val_type, ref=None):
-        self.key = key
-        self.val_type = val_type
-        self.ref = ref
-
-    def to_dict(self):
-        data = {
-            "key": self.key,
-            "type": self.val_type,
-            "ref": self.ref
-        }
-        return data
-
-    def __eq__(self, other):
-        if self.key == other.key and self.val_type == other.val_type:
-            return True
-        return False
-
-    def __hash__(self):
-        return hash((self.key, self.val_type))
-
-
-class ProcessedDocument:
-
-    def __init__(self, values):
-        self.values = values
-        self.count = 1
-
-    def __str__(self):
-        return str(self.to_dict())
-
-    def to_dict(self):
-        values_dict = [value.to_dict() for value in self.values]
-        data = {
-            "values": values_dict,
-            "count": self.count
-        }
-        return data
-
-    def __eq__(self, other):
-        values_count = len(self.values)
-        if values_count != len(other.values):
-            return False
-
-        for i in range(values_count):
-            if self.values[i] != other.values[i]:
-                return False
-        return True
-
-    def __hash__(self):
-        return hash(tuple(self.values))
 
 
 class ProcessedCollection:
