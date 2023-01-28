@@ -77,7 +77,7 @@ const DocumentTable = (props) => {
             <Fragment>
                 <TableRow
                     key={value.key}
-                    sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                    sx={{'& > *': {borderBottom: 'unset'}}}
                 >
                     <ExpandButton value={value} open={open} setOpen={setOpen}/>
                     <TableCell style={{width: 1, whiteSpace: 'nowrap'}}
@@ -88,7 +88,7 @@ const DocumentTable = (props) => {
                                align="left">{value.ref}</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell style={{paddingBottom: 0, paddingTop: 0}}>
+                    <TableCell style={{paddingBottom: 0, paddingTop: 0}} colSpan={4}>
                         <Collapse in={open} timeout="auto" unmountOnExit>
                             <DocumentTable type={DocumentTableType.nested} doc={value.nested_document}/>
                         </Collapse>
@@ -117,7 +117,7 @@ const DocumentTable = (props) => {
 
     const style = {
         display: 'inline-block',
-        width: '50%'
+        width: '620px'
     }
 
     return (
@@ -130,13 +130,10 @@ const DocumentTable = (props) => {
                     >
                         <TableHead>
                             <TableRow>
-                                <TableCell/>
-                                <TableCell style={{width: 1, whiteSpace: 'nowrap'}}
-                                           align="left">Key</TableCell>
-                                <TableCell style={{width: 1, whiteSpace: 'nowrap'}}
-                                           align="left">Type</TableCell>
-                                <TableCell style={{width: 1, whiteSpace: 'nowrap'}}
-                                           align="left">Reference</TableCell>
+                                <TableCell width='20px' align='right'/>
+                                <TableCell width='200px' align="left">Key</TableCell>
+                                <TableCell width='200px' align="left">Type</TableCell>
+                                <TableCell width='200px' align="left">Reference</TableCell>
                             </TableRow>
                         </TableHead>
                         <Body/>
