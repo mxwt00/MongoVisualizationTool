@@ -1,10 +1,12 @@
 import {useState} from "react";
 import {Box, Button, Modal, Typography} from "@mui/material";
+import {useSelector} from "react-redux";
 
 const DetailViewPopUp = (props) => {
     const {collectionTitle} = props
 
     const [isShown, setIsShown] = useState(false);
+    let data = useSelector((state) => state.mongoContent.collections)
 
     const showDetailViewPopUp = () => {
         setIsShown(true)
