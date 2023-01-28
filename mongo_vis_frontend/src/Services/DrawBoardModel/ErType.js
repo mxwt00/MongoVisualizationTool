@@ -21,16 +21,16 @@ import WeakRelationDragBarPreviewSvg from '../../Resources/DragBarToolTipSvg/Rel
 import IsAStructureDragBarPreviewSvg from '../../Resources/DragBarToolTipSvg/IsAStructure/IsAStructure.svg'
 
 //Import components
-import IdentifyingAttribute from "../../Components/DrawingBoardRenderedElements/Attributes/IdentifyingAttribute";
-import NormalAttribute from "../../Components/DrawingBoardRenderedElements/Attributes/NormalAttribute";
-import MultivaluedAttribute from "../../Components/DrawingBoardRenderedElements/Attributes/MultivaluedAttribute";
-import WeakIdentifyingAttribute from "../../Components/DrawingBoardRenderedElements/Attributes/WeakIdentifyingAttribute";
-import StrongEntity from "../../Components/DrawingBoardRenderedElements/Entities/StrongEntity";
-import WeakEntity from "../../Components/DrawingBoardRenderedElements/Entities/WeakEntity";
-import StrongRelation from "../../Components/DrawingBoardRenderedElements/Relations/StrongRelation";
-import WeakRelation from "../../Components/DrawingBoardRenderedElements/Relations/WeakRelation";
-import IsAStructure from "../../Components/DrawingBoardRenderedElements/IsAStructure/IsAStructure";
-import Table from "../../Components/DrawingBoardRenderedElements/RelationalTable/Table";
+import IdentifyingAttribute from "../../Components/DatabaseModellingTool/DrawingBoardRenderedElements/Attributes/IdentifyingAttribute";
+import NormalAttribute from "../../Components/DatabaseModellingTool/DrawingBoardRenderedElements/Attributes/NormalAttribute";
+import MultivaluedAttribute from "../../Components/DatabaseModellingTool/DrawingBoardRenderedElements/Attributes/MultivaluedAttribute";
+import WeakIdentifyingAttribute from "../../Components/DatabaseModellingTool/DrawingBoardRenderedElements/Attributes/WeakIdentifyingAttribute";
+import StrongEntity from "../../Components/DatabaseModellingTool/DrawingBoardRenderedElements/Entities/StrongEntity";
+import WeakEntity from "../../Components/DatabaseModellingTool/DrawingBoardRenderedElements/Entities/WeakEntity";
+import StrongRelation from "../../Components/DatabaseModellingTool/DrawingBoardRenderedElements/Relations/StrongRelation";
+import WeakRelation from "../../Components/DatabaseModellingTool/DrawingBoardRenderedElements/Relations/WeakRelation";
+import IsAStructure from "../../Components/DatabaseModellingTool/DrawingBoardRenderedElements/IsAStructure/IsAStructure";
+import Table from "../../Components/DatabaseModellingTool/DrawingBoardRenderedElements/RelationalTable/Table";
 
 
 /**

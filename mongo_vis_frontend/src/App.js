@@ -1,7 +1,7 @@
 
 import './App.css';
 import React from "react";
-import DatabaseModellingTool from "./Components/ContentManagement/DatabaseModellingTool";
+import DatabaseModellingTool from "./Components/DatabaseModellingTool/ContentManagement/DatabaseModellingTool";
 
 function App() {
 
