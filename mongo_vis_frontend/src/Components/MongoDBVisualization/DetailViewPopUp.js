@@ -1,12 +1,12 @@
 import {useState} from "react";
 import {Box, Button, Modal, Typography} from "@mui/material";
-import {useSelector} from "react-redux";
+import DocumentTable from "./DocumentTable";
+import {DocumentTableType} from "./DocumentTableType";
 
 const DetailViewPopUp = (props) => {
-    const {collectionTitle} = props
+    const {col} = props
 
     const [isShown, setIsShown] = useState(false);
-    let data = useSelector((state) => state.mongoContent.collections)
 
     const showDetailViewPopUp = () => {
         setIsShown(true)
@@ -15,6 +15,23 @@ const DetailViewPopUp = (props) => {
     const closeDetailViewPopUp = () => {
         setIsShown(false)
     }
+
+    function renderTables() {
+        if (!col)
+            return
+        let tables = []
+        for (let doc of col.documents) {
+            tables.push(renderTable(doc))
+        }
+        return tables
+    }
+
+    function renderTable(doc) {
+        return (
+            <DocumentTable type={DocumentTableType.detail} doc={doc} docTitle={col.name}/>
+        )
+    }
+
 
     const style = {
         position: 'absolute',
@@ -37,17 +54,19 @@ const DetailViewPopUp = (props) => {
                 component="div"
                 onClick={showDetailViewPopUp}
             >
-                {collectionTitle}
+                {col.name}
             </Button>
             <Modal open={isShown}
                    onClose={closeDetailViewPopUp}
                    aria-labelledby="modal-modal-title"
                    aria-describedby="modal-modal-description"
             >
-                <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2" color="white">
-                        Hello World
+                <Box sx={style} className="outerDrawBoardContainerEr scrollAble">
+                    <Typography id="modal-modal-title" variant="h5" component="h2" color="white">
+                        {col.name}
                     </Typography>
+                    <div className="spacerSmall"></div>
+                    {renderTables()}
                 </Box>
             </Modal>
         </div>

@@ -1,5 +1,6 @@
 import {useSelector} from "react-redux";
 import DocumentTable from "./DocumentTable";
+import {DocumentTableType} from "./DocumentTableType";
 
 const MongoDiagram = () => {
     let data = useSelector((state) => state.mongoContent.collections)
@@ -19,7 +20,7 @@ const MongoDiagram = () => {
     function renderTable(col) {
         let doc = col.documents[0]
         return (
-            <DocumentTable doc={doc} title={col.name}/>
+            <DocumentTable type={DocumentTableType.main} doc={doc} col={col}/>
         )
     }
 

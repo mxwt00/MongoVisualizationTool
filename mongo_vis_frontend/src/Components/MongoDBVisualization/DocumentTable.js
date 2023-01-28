@@ -1,24 +1,56 @@
-import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar} from "@mui/material";
+import {
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Toolbar,
+    Typography
+} from "@mui/material";
 import DetailViewPopUp from "./DetailViewPopUp";
+import {DocumentTableType} from "./DocumentTableType";
 
 const DocumentTable = (props) => {
-    const {doc, title} = props
+    const {type, doc, col, docTitle} = props
 
     function EnhancedTableToolbar() {
-        return (
-            <Toolbar>
-                <DetailViewPopUp collectionTitle={title}/>
-            </Toolbar>
-        )
+        if (type === DocumentTableType.main) {
+            return (
+                <Toolbar>
+                    <DetailViewPopUp col={col}/>
+                </Toolbar>
+            )
+        } else {
+            let countText = ""
+            if (doc.count === 1)
+                countText = "1 document is using this schema"
+            else
+                countText = doc.count + " documents are using this schema"
+
+
+            return (
+                <Toolbar>
+                    <Typography
+                        sx={{flex: '1 1 100%'}}
+                        variant="body2"
+                        id="subtext"
+                    >
+                        {countText}
+                    </Typography>
+                </Toolbar>
+            )
+        }
     }
 
     return (
         <div>
             <Paper>
-                <EnhancedTableToolbar title={title}/>
+                <EnhancedTableToolbar/>
                 <TableContainer style={{display: 'inline-block', width: 500}}>
                     <Table size="small"
-                           aria-labelledby={title}
+                           aria-labelledby="document_table"
                     >
                         <TableHead>
                             <TableRow>
