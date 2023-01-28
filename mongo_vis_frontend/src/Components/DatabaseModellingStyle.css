@@ -512,3 +512,18 @@ input:checked + .mergeCheckBoxSlider:before {
 .SqlHighlightedWord {
   color: #e5430a
 }
+
+.mongoDiagramBoard {
+  position: absolute !important;
+  left: 300px;
+  height: 100%;
+  width: calc(100% - 300px);
+  text-align: left;
+  display: inline-block;
+  background-color: #222222;
+}
+
+.mongoTable {
+  width: 500px;
+  display: inline-block;
+}

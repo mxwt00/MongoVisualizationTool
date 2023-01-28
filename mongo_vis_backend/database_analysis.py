@@ -18,7 +18,7 @@ def get_type(value):
         return "Object ID"
     if isinstance(value, bool):
         return "Boolean"
-    if isinstance(value, (int, float, complex)):
+    if isinstance(value, (int, float, complex, bson.Decimal128)):
         return "Number"
     if isinstance(value, datetime.date):
         return "Date"

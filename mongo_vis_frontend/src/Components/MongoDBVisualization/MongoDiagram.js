@@ -20,7 +20,7 @@ const MongoDiagram = () => {
     function renderTable(doc) {
         return (
             <div>
-                <TableContainer component={Paper} style={{display: 'inline-block'}}>
+                <TableContainer component={Paper} style={{display: 'inline-block', width: 500}}>
                     <Table size="small" aria-label="simple table">
                         <TableHead>
                             <TableRow>
@@ -28,6 +28,8 @@ const MongoDiagram = () => {
                                            align="left">Key</TableCell>
                                 <TableCell style={{width: 1, whiteSpace: 'nowrap'}}
                                            align="left">Type</TableCell>
+                                <TableCell style={{width: 1, whiteSpace: 'nowrap'}}
+                                           align="left">Reference</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -40,6 +42,8 @@ const MongoDiagram = () => {
                                                align="left">{value.key}</TableCell>
                                     <TableCell style={{width: 1, whiteSpace: 'nowrap'}}
                                                align="left">{value.type}</TableCell>
+                                    <TableCell style={{width: 1, whiteSpace: 'nowrap'}}
+                                               align="left">{value.ref}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -51,7 +55,7 @@ const MongoDiagram = () => {
     }
 
     return (
-        <div style={{paddingLeft: 300, display: 'inline-block'}}>
+        <div className="outerDrawBoardContainerEr scrollAble">
             {renderTables()}
         </div>
     );
