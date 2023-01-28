@@ -31,8 +31,12 @@ def extract_values(document):
     values = list()
     for key, value in zip(document, document.values()):
         val_type = get_type(value)
+        nested_values = None
+        if val_type == "Embedded document":
+            nested_values = extract_values(value)
         ref = None
-        value = Value(key, val_type, ref)
+        # TODO ref implementieren
+        value = Value(key=key, val_type=val_type, ref=ref, nested_document=nested_values)
         values.append(value)
     return values
 
