@@ -53,7 +53,7 @@ class ProcessedCollection:
         self.documents.add(new_doc)
 
     def sort_documents(self):
-        sorted(self.documents, key=lambda document: document.count, reverse=True)
+        self.documents = sorted(self.documents, key=lambda document: document.count, reverse=True)
 
     def to_dict(self):
         documents_dict = [document.to_dict() for document in self.documents]
