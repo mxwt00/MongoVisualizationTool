@@ -13,7 +13,7 @@ import DetailViewPopUp from "./DetailViewPopUp";
 import {DocumentTableType} from "./DocumentTableType";
 
 const DocumentTable = (props) => {
-    const {type, doc, col, docTitle} = props
+    const {type, doc, col} = props
 
     function EnhancedTableToolbar() {
         if (type === DocumentTableType.main) {
@@ -23,7 +23,7 @@ const DocumentTable = (props) => {
                 </Toolbar>
             )
         } else {
-            let countText = ""
+            let countText
             if (doc.count === 1)
                 countText = "1 document is using this schema"
             else
