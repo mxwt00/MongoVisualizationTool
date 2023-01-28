@@ -6,27 +6,7 @@ import pymongo
 import pymongo.errors
 from pymongo import MongoClient
 
-from processed_document import ProcessedDocument, Value
-
-
-def get_type(value):
-    if value is None or type(value) is None:
-        return "Null"
-    if isinstance(value, str):
-        return "String"
-    if isinstance(value, bson.ObjectId):
-        return "Object ID"
-    if isinstance(value, bool):
-        return "Boolean"
-    if isinstance(value, (int, float, complex, bson.Decimal128)):
-        return "Number"
-    if isinstance(value, datetime.date):
-        return "Date"
-    if isinstance(value, collections.abc.Sequence):
-        return "Array"
-    if isinstance(value, dict):
-        return "Embedded document"
-    raise Exception(f"Type {type(value)} of value {value} is not identifiable!")
+from processed_document import ProcessedDocument, Value, ProcessedCollection
 
 
 class DatabaseAnalysis:
@@ -45,29 +25,19 @@ class DatabaseAnalysis:
 
     def analyse(self):
         self.collection_names = self.database.list_collection_names()
-        docs_dict = {"documents": []}
+        docs_dict = {"collections": []}
         for name in self.collection_names:
+            processed_collection = ProcessedCollection(name)
             collection = self.database.get_collection(name)
-            document = collection.find_one()
+            documents = collection.find({})
+            for document in documents:
+                processed_collection.add_doc(document)
 
-            values = self.extract_values(document)
-
-            processed_doc = ProcessedDocument(name, values)
-            docs_dict["documents"].append(processed_doc.to_dict())
+            print(str(processed_collection))
+            docs_dict["collections"].append(processed_collection.to_dict())
 
         self.mongodb_client.close()
         return docs_dict
-
-    def extract_values(self, document):
-        values = list()
-        for key, value in zip(document, document.values()):
-            val_type = get_type(value)
-            ref = None
-            if val_type == "Object ID" and key != "_id":
-                ref = self.get_referenced_collection(value)
-            value = Value(key, val_type, ref)
-            values.append(value)
-        return values
 
     def get_referenced_collection(self, id_):
         for collection_name in self.collection_names:
