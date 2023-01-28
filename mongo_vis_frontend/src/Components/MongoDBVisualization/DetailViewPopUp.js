@@ -38,7 +38,7 @@ const DetailViewPopUp = (props) => {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 400,
+        width: '50%',
         bgcolor: 'background.paper',
         border: '2px solid #000',
         boxShadow: 24,
@@ -47,15 +47,17 @@ const DetailViewPopUp = (props) => {
 
     return (
         <div>
-            <Button
-                sx={{flex: '1 1 100%'}}
-                variant="h6"
-                id="tableTitle"
-                component="div"
-                onClick={showDetailViewPopUp}
-            >
-                {col.name}
-            </Button>
+            <Box sx={{textAlign: 'center'}}>
+                <Button
+                    sx={{flex: '1 1 100%'}}
+                    variant="h6"
+                    id="tableTitle"
+                    component="div"
+                    onClick={showDetailViewPopUp}
+                >
+                    {col.name}
+                </Button>
+            </Box>
             <Modal open={isShown}
                    onClose={closeDetailViewPopUp}
                    aria-labelledby="modal-modal-title"

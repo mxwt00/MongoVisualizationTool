@@ -18,7 +18,7 @@ const DocumentTable = (props) => {
     function EnhancedTableToolbar() {
         if (type === DocumentTableType.main) {
             return (
-                <Toolbar>
+                <Toolbar style={{textAlign: 'center', alignItems: 'center', justifyContent: 'center'}}>
                     <DetailViewPopUp col={col}/>
                 </Toolbar>
             )
@@ -44,11 +44,16 @@ const DocumentTable = (props) => {
         }
     }
 
+    const style = {
+        display: 'inline-block',
+        width: '50%'
+    }
+
     return (
         <div>
             <Paper>
                 <EnhancedTableToolbar/>
-                <TableContainer style={{display: 'inline-block', width: 500}}>
+                <TableContainer style={style}>
                     <Table size="small"
                            aria-labelledby="document_table"
                     >

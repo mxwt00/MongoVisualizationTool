@@ -1,6 +1,7 @@
 import {useSelector} from "react-redux";
 import DocumentTable from "./DocumentTable";
 import {DocumentTableType} from "./DocumentTableType";
+import './MongoStyle.css'
 
 const MongoDiagram = () => {
     let data = useSelector((state) => state.mongoContent.collections)
@@ -25,7 +26,7 @@ const MongoDiagram = () => {
     }
 
     return (
-        <div className="outerDrawBoardContainerEr scrollAble">
+        <div className="mongoDiagramBoard">
             {renderTables()}
         </div>
     );
