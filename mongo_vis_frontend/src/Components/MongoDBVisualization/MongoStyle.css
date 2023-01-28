@@ -13,3 +13,8 @@
     width: 500px;
     display: inline-block;
 }
+
+.mongoTableTitle {
+    font-size: 20px;
+    color: white;
+}
