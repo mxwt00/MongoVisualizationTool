@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, TextField} from "@mui/material";
+import {Button, TextField, Typography} from "@mui/material";
 import {ConnectionStates} from "./ConnectionState";
 import axios from "axios";
 import {setCollections} from "../../ReduxStore/MongoContentSlice";
@@ -53,8 +53,10 @@ const MongoLeftSideBar = () => {
 
             <div className="leftSidebarSelectionContainer">
 
-                <div className="leftSidebarMainTitle">Database Connection</div>
-                <div className="spacerBig"></div>
+                <Typography id="modal-modal-title" variant="h4" color="white">
+                    Database Connection
+                </Typography>
+                <div className="spacerSmall"></div>
                 <hr className="sidebarDivider"/>
 
                 <TextField
@@ -73,9 +75,13 @@ const MongoLeftSideBar = () => {
                     onChange={(e) => setDbName(e.target.value)}
                 />
                 <div className="spacerSmall"></div>
-                <Button variant="outlined" onClick={connectToDB}>Connect</Button>
+                <Button style={{color: "white", borderColor: "white"}} variant="outlined" onClick={connectToDB}>
+                    Connect
+                </Button>
                 <div className="spacerSmall"></div>
-                <div>{connectionState}</div>
+                <Typography id="modal-modal-title" variant="body1" color="white">
+                    {connectionState}
+                </Typography>
             </div>
         </div>
 
