@@ -1,26 +1,6 @@
-import {
-    Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Toolbar,
-    Typography
-} from "@mui/material";
+import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar} from "@mui/material";
 import {useSelector} from "react-redux";
-
-const TableTitle = (text) => (
-    <Typography
-        sx={{flex: '1 1 100%'}}
-        variant="h6"
-        id="tableTitle"
-        component="div"
-    >
-        {text}
-    </Typography>
-)
+import DetailViewPopUp from "./DetailViewPopUp";
 
 const MongoDiagram = () => {
     let data = useSelector((state) => state.mongoContent.collections)
@@ -41,14 +21,7 @@ const MongoDiagram = () => {
         const {title} = props
         return (
             <Toolbar>
-                <Typography
-                    sx={{flex: '1 1 100%'}}
-                    variant="h6"
-                    id="tableTitle"
-                    component="div"
-                >
-                    {title}
-                </Typography>
+                <DetailViewPopUp collectionTitle={title}/>
             </Toolbar>
         )
     }

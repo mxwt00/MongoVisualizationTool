@@ -2,6 +2,7 @@ import MongoLeftSideBar from "./MongoLeftSideBar";
 import {ThemeProvider} from "@mui/material";
 import {theme} from "../../MUITheme";
 import MongoDiagram from "./MongoDiagram";
+import DetailViewPopUp from "./DetailViewPopUp";
 
 const MongoManager = () => {
 
