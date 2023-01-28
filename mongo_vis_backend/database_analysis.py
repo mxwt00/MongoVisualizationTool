@@ -1,12 +1,8 @@
-import collections.abc
-import datetime
-
-import bson
 import pymongo
 import pymongo.errors
 from pymongo import MongoClient
 
-from processed_document import ProcessedDocument, Value, ProcessedCollection
+from processed_collection import ProcessedCollection
 
 
 class DatabaseAnalysis:
@@ -33,7 +29,6 @@ class DatabaseAnalysis:
             for document in documents:
                 processed_collection.add_doc(document)
 
-            print(str(processed_collection))
             docs_dict["collections"].append(processed_collection.to_dict())
 
         self.mongodb_client.close()
