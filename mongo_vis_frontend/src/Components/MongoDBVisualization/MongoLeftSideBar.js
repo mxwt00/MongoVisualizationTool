@@ -2,9 +2,7 @@ import React, {useState} from "react";
 import {Button, TextField} from "@mui/material";
 import {ConnectionStates} from "./ConnectionState";
 import axios from "axios";
-import MongoDiagram from "./MongoDiagram";
-import {mongoContentSlice, setDocuments} from "../../ReduxStore/MongoContentSlice";
-import store from "../../ReduxStore/Store";
+import {setCollections} from "../../ReduxStore/MongoContentSlice";
 import {useDispatch, useSelector} from "react-redux";
 
 /**
@@ -16,7 +14,7 @@ const MongoLeftSideBar = () => {
     const [connectionString, setConnectionString] = useState("mongodb+srv://mvt:mvt@testcluster.biadm2g.mongodb.net/?retryWrites=true&w=majority")
     const [dbName, setDbName] = useState("sample_mflix")
 
-    let documents = useSelector((state) => state.mongoContent.documents)
+    let collections = useSelector((state) => state.mongoContent.collections)
     const dispatch = useDispatch()
 
     //TODO markierung von tab fixen
@@ -33,7 +31,7 @@ const MongoLeftSideBar = () => {
 
         axios.post(url, contentToSend).then((response) => {
             connectionSuccessful(response)
-            dispatch(setDocuments(response.data))
+            dispatch(setCollections(response.data))
         }).catch(error => connectionFailed(error))
     }
 

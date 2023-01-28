@@ -2,7 +2,7 @@ import {Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper}
 import {useSelector} from "react-redux";
 
 const MongoDiagram = () => {
-    let data = useSelector((state) => state.mongoContent.documents)
+    let data = useSelector((state) => state.mongoContent.collections)
 
     function renderTables() {
         if (!data)
@@ -10,7 +10,8 @@ const MongoDiagram = () => {
         console.log("rendering tables")
         console.log(data)
         let tables = []
-        for (let doc of data.payload.documents) {
+        for (let col of data.payload.collections) {
+            let doc = col.documents[0]
             console.log(doc)
             tables.push(renderTable(doc))
         }

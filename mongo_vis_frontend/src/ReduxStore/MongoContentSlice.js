@@ -3,14 +3,14 @@ import {createSlice} from "@reduxjs/toolkit";
 export const mongoContentSlice = createSlice({
     name: 'mongoContent',
     initialState: {
-        documents: null
+        collections: null
     },
     reducers: {
-        setDocuments: (state, documents) => {
-            state.documents = documents
+        setCollections: (state, documents) => {
+            state.collections = documents
         }
     }
 })
 
-export const {setDocuments} = mongoContentSlice.actions
+export const {setCollections} = mongoContentSlice.actions
 export default mongoContentSlice.reducer
