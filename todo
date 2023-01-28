@@ -1,0 +1,12 @@
+Frontend:
+- Verschachtelte Dokumente anzeigen
+- Detail View für collections planen
+- Detail View für Collections impementieren
+- Optisch verschönern
+
+Backend:
+- Verschachtelte Dokumente auslesen
+- Multiprocessing
+- REferences testen
+- References performanter auslesen
+- Sortieren nach Timestamp?
