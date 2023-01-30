@@ -1,3 +1,4 @@
+\iffalse
 Die Analyse des zu lösenden Problems ist Grundlage für jedes 
 ingenieurmäßige Vorgehen. Daher soll in diesem Kapitel das zu lösenden 
 Problem auf Basis des im Grundlagenkapitel aufbereiteten Wissens 
@@ -12,4 +13,16 @@ Anforderungen:
 \begin{itemize}
     \item modular
     \item erweiterbar
+    \item performant
 \end{itemize}
+
+\fi
+
+An das MongoDB Visualisierungstool gibt es eine Reihe von Anforderungen, welche erfüllt werden müssen, damit das Projekt gelingen kann:
+
+\begin{description}
+    \item[\textbf{A1}\label{itm:ta1}] Das Visualisierungstool muss das bestehende Er Modellierungstool erweitern.
+    \item[\textbf{A2}\label{itm:ta2}] Das Gesamtsystem muss weiterhin modular sein, sodass das System ohne Änderungen an den bestehenden Komponenten um weitere Komponenten erweitert werden kann.
+    \item[\textbf{A3}\label{itm:ta3}] Die Analyse der MongoDB muss performant genug sein, um Datenbanken in wenigen sekunden analysieren zu können.
+    \item[\textbf{A4}\label{itm:ta4}] Das Frontend muss beliebig aufgebaute MongoDB Dokumente anschaulich visualisieren können.
+\end{description}
