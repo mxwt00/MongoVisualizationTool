@@ -1,3 +1,4 @@
+\iffalse
 Auf der Basis der im vorangegangenen Kapitel erstellten Problemanalyse 
 und der im Grundlagenkapitel aufgearbeiteten theoretischen Kenntnisse 
 wird ein Lösungskonzept erarbeitet.
@@ -5,6 +6,7 @@ wird ein Lösungskonzept erarbeitet.
 Bei Software-Projekten entspricht dieses Kapitel typischerweise der 
 Analyse \& Design-Phase des \ac{rup}. Typische Ergebnisse dieser Phase sind 
 Klassendiagramme etc.
+\fi
 
 \section{Verwendete Technologien}
 \label{sec:verwendete_technologien}
@@ -23,6 +25,41 @@ Klassendiagramme etc.
         \item Warum Web?
     \end{itemize}
 \end{itemize}
+
+Da die Analyse der MongoDB Dokumente sehr rechenintensiv ist, wird die Analyse in ein Backend ausgelagert.
+Um den zuvor definierten Anforderungen gerecht zu werden, ist es wichtig, ein geeignetes Backend-Framwork auszuwählen.
+Das Er Modellierungstool nutzt Java Spring als Backend-Framework.
+Da man zum Teil Code von dem bestehenden Backend übernehmen könnte, bietet es sich deshalb an, in diesem Projekt ebenfalls Spring zu verwenden.
+Für Spring gibt es eine MongoDB Implementierung namens Spring Data MongoDB.
+Diese Implementierung ist jedoch dafür ausgelegt, \ac{pojo}s auf Dokumente zu mappen.
+Im MongoDB Visualisierungstool sollen hingegen MongoDB Dokumente dynamisch eingelesen und analysiert werden.
+Um ~\nameref{itm:a5} zu erfüllen, ist es desweiteren nötig, beliebig viele verschiedene Datenbanken gleichzeitig zu verbinden und zu analysieren.
+Die Verbindung mit MongoDB Datenbanken Spring Data MongoDB erfolgt jedoch mit festgelegten Datenbanken, welche in der application.properties Datei definiert werden.
+~\autocite{spring:spring-data-mongodb}
+Deshalb ist die Spring Data MongoDB Bibliothek für diese Anwendung nicht geeignet.
+Neben der Spring Data MongoDB Bibliothek gibt es auch noch einen anderen MognoDB Java Client, Java Sync.
+Dieser funktioniert jedoch nicht zusammen mit dem Spring Framework.
+Aus diesem Grund kann Spring sowie andere Java Backend Frameworks nicht genutzt werden.
+
+Als alternatives Backend Framework mit REST API dazu bot sich Flask an.
+Ein großer Vorteil von Flask ist, dass Flask sehr minimal ist und nur mit dem minimum an benötigten Bibliotheken vorkonfiguriert ist.
+Spring ist im Gegensatz dazu ein sehr mächtiges Framework mit vielen Features, von denen in diesem Projekt aber nur sehr wenige gebraucht werden.
+Ein weiterer Vorteil von Flask sowie von Python ist die Schlankheit des Codes.
+In Python lässt sich meist die gleiche Funktionalität in weniger Code schreiben als in Java.
+Dazu kommt, dass in Flask sehr viel weniger Boilerplate Code benötigt wird als in Spring.
+Ein minimaler Endpunkt in Flask lässt sich bereits mit 2 Zeilen Code umsetzen.
+Jedoch hat Flask nicht nur Vorteile gegenüber Spring:
+Flask ist grundsätzlich deutlich unperformanter als Spring.
+Dies liegt unter anderem daran, dass Python eine interpretierte Sprache ist, und Java eine kompilierte.
+~\autocite{sverker:rest_comparison}
+Dies widerspricht zunächst der Anforderung ~\nameref{itm:a5}.
+Die Performance-Probleme lassen sich aber durch Multiprocessing ausgleichen.
+Multiprocessing bedeutet, dass bestimmte Teile der Berechnung auf mehrere Threads im Prozessor aufgeteilt werden und dadurch parallell ausgeführt werden.
+Python bietet eine simpel zu implementierende Lösung für Multiprocessing an, welche man bei der Analyse der Dokumente der MongoDB Datenbanken gut einsetzen kann.
+Beispielsweise kann die Analyse jeder Collection von einem extra Thread ausgeführt werden.
+
+
+
 
 \section{Bestehende Visualisierungstools}
 \label{sec:bestehende_visualisierungstools}
