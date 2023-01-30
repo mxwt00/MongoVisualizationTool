@@ -14,18 +14,42 @@ Klassendiagramme etc.
 
 Es gibt bereits MongoDB Visualisierungtools auf dem Markt, jedoch erfüllt keines davon die zuvor definierten Anforderungen zu genüge:
 
-\begin{itemize}
-    \item \textbf{MongoDB Data Explorer} ist ein Tool, welches in MongoDB Atlas integriert ist.
-        MongoDB Atlas ist ein Web-Tool zur verwaltung von MongoDB Datenbanken.
-        Mittels dem MongoDB Data Explorer kann man die Dokumente, Collections und Indexe einer Datenbank anschauen, sowie die Daten mit CRUD Operationen verwalten.
-        Jedoch bietet der MongoDB Data Explorer keine Möglichkeiten, die Schemas der Dokumente zu analysieren.
-    \item \textbf{MongoDB Compass} ist eine Desktop Anwendung zur Analyse von MongoDB Datenbanken.
-        MongoDB Compass besitzt ein Schema-Visualisierungstool.
-        Dieses Schema-Visualisierungstool zeigt sehr genaue Daten zu jedem Feld an, ist jedoch nicht besonders übersichtlich, wenn man das gesamte Schema der Dokumente einer Collection analysieren will.
-        Ebenfalls nicht gut ersichtlich in MongoDB Compass ist die Varianz im Schema zwischen den Dokumenten in einer Collection.
-    \item \textbf{MongoDB Charts, Tableau, Qlik und Looker} sind Tools, die aus MongoDB Daten Graphen generieren und dadurch die Daten in einer MongoDB visualisieren können.
-        Diese Tools konzentrieren sich jedoch alle auf die Visualisierung der Daten, nicht die Analyse und Visualisierung der Schemas der Dokumente.
-\end{itemize}
+\subsection{MongoDB Data Explorer}
+\label{sub:mongodb_data_explorer}
+
+MongoDB Data Explorer ist ein Tool, welches in MongoDB Atlas integriert ist.
+MongoDB Atlas ist ein Web-Tool zur verwaltung von MongoDB Datenbanken.
+Mittels dem MongoDB Data Explorer kann man die Dokumente, Collections und Indexe einer Datenbank anschauen, sowie die Daten mit CRUD Operationen verwalten.
+Jedoch bietet der MongoDB Data Explorer keine Möglichkeiten, die Schemas der Dokumente zu analysieren.
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{images/mongodb_data_explorer}
+    \caption{MongoDB Data Explorer}
+    \label{fig:mongodb_data_explorer}
+\end{figure}
+
+\subsection{MongoDB Compass}
+\label{sub:mongodb_compass}
+
+MongoDB Compass ist eine Desktop Anwendung zur Analyse von MongoDB Datenbanken.
+MongoDB Compass besitzt ein Schema-Visualisierungstool.
+Dieses Schema-Visualisierungstool zeigt sehr genaue Daten zu jedem Feld an, ist jedoch nicht besonders übersichtlich, wenn man das gesamte Schema der Dokumente einer Collection analysieren will.
+Ebenfalls nicht gut ersichtlich in MongoDB Compass ist die Varianz im Schema zwischen den Dokumenten in einer Collection.
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{images/mongodb_compass}
+    \caption{MongoDB Compass}
+    \label{fig:mongodb_compass}
+\end{figure}
+
+\subsection{MongoDB Charts, Tableau, Qlik und Looker}
+\label{sub:mongodb_charts}
+
+MongoDB Charts, Tableau, Qlik und Looker sind Tools, die aus MongoDB Daten Graphen generieren und dadurch die Daten in einer MongoDB visualisieren können.
+Diese Tools konzentrieren sich jedoch alle auf die Visualisierung der Daten, nicht die Analyse und Visualisierung der Schemas der Dokumente.
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{images/mongodb_charts}
+    \caption{MongoDB Charts}
+    \label{fig:mongodb_charts}
+\end{figure}
 ~\autocite{knowi:mongo_vis_tools}
 
 \section{Verwendete Technologien}
