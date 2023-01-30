@@ -8,28 +8,22 @@ Analyse \& Design-Phase des \ac{rup}. Typische Ergebnisse dieser Phase sind
 Klassendiagramme etc.
 \fi
 
+% TODO wo soll diese Sektion hin?
+\section{Bestehende Visualisierungstools}
+\label{sec:bestehende_visualisierungstools}
+
+
 \section{Verwendete Technologien}
 \label{sec:verwendete_technologien}
 
-\begin{itemize}
-    \item Wahl des Backend Frameworks  und der Sprache
-    \begin{itemize}
-        \item Probleme mit MongoDB Client in Java/Spring
-        \item Python und Flask sind lightweight
-    \end{itemize}
-    \item Wahl des Frontend Frameworks und der Sprache
-    \begin{itemize}
-        \item bestehendes Projekt mit diesem Framework
-        \item Verbreitung von React
-        \item Modularität dank React
-        \item Warum Web?
-    \end{itemize}
-\end{itemize}
+\subsection{Backend Technologien}
+\label{sec:verwendete_technologien_backend}
 
 Da die Analyse der MongoDB Dokumente sehr rechenintensiv ist, wird die Analyse in ein Backend ausgelagert.
 Um den zuvor definierten Anforderungen gerecht zu werden, ist es wichtig, ein geeignetes Backend-Framwork auszuwählen.
 Das Er Modellierungstool nutzt Java Spring als Backend-Framework.
 Da man zum Teil Code von dem bestehenden Backend übernehmen könnte, bietet es sich deshalb an, in diesem Projekt ebenfalls Spring zu verwenden.
+
 Für Spring gibt es eine MongoDB Implementierung namens Spring Data MongoDB.
 Diese Implementierung ist jedoch dafür ausgelegt, \ac{pojo}s auf Dokumente zu mappen.
 Im MongoDB Visualisierungstool sollen hingegen MongoDB Dokumente dynamisch eingelesen und analysiert werden.
@@ -41,28 +35,52 @@ Neben der Spring Data MongoDB Bibliothek gibt es auch noch einen anderen MognoDB
 Dieser funktioniert jedoch nicht zusammen mit dem Spring Framework.
 Aus diesem Grund kann Spring sowie andere Java Backend Frameworks nicht genutzt werden.
 
-Als alternatives Backend Framework mit REST API dazu bot sich Flask an.
+Als alternatives Backend Framework mit REST API bietet sich Flask an.
 Ein großer Vorteil von Flask ist, dass Flask sehr minimal ist und nur mit dem minimum an benötigten Bibliotheken vorkonfiguriert ist.
 Spring ist im Gegensatz dazu ein sehr mächtiges Framework mit vielen Features, von denen in diesem Projekt aber nur sehr wenige gebraucht werden.
 Ein weiterer Vorteil von Flask sowie von Python ist die Schlankheit des Codes.
 In Python lässt sich meist die gleiche Funktionalität in weniger Code schreiben als in Java.
 Dazu kommt, dass in Flask sehr viel weniger Boilerplate Code benötigt wird als in Spring.
 Ein minimaler Endpunkt in Flask lässt sich bereits mit 2 Zeilen Code umsetzen.
+Zudem ist die dynamische Typisierung in Python beim Auswerten der MongoDB Dokumente von Vorteil, da man im Voraus nicht weiß, welche Datentypen die Werte in den Dokumenten haben, und die dynamische Typisierung deshalb das Handling dieser Werte vereinfacht.
+~\autocite{khoirom2020comparative}
 Jedoch hat Flask nicht nur Vorteile gegenüber Spring:
 Flask ist grundsätzlich deutlich unperformanter als Spring.
 Dies liegt unter anderem daran, dass Python eine interpretierte Sprache ist, und Java eine kompilierte.
 ~\autocite{sverker:rest_comparison}
-Dies widerspricht zunächst der Anforderung ~\nameref{itm:a5}.
+Dies widerspricht zunächst der Anforderung ~\nameref{itm:a3}.
 Die Performance-Probleme lassen sich aber durch Multiprocessing ausgleichen.
 Multiprocessing bedeutet, dass bestimmte Teile der Berechnung auf mehrere Threads im Prozessor aufgeteilt werden und dadurch parallell ausgeführt werden.
 Python bietet eine simpel zu implementierende Lösung für Multiprocessing an, welche man bei der Analyse der Dokumente der MongoDB Datenbanken gut einsetzen kann.
 Beispielsweise kann die Analyse jeder Collection von einem extra Thread ausgeführt werden.
+Dadurch lässt sich die Anforderung ~\nameref{itm:a3} mit Flask erfüllen.
 
+In Python gibt es die Bibliothek PyMongo, welche alle der genannten Nachteile von Spring Data MongoDB ausbessert:
+Mit PyMongo kann man direkt im Code beliebig viele MongoDB Datenbanken parallel dynamisch einbinden.
+Mittels Objektorientierung lässt sich dadurch die parallele Analyse mehrerer Datenbanken sinnvoll umsetzen.
+Zudem ist PyMongo nicht für das Mappen von Dokumenten auf Objekte gedacht.
+Stattdessen kann man Dokumente als Python Dictionary auslesen.
+Dies erleichtert die Analyse der Dokumente und hat darüber hinaus den Vorteil, dass man Dictionaries in Python in JSON umwandeln kann, was das Bauen der HTTP Response vereinfacht.
+~\autocite{mongodb:pymongo}
 
+\subsection{Frontend Technologien}
+\label{sec:verwendete_technologien_frontend}
 
+Web Apps haben gegenüber Desktop Apps einige Vorteile:
+Web Apps müssen nicht installiert werden, sie müssen nicht für mehrere Betriebssysteme entwickelt werden und der Auslieferungs- Update- und Administrierungsprozess ist deutlich vereinfacht.
+Jedoch haben Web Apps oftmals nicht die interaktionsmöglichkeiten von Desktop Apps, da sie innerhalb eines Browsers laufen.
+Dies ist in dieser Anwendung jedoch kein großer Nachteil, da die Hauptaufgabe der Anwendung die Visualisierung von Daten ist, und dies nicht viele Interaktionsmöglichkeiten erfordert.
+~\autocite{zepeda2007desktop}
+Deshalb wird das Frontend dieser Anwendung als Webapp entwickelt.
 
-\section{Bestehende Visualisierungstools}
-\label{sec:bestehende_visualisierungstools}
+Das ER Modellierungstool benutzt das Frontend Framework React.
+Da das ER Moddelierungstool und das MongoDB Visualisierungstool Teil eines Datenbank Toolkits werden sollen, muss das MongoDB Visualisierungstool Frontend ebenfalls in React geschrieben werden, damit Anforderung ~\nameref{itm:a1} erfüllt werden kann.
+Da React dank React Elements und React Components in seiner Grundstruktur  sehr modular ist, eignet sich React sehr gut, um Anforderung ~\nameref{itm:a2} zu erfüllen.
+~\autocite{banks:react}
+Die Tools lassen sich mittels Ordner strukturell voneinander Trennen, und trotzdem können die Tools sich Komponenten teilen und diese wiederverwenden.
+Dank der Komponentenbibliothek Material UI kann man in React vordefinierte Elemente benutzen, was an vielen das Definieren von Komponenten von Hand erspart.
+Dadurch spart man sich einerseits Programmieraufwand, andererseits verringert dies aber auch die Code-Komplexität und verbessert somit die Lesbarkeit des Codes.
+~\autocite{mui:mui}
 
 \section{Analyse der MongoDB Datenbank}
 \label{sec:mongoDB_analyse}
