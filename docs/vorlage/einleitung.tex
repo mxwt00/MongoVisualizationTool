@@ -4,8 +4,6 @@ Praxissemesterberichts zu wecken, die behandelten Probleme aufzuzeigen
 und die zu ihrer Lösung entwickelten Konzepte zu beschreiben.
 \fi
 
-
-
 \section{Motivation}
 \label{sec:motivation}
 
@@ -25,12 +23,6 @@ Ziel dieses Projekts ist es deshalb, ein Visualisierungstool für MongoDB Datenb
 Diese Schemas werden dann in Form von verschachtelten Tabellen visualisiert.
 Das erleichtert es den Entwicklern der Datenbanken, die Strukturen und Abhängigkeiten in ihren Datenbanken zu verstehen und zu verbessern.
 
-
-\section{Vorangegangene Arbeit}
-\label{sec:vorangegangene_arbeit}
-
-
-
 \section{Problemstellung und -abgrenzung}
 \label{sec:problemstellung}
 
@@ -43,7 +35,6 @@ Dafür werden hauptsächlich 2 Ansichten benötigt:
 Einerseits wird eine Übersicht über alle Collections benötigt, in welcher  für jede Collection das meistverwendete Schema angezeigt werden soll.
 Andererseits wird für jede Collection eine Detailansicht benötigt, welche alle Schema-Variationen in einer Collection sowie  weitere Details und Daten anzeigt.
 
-
 \iffalse
 Die Problemstellung dient dazu, das zu lösende Problem klar zu 
 definieren und abzugrenzen. Der Praktikant soll ein klares Verständnis 
@@ -53,13 +44,20 @@ Negativabgrenzung verhindert, dass beim Leser später nicht erfüllte
 Erwartungen geweckt werden.
 \fi
 
+\section{Vorangegangene Arbeit}
+\label{sec:vorangegangene_arbeit}
+
+Das MongoDB Visualisierungstool soll in eine vorangegangene Arbeit integriert werden.
+In dieser vorangegangenen Arbeit wurde ein Entity-Relationship Modellierungstool entwickelt.
+Einer der Ziele dieses Modellierungstools war es, die Anwendung möglichst modular zu gestalten, damit das Modellierungstool langfristig zu einem umfassenden Datenbank-Toolkit erweitert werden kann.
+Ein Hauptfokus des MongoDB Visualisierungstools liegt deshalb darauf, diese Modularität beizubehalten und gegebenenfalls weiter zu verbessern.
+
 \section{Ziel der Arbeit}
 \label{sec:ziel}
 
 Das Ziel der Projektarbeit ist die Planung und Umsetzung der oben beschriebenen Problemstellung.
 Dafür soll eine Backendanwendung zur Verbindung und Analyse von MongoDb Datenbanken entwickelt werden, sowie ein Webfrontend für die Visualisierung der analysierten Daten.
 Das Visualisierungstool soll dafür in die vorangegangene Arbeit integriert werden und die Gesamtlösung dabei modular halten.
-
 
 \iffalse
 \section{Vorgehen}
