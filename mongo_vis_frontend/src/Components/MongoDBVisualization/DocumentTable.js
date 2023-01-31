@@ -115,16 +115,26 @@ const DocumentTable = (props) => {
         }
     }
 
-    const style = {
-        display: 'inline-block',
-        width: '620px'
+    function style() {
+        if (type === DocumentTableType.nested) {
+
+            return {
+                display: 'inline-block',
+                width: '100%'
+            }
+        } else {
+            return {
+                display: 'inline-block',
+                width: '620px'
+            }
+        }
     }
 
     return (
         <div>
             <Paper>
                 <EnhancedTableToolbar/>
-                <TableContainer style={style}>
+                <TableContainer style={style()}>
                     <Table size="small"
                            aria-labelledby="document_table"
                     >
