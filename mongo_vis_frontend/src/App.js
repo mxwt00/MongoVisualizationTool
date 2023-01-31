@@ -1,18 +1,36 @@
-
 import './App.css';
 import React from "react";
-import DatabaseModellingTool from "./Components/DatabaseModellingTool/ContentManagement/DatabaseModellingTool";
+import {AppMode} from "./ReduxStore/AppMode";
+import {useSelector} from "react-redux";
+import ContentManager from "./Components/DatabaseModellingTool/ContentManagement/ContentManager";
+import MongoManager from "./Components/MongoDBVisualization/MongoManager";
+import TitleScreen from "./Components/TitleScreen";
+import {theme} from "./MUITheme";
+import {ThemeProvider} from "@mui/material";
 
-function App() {
+const App = () => {
+    let appMode = useSelector((state) => state.appMode.mode)
 
-  return (
+    function renderScreen() {
+        switch (appMode) {
+            case AppMode.titleScreen:
+                return (<TitleScreen/>)
+            case AppMode.erModellingTool:
+                return (<ContentManager/>)
+            case AppMode.mongoVisTool:
+                return (<MongoManager/>)
+            default:
+                return (<TitleScreen/>)
+        }
+    }
 
-    <div className="App">
-
-      <DatabaseModellingTool/>
-
-    </div>
-  )
+    return (
+        <ThemeProvider theme={theme}>
+            <div className="App">
+                {renderScreen()}
+            </div>
+        </ThemeProvider>
+    )
 }
 
 

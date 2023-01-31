@@ -14,7 +14,6 @@ const MongoLeftSideBar = () => {
     const [connectionString, setConnectionString] = useState("mongodb+srv://mvt:mvt@testcluster.biadm2g.mongodb.net/?retryWrites=true&w=majority")
     const [dbName, setDbName] = useState("sample_mflix")
 
-    let collections = useSelector((state) => state.mongoContent.collections)
     const dispatch = useDispatch()
 
     //TODO markierung von tab fixen
