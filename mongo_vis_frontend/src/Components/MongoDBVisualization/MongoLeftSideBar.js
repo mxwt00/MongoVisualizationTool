@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, TextField, Typography} from "@mui/material";
+import {Button, CircularProgress, TextField, Typography} from "@mui/material";
 import {ConnectionStates} from "./ConnectionState";
 import axios from "axios";
 import {setCollections} from "../../ReduxStore/MongoContentSlice";
@@ -47,6 +47,21 @@ const MongoLeftSideBar = () => {
         setConnectionState(ConnectionStates.connectionFailed)
     }
 
+    function showCircularProgress() {
+        if (connectionState === ConnectionStates.connecting) {
+            return (
+                <div>
+                    <div className="spacerSmall"></div>
+                    <CircularProgress style={{'color': 'white'}}/>
+                </div>
+            )
+        } else {
+            return (
+                <div/>
+            )
+        }
+    }
+
     return (
 
         <div className="leftSidebarContainer">
@@ -81,6 +96,7 @@ const MongoLeftSideBar = () => {
                 <div className="spacerSmall"></div>
                 <Typography id="modal-modal-title" variant="body1" color="white">
                     {connectionState}
+                    {showCircularProgress()}
                 </Typography>
             </div>
         </div>
