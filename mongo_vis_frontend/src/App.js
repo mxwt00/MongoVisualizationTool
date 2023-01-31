@@ -7,6 +7,7 @@ import MongoManager from "./Components/MongoDBVisualization/MongoManager";
 import TitleScreen from "./Components/TitleScreen";
 import {theme} from "./MUITheme";
 import {ThemeProvider} from "@mui/material";
+import DatabaseModellingTool from "./Components/DatabaseModellingTool/ContentManagement/DatabaseModellingTool";
 
 const App = () => {
     let appMode = useSelector((state) => state.appMode.mode)
@@ -16,7 +17,7 @@ const App = () => {
             case AppMode.titleScreen:
                 return (<TitleScreen/>)
             case AppMode.erModellingTool:
-                return (<ContentManager/>)
+                return (<DatabaseModellingTool/>)
             case AppMode.mongoVisTool:
                 return (<MongoManager/>)
             default:
@@ -25,11 +26,11 @@ const App = () => {
     }
 
     return (
-        <ThemeProvider theme={theme}>
-            <div className="App">
+        <div className="App">
+            <ThemeProvider theme={theme}>
                 {renderScreen()}
-            </div>
-        </ThemeProvider>
+            </ThemeProvider>
+        </div>
     )
 }
 

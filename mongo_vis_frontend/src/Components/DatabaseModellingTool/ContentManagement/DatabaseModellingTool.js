@@ -53,7 +53,7 @@ function DatabaseModellingTool() {
 
     return (
         <React.StrictMode>
-            <div className="App">
+            <div style={{textAlign:"center"}}>
                 <ContentManager metaInformation={metaInformation}
                                 diagramType={diagramType}
                                 changeToErDiagram={changeToErDiagram}

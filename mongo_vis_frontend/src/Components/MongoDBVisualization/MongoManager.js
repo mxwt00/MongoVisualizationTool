@@ -4,7 +4,7 @@ import MongoDiagram from "./MongoDiagram";
 const MongoManager = () => {
 
     return (
-        <div>
+        <div style={{textAlign: "center"}}>
             <div className="canvasStyle" id="canvas">
                 <MongoLeftSideBar/>
                 <MongoDiagram/>

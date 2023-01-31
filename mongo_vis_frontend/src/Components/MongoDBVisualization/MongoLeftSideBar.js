@@ -3,7 +3,7 @@ import {Button, CircularProgress, TextField, Typography} from "@mui/material";
 import {ConnectionStates} from "./ConnectionState";
 import axios from "axios";
 import {setCollections} from "../../ReduxStore/MongoContentSlice";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 
 /**
  * Renders the hole left side bare by orchestrating DragBarManagers for all ErTypes

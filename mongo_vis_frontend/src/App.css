@@ -1,5 +1,10 @@
 .App {
   text-align: center;
+  position: absolute !important;
+  display: block;
+  height: 100%;
+  width: 100%;
+  background-color: #222222;
 }
 
 .App-logo {
@@ -36,3 +41,4 @@
     transform: rotate(360deg);
   }
 }
+

@@ -8,8 +8,8 @@ export const appModeSlice = createSlice({
     },
     reducers: {
         setMode: (state, mode) => {
-            state.mode = mode
-        },
+            state.mode = mode.payload
+        }
     }
 })
 
