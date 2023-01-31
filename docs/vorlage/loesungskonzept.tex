@@ -121,8 +121,35 @@ Dank der Komponentenbibliothek Material UI kann man in React vordefinierte Eleme
 Dadurch spart man sich einerseits Programmieraufwand, andererseits verringert dies aber auch die Code-Komplexität und verbessert somit die Lesbarkeit des Codes.
 ~\autocite{mui:mui}
 
+\section{REST-Schnittstelle}
+\label{sec:rest_schnittstelle}
+Das Backend stellt einen einzigen Endpunkt bereit: 
+\textit{/connect} erwartet im Body des Requests einen String connection\_string und einen String database im JSON-Format.
+Mithilfe dieser Variablen versucht das Backend, sich mit der MongoDB Datenbank zu verbinden.
+Wenn dies gelingt, wird die Datenbank ausgewertet und das Ergebnis als JSON im Response-Body zurückgegeben.
+Wenn die Verbindung fehlschlägt, wird der Statuscode 406 zurückgegeben.
+
 \section{Analyse der MongoDB Datenbank}
 \label{sec:mongoDB_analyse}
+
+Dokumente in MongoDB sind in einem JSON-Ähnlichen Format geschrieben.
+Da man in Python JSON zu Dictionaries konvertieren kann, kann man mithilfe von PyMongo Dokumente als Dictionaries auslesen.
+Dictionaries beinhalten eine Reihe an Key-Value Paaren.
+Der Key entspricht dem Name des Feldes.
+Aus dem Value kann man den Datentyp auslesen.
+Ansonsten sind die Values nicht weiter von Relevanz außer es handelt sich bei dem Datentyp um einen Dictionary, also um ein verschachteltes Dokument.
+In diesem werden dann nämlich wieder Rekursiv die Key-Value Paare ausgelesen.
+Die Ergebnisse dieser Analyse werden in einer Objektorientierten Datenstruktur gespeichert:
+In der Klasse ProcessedCollection werden alle Variationen von Schemas gespeichert, inclusive dem Namen der Collection 
+Die Schemas selber werden in der Klasse ProcessedDocument gespeichert incluive der Nummer an Dokumenten, die nach diesem Schema aufgebaut sind.
+ProcessedDocument enthält wiederum eine Liste an Values.
+Ein Value besteht aus einem Key, einem Typ, optional einer Referenz auf eine andere Collection (Wenn der Datentyp ObjectId ist und der Name nicht id\_ ist) und optional einem verschachtelten Dokument.
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{images/backend_uml}
+    \caption{Backend UML Diagramm}
+    \label{fig:backend_uml}
+\end{figure}
 
 \section{Planung des Frontends}
 \label{sec:planung_frontend}
