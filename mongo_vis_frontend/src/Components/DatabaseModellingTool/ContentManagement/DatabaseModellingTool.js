@@ -4,7 +4,6 @@ import {DiagramTypes} from "../../../Services/DrawBoardModel/Diagram";
 import ErManager from '../ErModel/ErManager';
 import ContentManager from "./ContentManager";
 import RelationalManager from "../RelationalModel/RelationalManager";
-import MongoManager from "../../MongoDBVisualization/MongoManager";
 
 /**
  * Effective root of the database modelling application, renders the content manager
@@ -25,11 +24,6 @@ function DatabaseModellingTool() {
         setDiagramType(DiagramTypes.relationalDiagram);
     }
 
-    function changeToMongoDiagram() {
-        if (diagramType === DiagramTypes.mongoDiagram) return;
-        setDiagramType(DiagramTypes.mongoDiagram);
-    }
-
     const projectVersion = 1.0;
     const projectName = "notNamed";
 
@@ -44,8 +38,6 @@ function DatabaseModellingTool() {
                 return <ErManager/>
             case DiagramTypes.relationalDiagram:
                 return <RelationalManager/>
-            case DiagramTypes.mongoDiagram:
-                return <MongoManager/>
             default:
                 return <div>No Diagram Found</div>
         }
@@ -53,12 +45,11 @@ function DatabaseModellingTool() {
 
     return (
         <React.StrictMode>
-            <div style={{textAlign:"center"}}>
+            <div style={{textAlign: "center"}}>
                 <ContentManager metaInformation={metaInformation}
                                 diagramType={diagramType}
                                 changeToErDiagram={changeToErDiagram}
-                                changeToRelationalDiagram={changeToRelationalDiagram}
-                                changeToMongoDiagram={changeToMongoDiagram}>
+                                changeToRelationalDiagram={changeToRelationalDiagram}>
 
                     {renderDiagram()}
 

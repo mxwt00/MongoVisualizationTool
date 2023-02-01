@@ -17,7 +17,6 @@ import {ImportRelContent, selectRelationalContentSlice} from "../../../ReduxStor
  * @param diagramType                   The currently displayed diagram type
  * @param changeToErDiagram             Function to execute when changing to the Er diagram tab
  * @param changeToRelationalDiagram     Function to execute when changing to the relational diagram tab
- * @param changeToMongoDiagram     Function to execute when changing to the mongo diagram tab
  */
 export function ContentManager({
                                    children,
@@ -25,7 +24,6 @@ export function ContentManager({
                                    diagramType,
                                    changeToErDiagram,
                                    changeToRelationalDiagram,
-                                   changeToMongoDiagram
                                }) {
 
     let baseUrl;
@@ -47,7 +45,7 @@ export function ContentManager({
 
     useEffect(() => {
         if (currentDiagram !== diagramType) updateDiagram(diagramType)
-    }, [diagramType])
+    }, [currentDiagram, diagramType])
 
 
     // ----------------------------------------- Upload and Download of Json-Files -----------------------------------//
@@ -152,7 +150,6 @@ export function ContentManager({
             <div className="Head">
                 <button className={erTabStyle} onClick={changeToErDiagram}>Er Diagram</button>
                 <button className={relationalTabStyle} onClick={changeToRelationalDiagram}>Relational Diagram</button>
-                <button className={relationalTabStyle} onClick={changeToMongoDiagram}>MongoDB Visualization</button>
                 <PrivacyPolicy/>
                 <Download createDownloadPackage={createDownloadPackage}/>
                 <Upload importDrawBoardData={importDrawBoardData}/>

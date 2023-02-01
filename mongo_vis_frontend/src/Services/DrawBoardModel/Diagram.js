@@ -4,8 +4,7 @@
 
 export const DiagramTypes = {
     erDiagram: "erDiagram",
-    relationalDiagram: "relationalDiagram",
-    mongoDiagram:"mongoDiagram"
+    relationalDiagram: "relationalDiagram"
 }
 
 export const ConnectionType = {
