@@ -1,6 +1,7 @@
 export const DocumentTableType = {
     main: "main",
     detail: "detail",
-    nested: "nested"
+    nested: "nested",
+    array: "array"
 }
 
