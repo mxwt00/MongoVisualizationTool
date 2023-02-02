@@ -1,44 +1,4 @@
-import collections.abc
-import datetime
-
-import bson
-
 from processed_document import ProcessedDocument
-from value import Value
-
-
-def get_type(value):
-    if value is None or type(value) is None:
-        return "Null"
-    if isinstance(value, str):
-        return "String"
-    if isinstance(value, bson.ObjectId):
-        return "Object ID"
-    if isinstance(value, bool):
-        return "Boolean"
-    if isinstance(value, (int, float, complex, bson.Decimal128)):
-        return "Number"
-    if isinstance(value, datetime.date):
-        return "Date"
-    if isinstance(value, collections.abc.Sequence):
-        return "Array"
-    if isinstance(value, dict):
-        return "Embedded document"
-    raise Exception(f"Type {type(value)} of value {value} is not identifiable!")
-
-
-def extract_values(document):
-    values = list()
-    for key, value in zip(document, document.values()):
-        val_type = get_type(value)
-        nested_values = None
-        if val_type == "Embedded document":
-            nested_values = extract_values(value)
-        ref = None
-        # TODO ref implementieren
-        value = Value(key=key, val_type=val_type, ref=ref, nested_document=nested_values)
-        values.append(value)
-    return values
 
 
 class ProcessedCollection:
@@ -48,8 +8,7 @@ class ProcessedCollection:
         self.name = name
 
     def add_doc(self, document):
-        values = extract_values(document)
-        new_doc = ProcessedDocument(values)
+        new_doc = ProcessedDocument(document)
         for doc in self.documents:
             if doc == new_doc:
                 doc.count += 1

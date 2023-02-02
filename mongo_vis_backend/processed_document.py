@@ -1,7 +1,10 @@
+from value import analyse_values
+
+
 class ProcessedDocument:
 
-    def __init__(self, values):
-        self.values = values
+    def __init__(self, document):
+        self.values = analyse_values(document)
         self.count = 1
 
     def __str__(self):
