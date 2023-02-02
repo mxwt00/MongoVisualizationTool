@@ -64,7 +64,7 @@ class Value:
             values_dict = [value.to_dict() for value in self.nested_document]
         array_dict = None
         if self.array_values is not None:
-                array_dict = [value.to_dict() for value in self.array_values]
+            array_dict = [value.to_dict() for value in self.array_values]
         data = {
             "key": self.key,
             "type": self.val_type,
