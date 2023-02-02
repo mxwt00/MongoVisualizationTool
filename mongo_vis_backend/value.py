@@ -30,12 +30,12 @@ def get_type(value):
     if isinstance(value, dict):
         return "Embedded document"
     raise Exception(f"Type {type(value)} of value {value} is not identifiable!")
+# TODO Add additional types
 
 
 class Value:
     def __init__(self, key, raw_value):
         self.key = key
-        self.count = 1
         self.ref = None
         self.nested_document = None
         self.array_values = None
@@ -54,7 +54,6 @@ class Value:
     def add_array_value(self, new_array_value):
         for array_value in self.array_values:
             if array_value == new_array_value:
-                array_value.count += 1
                 return
         self.array_values.add(new_array_value)
 
@@ -69,7 +68,6 @@ class Value:
             "key": self.key,
             "type": self.val_type,
             "ref": self.ref,
-            "count": self.count,
             "nested_document": values_dict,
             "array_values": array_dict,
         }
