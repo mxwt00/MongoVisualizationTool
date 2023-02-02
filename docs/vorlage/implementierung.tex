@@ -1,3 +1,4 @@
+\iffalse
 In diesem Kapitel wird die konkrete Implementierung des im Kapitel
 \ref{cha:loesungskonzept} entwickelten Lösungskonzepts beschrieben.
 Hierbei wird auf die konkret verwendeten Entwicklungswerkzeuge etc. 
@@ -38,9 +39,90 @@ Manchmal hilft auch eine kleine Tabelle:
 \end{table}
 
 Details siehe Tabelle~\ref{tab:my-table}.
+\fi
 
 \section{Backend}
 \label{sec:backend}
+
+Der bereits beschriebene eine Endpunkt im Backend ließt in Zeile 7 und 8 den connection\_string und die database aus dem Request Body aus.
+Mit diesen Daten wird dann ein neues Objekt vom Typ DatabaseAnalysis erstellt.
+In diesem Objekt wird in Zeile 11 bis 13 die Funktion connect aufgerufen, welche Versucht, sich mit der spezifizierten MongoDB Datenbank zu verbinden.
+Entsprechend dem Resultat wird entweder ein Fehlercode zurückgegeben oder die Datenbank analysiert und das Resultat der Analyse im JSON-Format im Request Body zurückgegeben.
+
+\begin{lstlisting}[language=python, caption={app.py},label={lst:backend_app}]
+    app = Flask("Mongodb Visualization Tool")
+    CORS(app)
+
+
+    @app.post("/connect")
+    def get_tables_and_keys():
+        connection_string = request.json.get("connection_string")
+        database = request.json.get("database")
+
+        db_analysis = DatabaseAnalysis()
+        connection_successful = db_analysis.connect(connection_string, database)
+        if not connection_successful:
+            return Response(status=406)
+
+        document_dict = db_analysis.analyse()
+
+        return json.dumps(document_dict)
+\end{lstlisting}
+
+Die Methode connect der Klasse DatabaseAnalysis nutzt  den MongoDB Client, um eine Verbindung zu einer MongoDB Datenbank mit dem spezifizierten Connection String und dem Datenbanknamen herzustellen.
+Wenn die Verbindung nach 5 Sekunden noch nicht steht, wird der Versuch abgebrochen und False zurückgegeben.
+Ansonsten werden die verbundene Datenbank und der verbundene Client im Objekt gespeichert und True zurückgegeben.
+
+\begin{lstlisting}[language=python, caption={DatabaseAnalysis.connect},label={lst:backend_connect}]
+    def connect(self, connection_string, database):
+        try:
+            self.mongodb_client = MongoClient(connection_string, serverSelectionTimeoutMS=5000)
+            self.database = self.mongodb_client[database]
+        except pymongo.errors.ServerSelectionTimeoutError:
+            return False
+        return True
+\end{lstlisting}
+
+In der Methode analyse derselben Klasse werden daraufhin alle Collection Namen in der Datenbank ausgelesen.
+Für jeden Namen wird die Collection mit diesem Namen als Dictionary ausgelesen.
+Dieses Dictionary enthält wiederum alle Dokumente der Collection.
+Jedes Dokument wird in der Methdode ProcessedCollection.add\_doc analysiert und, falls noch nicht vorhanden, der ProcessedCollection hinzugefügt.
+Wenn alle Dokumente durchlaufen wurden, wird die Verbindung zur Datenbank geschlossen und die ProcessedCollection wird in ein Dictionary umgewandelt und zurückgegeben.
+
+\begin{lstlisting}[language=python, caption={DatabaseAnalysis.analyse},label={lst:backend_analyse}]
+    def analyse(self):
+        self.collection_names = self.database.list_collection_names()
+        docs_dict = {"collections": []}
+        for name in self.collection_names:
+            processed_collection = ProcessedCollection(name)
+            collection = self.database.get_collection(name)
+            documents = collection.find({})
+            for document in documents:
+                processed_collection.add_doc(document)
+
+            processed_collection.sort_documents()
+            docs_dict["collections"].append(processed_collection.to_dict())
+        self.mongodb_client.close()
+        return docs_dict
+\end{lstlisting}
+
+Die Methode add\_doc in der Klasse ProcessedCollection ruft die Methode extract\_values auf, welche die Key-Value Paare im übergebenen Dokument analysiert und das Resultat als Liste an Values zurückgibt.
+Aus diesem Resultat wird ein Objekt der Klasse ProcessedDocument erzeugt.
+Wenn sich noch kein Objekt mit den gleichen Values in der aktuellen ProcessedCollection befindet, wird das ProcessedDocument der ProcessedCollection hinzugefügt.
+Ansonsten wird das Attribut count in dem bereits vorhandenen ProcessedDocument Objekt hochgezählt.
+
+
+\begin{lstlisting}[language=python, caption={ProcessedCollection.add\_doc},label={lst:backend_add_doc}]
+    def add_doc(self, document):
+        values = extract_values(document)
+        new_doc = ProcessedDocument(values)
+        for doc in self.documents:
+            if doc == new_doc:
+                doc.count += 1
+                return
+        self.documents.add(new_doc)
+\end{lstlisting}
+
 
 \subsection{Analyse der MongoDB Datenbank}
 \label{sub:mongoDB_analyse}
