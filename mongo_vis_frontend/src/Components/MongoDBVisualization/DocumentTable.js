@@ -93,25 +93,42 @@ const DocumentTable = (props) => {
         )
     }
 
+    function tableCellStyle(isAdditional) {
+        if (isAdditional) {
+            return {
+                width: 1,
+                whiteSpace: 'nowrap',
+                color: 'green'
+            }
+        } else {
+            return {
+                width: 1,
+                whiteSpace: 'nowrap',
+                color: 'white'
+            }
+        }
+    }
+
     function MainRow(props) {
         const {value} = props
         if (tableType === DocumentTableType.array) {
+            let color = 'white'
             return (
                 <Fragment>
-                    <TableCell style={{width: 1, whiteSpace: 'nowrap'}}
+                    <TableCell style={tableCellStyle(value.is_additional)}
                                align="left">{value.type}</TableCell>
-                    <TableCell style={{width: 1, whiteSpace: 'nowrap'}}
+                    <TableCell style={tableCellStyle(value.is_additional)}
                                align="left">{value.ref}</TableCell>
                 </Fragment>
             )
         } else {
             return (
                 <Fragment>
-                    <TableCell style={{width: 1, whiteSpace: 'nowrap'}}
+                    <TableCell style={tableCellStyle(value.is_additional)}
                                align="left">{value.key}</TableCell>
-                    <TableCell style={{width: 1, whiteSpace: 'nowrap'}}
+                    <TableCell style={tableCellStyle(value.is_additional)}
                                align="left">{value.type}</TableCell>
-                    <TableCell style={{width: 1, whiteSpace: 'nowrap'}}
+                    <TableCell style={tableCellStyle(value.is_additional)}
                                align="left">{value.ref}</TableCell>
                 </Fragment>
             )
