@@ -1,21 +1,26 @@
 - Readme Dateien
 
 Frontend:
-- Startseite
-- Verschachtelte Dokumente anzeigen
+- Abweichungen Farblich markieren
+- Foreign Keys Analysieren als Option
 
 Backend:
 - Multiprocessing
 - References testen
 - References performanter auslesen
+- Arrays abbilden
 
 Fragen:
 - Darf ich mich selbst Zitieren (Aus meiner Projektarbeit)? Wenn ja, muss ich das angeben?
 - Foreign Keys Analysieren? Wenn ja, wie?
-- Wie soll der Zugriff auf die Verscheidenen Tools erfolgen?
-- Multiprocessing noch implementieren?
-- Abgabe 2 Wochen vorher wird knapp, geht auch später?
+- Sortieren nach Timestamp oder Anzahl Benutzungen?
+    -> Option
 - Deployment auf eigenem Server ok? Wird eine Datenschutzerklärung benötigt?
 - Wie erfolgt die Abgabe?
-- Sortieren nach Timestamp oder Anzahl Benutzungen?
 - Angeben, welche Dateien von mir kommen?
+- Abgabe 2 Wochen vorher wird knapp, geht auch später?
+
+Docs:
+- Struktur
+- Packages
+- Erweiterbarkeit
