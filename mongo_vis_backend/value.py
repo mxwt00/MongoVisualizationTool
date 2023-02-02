@@ -40,13 +40,14 @@ class Value:
         self.nested_document = None
         self.array_values = None
         self.val_type = get_type(raw_value)
+        self.is_additional = False
         if self.val_type == "Embedded document":
             self.nested_document = analyse_values(raw_value)
         elif self.val_type == "Array":
             self.analyse_array(raw_value)
 
     def analyse_array(self, raw_value):
-        self.array_values = set()
+        self.array_values = list()
         for arr_element in raw_value:
             array_value = Value(None, arr_element)
             self.add_array_value(array_value)
@@ -55,7 +56,7 @@ class Value:
         for array_value in self.array_values:
             if array_value == new_array_value:
                 return
-        self.array_values.add(new_array_value)
+        self.array_values.append(new_array_value)
 
     def to_dict(self):
         values_dict = None
@@ -70,6 +71,7 @@ class Value:
             "ref": self.ref,
             "nested_document": values_dict,
             "array_values": array_dict,
+            "is_additional": self.is_additional
         }
         return data
 

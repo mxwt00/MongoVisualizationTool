@@ -30,6 +30,7 @@ class DatabaseAnalysis:
                 processed_collection.add_doc(document)
 
             processed_collection.sort_documents()
+            processed_collection.mark_additional_fields()
             docs_dict["collections"].append(processed_collection.to_dict())
         self.mongodb_client.close()
         return docs_dict
