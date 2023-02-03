@@ -23,7 +23,7 @@ const MongoLeftSideBar = () => {
     const [connectionString, setConnectionString] = useState("mongodb+srv://mvt:mvt@testcluster.biadm2g.mongodb.net/?retryWrites=true&w=majority")
     const [dbName, setDbName] = useState("sample_mflix")
     const [analyseRef, setAnalyseRef] = useState(false)
-    const [sortMethod, setSortMethod] = useState("documentNumber")
+    const [sortMethod, setSortMethod] = useState("documentCount")
 
     const dispatch = useDispatch()
 
@@ -119,7 +119,7 @@ const MongoLeftSideBar = () => {
                         value={sortMethod}
                         onChange={(e) => setSortMethod(e.target.value)}
                     >
-                        <MenuItem value={"documentNumber"}>Number of documents</MenuItem>
+                        <MenuItem value={"documentCount"}>Number of documents</MenuItem>
                         <MenuItem value={"avgAge"}>Average document age</MenuItem>
                     </Select>
                 </FormControl>
