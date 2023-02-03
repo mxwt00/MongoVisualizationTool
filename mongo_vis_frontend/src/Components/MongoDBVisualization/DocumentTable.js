@@ -1,4 +1,5 @@
 import {
+    Box,
     Collapse,
     IconButton,
     Paper,
@@ -31,20 +32,36 @@ const DocumentTable = (props) => {
             case DocumentTableType.detail:
                 let countText
                 if (doc.count === 1)
-                    countText = "1 document is using this schema"
+                    countText = "1 document is using this schema."
                 else
-                    countText = doc.count + " documents are using this schema"
+                    countText = doc.count + " documents are using this schema."
 
+                let missingValuesText = ""
+                if (doc.missing_values.length > 0) {
+                    missingValuesText = "missing values: " + doc.missing_values.join(", ")
+                }
 
                 return (
                     <Toolbar>
-                        <Typography
-                            sx={{flex: '1 1 100%'}}
-                            variant="body2"
-                            id="subtext"
-                        >
-                            {countText}
-                        </Typography>
+                        <Box sx={{
+                            width: '100%'
+                        }}>
+                            <Typography
+                                sx={{flex: '1 1 100%'}}
+                                variant="body2"
+                                id="subtext"
+                            >
+                                {countText}
+                            </Typography>
+                            <Typography
+                                color="red"
+                                sx={{flex: '1 1 100%'}}
+                                variant="body2"
+                                id="subtext"
+                            >
+                                {missingValuesText}
+                            </Typography>
+                        </Box>
                     </Toolbar>
                 )
             default:
@@ -112,7 +129,6 @@ const DocumentTable = (props) => {
     function MainRow(props) {
         const {value} = props
         if (tableType === DocumentTableType.array) {
-            let color = 'white'
             return (
                 <Fragment>
                     <TableCell style={tableCellStyle(value.is_additional)}
