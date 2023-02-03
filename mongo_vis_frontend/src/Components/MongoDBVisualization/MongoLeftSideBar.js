@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, CircularProgress, TextField, Typography} from "@mui/material";
+import {Button, Checkbox, CircularProgress, FormControlLabel, TextField, Typography} from "@mui/material";
 import {ConnectionStates} from "./ConnectionState";
 import axios from "axios";
 import {setCollections} from "../../ReduxStore/MongoContentSlice";
@@ -13,6 +13,7 @@ const MongoLeftSideBar = () => {
     const [connectionState, setConnectionState] = useState(ConnectionStates.connectionPending)
     const [connectionString, setConnectionString] = useState("mongodb+srv://mvt:mvt@testcluster.biadm2g.mongodb.net/?retryWrites=true&w=majority")
     const [dbName, setDbName] = useState("sample_mflix")
+    const [analyseRef, setAnalyseRef] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -61,6 +62,8 @@ const MongoLeftSideBar = () => {
         }
     }
 
+    const analyseReferenceLabel = "Analyse References\n(May take a long time)"
+
     return (
 
         <div className="leftSidebarContainer">
@@ -87,6 +90,13 @@ const MongoLeftSideBar = () => {
                     variant="standard"
                     defaultValue="database"
                     onChange={(e) => setDbName(e.target.value)}
+                />
+                <div className="spacerSmall"></div>
+                <FormControlLabel control={<Checkbox color="success" onChange={() => (setAnalyseRef(!analyseRef))}/>}
+                                  label={<Typography variant="body1" color="white" style={{whiteSpace: 'pre-line'}}
+                                                     align="left">
+                                      {analyseReferenceLabel}
+                                  </Typography>}
                 />
                 <div className="spacerSmall"></div>
                 <Button style={{color: "white", borderColor: "white"}} variant="outlined" onClick={connectToDB}>
