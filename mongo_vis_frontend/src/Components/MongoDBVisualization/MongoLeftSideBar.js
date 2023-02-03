@@ -1,5 +1,14 @@
 import React, {useState} from "react";
-import {Button, Checkbox, CircularProgress, FormControlLabel, TextField, Typography} from "@mui/material";
+import {
+    Button,
+    Checkbox,
+    CircularProgress,
+    FormControl,
+    FormControlLabel, InputLabel,
+    MenuItem, Select,
+    TextField,
+    Typography
+} from "@mui/material";
 import {ConnectionStates} from "./ConnectionState";
 import axios from "axios";
 import {setCollections} from "../../ReduxStore/MongoContentSlice";
@@ -14,6 +23,7 @@ const MongoLeftSideBar = () => {
     const [connectionString, setConnectionString] = useState("mongodb+srv://mvt:mvt@testcluster.biadm2g.mongodb.net/?retryWrites=true&w=majority")
     const [dbName, setDbName] = useState("sample_mflix")
     const [analyseRef, setAnalyseRef] = useState(false)
+    const [sortMethod, setSortMethod] = useState("documentNumber")
 
     const dispatch = useDispatch()
 
@@ -27,7 +37,9 @@ const MongoLeftSideBar = () => {
 
         let contentToSend = {
             connection_string: connectionString,
-            database: dbName
+            database: dbName,
+            analyse_ref: analyseRef,
+            sort_method: sortMethod
         };
 
         axios.post(url, contentToSend).then((response) => {
@@ -70,10 +82,9 @@ const MongoLeftSideBar = () => {
 
             <div className="leftSidebarSelectionContainer">
 
-                <Typography id="modal-modal-title" variant="h4" color="white">
+                <Typography id="modal-modal-title" variant="h4" color="white" sx={{m: 1, minWidth: 220}}>
                     Database Connection
                 </Typography>
-                <div className="spacerSmall"></div>
                 <hr className="sidebarDivider"/>
 
                 <TextField
@@ -82,25 +93,44 @@ const MongoLeftSideBar = () => {
                     variant="standard"
                     defaultValue="connection string"
                     onChange={(e) => setConnectionString(e.target.value)}
+                    sx={{m: 1, minWidth: 220}}
                 />
-                <div className="spacerSmall"></div>
                 <TextField
                     id="dbName"
                     label="DB name"
                     variant="standard"
                     defaultValue="database"
                     onChange={(e) => setDbName(e.target.value)}
+                    sx={{m: 1, minWidth: 220}}
                 />
                 <div className="spacerSmall"></div>
-                <FormControlLabel control={<Checkbox color="success" onChange={() => (setAnalyseRef(!analyseRef))}/>}
+                <FormControlLabel control={<Checkbox color="primary" onChange={() => (setAnalyseRef(!analyseRef))}/>}
                                   label={<Typography variant="body1" color="white" style={{whiteSpace: 'pre-line'}}
                                                      align="left">
                                       {analyseReferenceLabel}
                                   </Typography>}
+                                  sx={{m: 1, minWidth: 220}}
                 />
+                <FormControl variant="standard" sx={{m: 1, minWidth: 220}}>
+                    <InputLabel id="demo-simple-select-filled-label">Sort Method</InputLabel>
+                    <Select
+                        labelId="sort-method-select-label"
+                        id="sort-method-select"
+                        value={sortMethod}
+                        onChange={(e) => setSortMethod(e.target.value)}
+                    >
+                        <MenuItem value={"documentNumber"}>Number of documents</MenuItem>
+                        <MenuItem value={"avgAge"}>Average document age</MenuItem>
+                    </Select>
+                </FormControl>
+
                 <div className="spacerSmall"></div>
-                <Button style={{color: "white", borderColor: "white"}} variant="outlined" onClick={connectToDB}>
-                    Connect
+                <Button style={{color: "white", borderColor: "white"}}
+                        variant="outlined"
+                        onClick={connectToDB}
+                        sx={{m: 1, minWidth: 220}}
+                >
+                    Connect and Analyse
                 </Button>
                 <div className="spacerSmall"></div>
                 <Typography id="modal-modal-title" variant="body1" color="white">

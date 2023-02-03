@@ -1,7 +1,6 @@
 - Readme Dateien
 
 Frontend:
-- Abweichungen Farblich markieren
 - Foreign Keys Analysieren als Option
 
 Backend:
@@ -9,17 +8,20 @@ Backend:
 - References testen
 - References performanter auslesen
 
+Docs:
+- Auf veränderte Struktur eingehen (Vor allem im Frontend)
+- Packages
+- Erweiterbarkeit
+- Microservice Architektur
+
 Fragen:
 - Darf ich mich selbst Zitieren (Aus meiner Projektarbeit)? Wenn ja, muss ich das angeben?
 - Foreign Keys Analysieren? Wenn ja, wie?
+    -> Als Option
 - Sortieren nach Timestamp oder Anzahl Benutzungen?
     -> Option
 - Deployment auf eigenem Server ok? Wird eine Datenschutzerklärung benötigt?
 - Wie erfolgt die Abgabe?
 - Angeben, welche Dateien von mir kommen?
+    -> Wird nicht benötigt
 - Abgabe 2 Wochen vorher wird knapp, geht auch später?
-
-Docs:
-- Struktur
-- Packages
-- Erweiterbarkeit
