@@ -18,14 +18,19 @@ class ProcessedCollection:
     def sort_documents(self):
         self.documents = sorted(self.documents, key=lambda document: document.count, reverse=True)
 
-    def mark_additional_fields(self):
+    def mark_additional_values(self):
         main_doc = self.documents[0]
         for i in range(1, len(self.documents)):
             for value in self.documents[i].values:
                 if value not in main_doc.values:
                     value.is_additional = True
 
-
+    def mark_missing_values(self):
+        main_doc = self.documents[0]
+        for i in range(1, len(self.documents)):
+            for value in main_doc.values:
+                if value not in self.documents[i].values:
+                    self.documents[i].missing_values.append(value.key)
 
     def to_dict(self):
         documents_dict = [document.to_dict() for document in self.documents]

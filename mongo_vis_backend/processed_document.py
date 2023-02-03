@@ -6,6 +6,7 @@ class ProcessedDocument:
     def __init__(self, document):
         self.values = analyse_values(document)
         self.count = 1
+        self.missing_values = list()
 
     def __str__(self):
         return str(self.to_dict())
@@ -14,7 +15,8 @@ class ProcessedDocument:
         values_dict = [value.to_dict() for value in self.values]
         data = {
             "values": values_dict,
-            "count": self.count
+            "count": self.count,
+            "missing_values": self.missing_values
         }
         return data
 
