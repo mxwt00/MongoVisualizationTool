@@ -1,3 +1,5 @@
+import datetime
+
 from value import analyse_values
 
 
@@ -6,6 +8,11 @@ class ProcessedDocument:
     def __init__(self, document):
         self.values = analyse_values(document)
         self.count = 1
+        self.document_ages = list()
+        document_generation_time = document.get("_id").generation_time
+        document_age = (datetime.datetime.now(datetime.timezone.utc) - document_generation_time).total_seconds()
+        self.document_ages.append(document_age)
+        self.avg_age = None
         self.missing_values = list()
 
     def __str__(self):
@@ -16,7 +23,8 @@ class ProcessedDocument:
         data = {
             "values": values_dict,
             "count": self.count,
-            "missing_values": self.missing_values
+            "missing_values": self.missing_values,
+            "avg_age": self.avg_age
         }
         return data
 

@@ -12,11 +12,25 @@ class ProcessedCollection:
         for doc in self.documents:
             if doc == new_doc:
                 doc.count += 1
+                doc.document_ages.append(new_doc.document_ages[0])
                 return
         self.documents.append(new_doc)
 
-    def sort_documents(self):
-        self.documents = sorted(self.documents, key=lambda document: document.count, reverse=True)
+    def post_processing(self, sort_method):
+        self.calc_document_averages()
+        self.sort_documents(sort_method)
+        self.mark_additional_values()
+        self.mark_missing_values()
+
+    def calc_document_averages(self):
+        for document in self.documents:
+            document.avg_age = sum(document.document_ages) / len(document.document_ages)
+
+    def sort_documents(self, sort_method):
+        if sort_method == "documentCount":
+            self.documents = sorted(self.documents, key=lambda document: document.count, reverse=True)
+        elif sort_method == "avgAge":
+            self.documents = sorted(self.documents, key=lambda document: document.avg_age, reverse=True)
 
     def mark_additional_values(self):
         main_doc = self.documents[0]

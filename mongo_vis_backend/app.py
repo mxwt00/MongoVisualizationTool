@@ -12,10 +12,12 @@ CORS(app)
 @app.post("/connect")
 def get_tables_and_keys():
     connection_string = request.json.get("connection_string")
-    database = request.json.get("database")
+    database_name = request.json.get("database")
+    analyse_ref = request.json.get("analyse_ref")
+    sort_method = request.json.get("sort_method")
 
-    db_analysis = DatabaseAnalysis()
-    connection_successful = db_analysis.connect(connection_string, database)
+    db_analysis = DatabaseAnalysis(connection_string, database_name, analyse_ref, sort_method)
+    connection_successful = db_analysis.connect()
     if not connection_successful:
         return Response(status=406)
 
