@@ -30,7 +30,6 @@ def get_type(value):
     if isinstance(value, dict):
         return "Embedded document"
     raise Exception(f"Type {type(value)} of value {value} is not identifiable!")
-# TODO Add additional types
 
 
 class Value:
