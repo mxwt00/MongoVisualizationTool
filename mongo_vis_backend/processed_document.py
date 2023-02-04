@@ -14,6 +14,8 @@ class ProcessedDocument:
         self.document_ages.append(document_age)
         self.avg_age = None
         self.missing_values = list()
+        self.original_documents = list()
+        self.original_documents.append(document)
 
     def __str__(self):
         return str(self.to_dict())

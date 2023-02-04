@@ -13,6 +13,7 @@ class ProcessedCollection:
             if doc == new_doc:
                 doc.count += 1
                 doc.document_ages.append(new_doc.document_ages[0])
+                doc.original_documents.append(new_doc.original_documents[0])
                 return
         self.documents.append(new_doc)
 

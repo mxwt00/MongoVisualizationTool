@@ -34,9 +34,21 @@ class DatabaseAnalysis:
                 processed_collection.add_doc(document)
 
             processed_collection.post_processing(sort_method=self.sort_method)
+            if self.analyse_ref:
+                self.analyse_references(processed_collection)
             docs_dict["collections"].append(processed_collection.to_dict())
         self.mongodb_client.close()
         return docs_dict
+
+    def analyse_references(self, processed_collection):
+        for document in processed_collection.documents:
+            for value in document.values:
+                if value.val_type == "Object ID" and value.key != "_id":
+                    for orig_document in document.original_documents:
+                        referenced_collection = self.get_referenced_collection(orig_document.get(value.key))
+                        if referenced_collection is not None:
+                            value.ref = referenced_collection
+                            return
 
     def get_referenced_collection(self, _id):
         for collection_name in self.collection_names:
