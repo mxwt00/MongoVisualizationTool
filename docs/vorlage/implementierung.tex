@@ -101,10 +101,10 @@ Wenn alle Dokumente durchlaufen wurden, wird die Verbindung zur Datenbank geschl
             for document in documents:
                 processed_collection.add_doc(document)
 
-            processed_collection.post_processing(sort_method=self.sort_method)
+            processed_collection .post_processing(sort_method=self.sort_method)
             if self.analyse_ref:
                 self.analyse_references(processed_collection)
-            docs_dict["collections"].append(processed_collection.to_dict())
+            docs_dict["collections"] .append(processed_collection.to_dict())
         self.mongodb_client.close()
         return docs_dict
 \end{lstlisting}
@@ -124,7 +124,7 @@ Wenn keine Übereinstimmung gefunden wird, dann wird None zurückgegeben.
             for value in document.values:
                 if value.val_type == "Object ID" and value.key != "_id":
                     for orig_document in document.original_documents:
-                        referenced_collection = self.get_referenced_collection(orig_document.get(value.key))
+                        referenced_collection = self.get_referenced_collection (orig_document.get(value.key))
                         if referenced_collection is not None:
                             value.ref = referenced_collection
                             return
@@ -138,21 +138,22 @@ Wenn keine Übereinstimmung gefunden wird, dann wird None zurückgegeben.
         return None
 \end{lstlisting}
 
-Die Methode add\_doc in der Klasse ProcessedCollection ruft die Methode extract\_values auf, welche die Key-Value Paare im übergebenen Dokument analysiert und das Resultat als Liste an Values zurückgibt.
-Aus diesem Resultat wird ein Objekt der Klasse ProcessedDocument erzeugt.
-Wenn sich noch kein Objekt mit den gleichen Values in der aktuellen ProcessedCollection befindet, wird das ProcessedDocument der ProcessedCollection hinzugefügt.
+Die Methode add\_doc in der Klasse ProcessedCollection erstellt aus dem übergebenen Dictionary ein neues Objekt der Klasse ProcessedDocument.
+Wenn sich noch kein Objekt mit den gleichen Werten in der aktuellen ProcessedCollection befindet, wird das ProcessedDocument der ProcessedCollection hinzugefügt.
 Ansonsten wird das Attribut count in dem bereits vorhandenen ProcessedDocument Objekt hochgezählt.
 
 
 \begin{lstlisting}[language=python, caption={ProcessedCollection.add\_doc},label={lst:backend_add_doc}]
     def add_doc(self, document):
-        values = extract_values(document)
-        new_doc = ProcessedDocument(values)
+        new_doc = ProcessedDocument(document)
         for doc in self.documents:
             if doc == new_doc:
                 doc.count += 1
+                if doc.document_ages:
+                    doc.document_ages .append(new_doc.document_ages[0])
+                doc.original_documents .append(new_doc.original_documents[0])
                 return
-        self.documents.add(new_doc)
+        self.documents.append(new_doc)
 \end{lstlisting}
 
 \section{Frontend}
