@@ -1,12 +1,9 @@
 - Readme Dateien
 
 Frontend:
-- Foreign Keys Analysieren als Option
 
 Backend:
 - Multiprocessing
-- References testen
-- References performanter auslesen
 
 Docs:
 - Auf veränderte Struktur eingehen (Vor allem im Frontend)
