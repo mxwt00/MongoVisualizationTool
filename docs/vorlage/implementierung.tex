@@ -44,23 +44,24 @@ Details siehe Tabelle~\ref{tab:my-table}.
 \section{Backend}
 \label{sec:backend}
 
-Der bereits beschriebene eine Endpunkt im Backend ließt in Zeile 7 und 8 den connection\_string und die database aus dem Request Body aus.
+Der bereits beschriebene eine Endpunkt im Backend ließt in Zeile 6 bis 9 alle benötigten Werte aus dem Request Body aus.
 Mit diesen Daten wird dann ein neues Objekt vom Typ DatabaseAnalysis erstellt.
-In diesem Objekt wird in Zeile 11 bis 13 die Funktion connect aufgerufen, welche Versucht, sich mit der spezifizierten MongoDB Datenbank zu verbinden.
+In diesem Objekt wird anschließend die Funktion connect aufgerufen, welche Versucht, sich mit der spezifizierten MongoDB Datenbank zu verbinden.
 Entsprechend dem Resultat wird entweder ein Fehlercode zurückgegeben oder die Datenbank analysiert und das Resultat der Analyse im JSON-Format im Request Body zurückgegeben.
 
 \begin{lstlisting}[language=python, caption={app.py},label={lst:backend_app}]
     app = Flask("Mongodb Visualization Tool")
     CORS(app)
 
-
     @app.post("/connect")
     def get_tables_and_keys():
         connection_string = request.json.get("connection_string")
-        database = request.json.get("database")
+        database_name = request.json.get("database")
+        analyse_ref = request.json.get("analyse_ref")
+        sort_method = request.json.get("sort_method")
 
-        db_analysis = DatabaseAnalysis()
-        connection_successful = db_analysis.connect(connection_string, database)
+        db_analysis = DatabaseAnalysis(connection_string, database_name, analyse_ref, sort_method)
+        connection_successful = db_analysis.connect()
         if not connection_successful:
             return Response(status=406)
 
@@ -100,10 +101,41 @@ Wenn alle Dokumente durchlaufen wurden, wird die Verbindung zur Datenbank geschl
             for document in documents:
                 processed_collection.add_doc(document)
 
-            processed_collection.sort_documents()
+            processed_collection.post_processing(sort_method=self.sort_method)
+            if self.analyse_ref:
+                self.analyse_references(processed_collection)
             docs_dict["collections"].append(processed_collection.to_dict())
         self.mongodb_client.close()
         return docs_dict
+\end{lstlisting}
+
+Die Methdoe analy\_references in DatabaseAnalysis wird nur ausgeführt, wenn der im Endpunkt übergebene Wert analyse\_ref auf True gesetzt ist.
+In der Methode selbst werden alle Values aller verarbeiteten Dokumente durchlaufen und überprüft, ob es sich dabei um eine Referenz auf ein anderes Dokument handeln könnte.
+Wenn der Datentyp Object ID ist und der Name des Values nicht \_id ist (Es sich also nicht um den Primary Key handelt), wird angenommen, dass der Value eine Referenz ist.
+Wenn dies der Fall ist, werden aus den Originaldokumenten, die im Verarbeiteten Dokument abgespeichert sind, die Werte der soeben identifizierten Referent ausgelesen.
+Mit diesen Werten wird dann get\_referenced\_collection so lange aufgerufen, bis die Methode einmal nicht None zurückgibt.
+get\_referenced\_collection durchläuft die \_id Werte aller (unverarbeiteten) Dokumente und vergleicht diese mit der übergebenen Object ID.
+Sobald eine Übereinstimmung gefunden wurde, wird die Collection zurückgegeben, in der sich das Dokument mit der passenden \_id befindet.
+Wenn keine Übereinstimmung gefunden wird, dann wird None zurückgegeben.
+
+\begin{lstlisting}[language=python, caption={DatabaseAnalysis.analyse\_references},label={lst:backend_analyse_ref}]
+    def analyse_references(self, processed_collection):
+        for document in processed_collection.documents:
+            for value in document.values:
+                if value.val_type == "Object ID" and value.key != "_id":
+                    for orig_document in document.original_documents:
+                        referenced_collection = self.get_referenced_collection(orig_document.get(value.key))
+                        if referenced_collection is not None:
+                            value.ref = referenced_collection
+                            return
+
+    def get_referenced_collection(self, _id):
+        for collection_name in self.collection_names:
+            collection = self.database.get_collection(collection_name)
+            document = collection.find_one({"_id": _id})
+            if document is not None:
+                return collection_name
+        return None
 \end{lstlisting}
 
 Die Methode add\_doc in der Klasse ProcessedCollection ruft die Methode extract\_values auf, welche die Key-Value Paare im übergebenen Dokument analysiert und das Resultat als Liste an Values zurückgibt.
@@ -122,13 +154,6 @@ Ansonsten wird das Attribut count in dem bereits vorhandenen ProcessedDocument O
                 return
         self.documents.add(new_doc)
 \end{lstlisting}
-
-
-\subsection{Analyse der MongoDB Datenbank}
-\label{sub:mongoDB_analyse}
-
-\subsection{REST API}
-\label{sub:rest_api}
 
 \section{Frontend}
 \label{sec:frontend}
