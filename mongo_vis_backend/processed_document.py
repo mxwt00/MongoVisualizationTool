@@ -1,5 +1,7 @@
 import datetime
 
+import bson
+
 from value import analyse_values
 
 
@@ -9,9 +11,11 @@ class ProcessedDocument:
         self.values = analyse_values(document)
         self.count = 1
         self.document_ages = list()
-        document_generation_time = document.get("_id").generation_time
-        document_age = (datetime.datetime.now(datetime.timezone.utc) - document_generation_time).total_seconds()
-        self.document_ages.append(document_age)
+        _id = document.get("_id")
+        if isinstance(_id, bson.ObjectId):
+            document_generation_time = document.get("_id").generation_time
+            document_age = (datetime.datetime.now(datetime.timezone.utc) - document_generation_time).total_seconds()
+            self.document_ages.append(document_age)
         self.avg_age = None
         self.missing_values = list()
         self.original_documents = list()

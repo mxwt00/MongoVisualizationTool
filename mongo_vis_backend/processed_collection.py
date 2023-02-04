@@ -12,7 +12,8 @@ class ProcessedCollection:
         for doc in self.documents:
             if doc == new_doc:
                 doc.count += 1
-                doc.document_ages.append(new_doc.document_ages[0])
+                if doc.document_ages:
+                    doc.document_ages.append(new_doc.document_ages[0])
                 doc.original_documents.append(new_doc.original_documents[0])
                 return
         self.documents.append(new_doc)
@@ -25,7 +26,8 @@ class ProcessedCollection:
 
     def calc_document_averages(self):
         for document in self.documents:
-            document.avg_age = sum(document.document_ages) / len(document.document_ages)
+            if document.document_ages:
+                document.avg_age = sum(document.document_ages) / len(document.document_ages)
 
     def sort_documents(self, sort_method):
         if sort_method == "documentCount":
