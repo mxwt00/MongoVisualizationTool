@@ -23,6 +23,7 @@ und dort nach \textsc{Bib}\TeX{} exportieren.
 \ac{json} ist ein Format zum Datenaustausch.
 \ac{json} basiert auf der Syntax von JavaScript Objekten, ist jedoch unabhängig von der Programmiersprache einsetzbar.
 Vorteile von \ac{json} sind die einfache Lesbarkeit für Menschen und das einfache parsen und generieren für Maschinen.
+In JSON gibt es unter anderem folgende Datentypen:
 ~\autocite{json:json}
 
 \begin{figure}[H]
@@ -75,6 +76,16 @@ Diese Nachrichten bestehen aus einem Header und einem Body.
 Der Body enthält die Nachricht selbst.
 Der Header enthält Meta-Daten über einen Request, wie beispielsweise die angefragten Ressourcen und Datentypen des Body.
 
+\section{REST API}
+\label{sec:rest}
+
+Ein \ac{api} ist eine Schnittstelle, über die von außen mit einem Programm interagiert werden kann.
+Das Grundprinzip von \ac{rest} ist ein Backend, welches Resourcen beinhaltet.
+Ein Client kann über die gängigen \nameref{sec:http} Operationen mit diesen Resourcen interagieren.
+Jede Resource hat eine global eindeutige ID und wird meist durch \ac{json} oder \ac{xml} repräsentiert.
+In Java wird ein \ac{rest}ful Webservice für gewöhnlich mit \ac{jaxrs} umgesetzt.
+~\autocite{schiesser:javaEE7}
+
 \section{SQL}
 \label{sec:sql}
 
@@ -88,9 +99,6 @@ Mit der \ac{dml} können Daten manipuliert, also eingefügt, geändert, gelesen 
 Die Befehle hierfür lauten SELECT, INSERT, UPDATE, DELETE, MERGE und noch weitere.
 ~\autocite{schicker:datenbanken}
 
-\subsection{Normalformen}
-\label{sub:normalformen}
-
 \section{MongoDB}
 \label{sec:mongodb}
 
@@ -103,18 +111,8 @@ Die Dokumente werden in Collections Organisiert.
 Eine Collection entspricht in SQL einer Tabelle ohne das fixe Schema.
 Diese Collections befinden sich wiederum in Datenbanken.
 Eine MongoDB Instanz kann mehrere voneinander unabhängige Datenbanken beinhalten.
-Man kann sich mit der MongoShell mit einer MongoDB Instanz verbinden um mit der Mongo Query Language oder mit JavaScript die Instanz administrieren und Daten manipulieren.
+Man kann sich mit der MongoShell mit einer MongoDB Instanz verbinden, um mit der Mongo Query Language oder mit JavaScript die Instanz administrieren und Daten manipulieren zu können.
 ~\autocite{bradshaw:mongodb}
-
-\section{REST API}
-\label{sec:rest}
-
-Ein \ac{api} ist eine Schnittstelle, über die von außen mit einem Programm interagiert werden kann.
-Das Grundprinzip von \ac{rest} ist ein Backend, welches Resourcen beinhaltet.
-Ein Client kann über die gängigen \nameref{sec:http} Operationen mit diesen Resourcen interagieren.
-Jede Resource hat eine global eindeutige ID und wird meist durch \ac{json} oder \ac{xml} repräsentiert.
-In Java wird ein \ac{rest}ful Webservice für gewöhnlich mit \ac{jaxrs} umgesetzt.
-~\autocite{schiesser:javaEE7}
 
 \section{Python}
 \label{sec:python}
@@ -133,7 +131,7 @@ Der Python Interpreter ist in C geschrieben, weshalb man die Funktionalität des
 
 Flask ist ein minimalistisches Open-Source Web Framework.
 Flask kommt mit ein paar Kernpaketen, welche für Web Apps benötigt werden.
-Alles weitere muss der Nutzer selbst über PIP installieren:
+Alles weitere muss der Nutzer selbst über PIP installieren.
 Durch diesen minimalistischen Ansatz kann man Flask sehr flexibel einsetzen.
 Flask ist beispielsweise flexibel mit SQL oder NoSQL Datenbanken, aber auch ohne Datenbanken einsetzbar.
 ~\autocite{grindberg:flask}
@@ -147,11 +145,12 @@ JavaScript ist eine High-Level Programmiersprache, die just-in-time kompiliert w
 JavaScript ist besonders bekannt als Skriptsprache für Webseiten.
 Die Pakete in JavaScript werden mittels dem Paketmanager npm verwaltet.
 % TODO mehr zu JavaScript schreiben, Quelle fehlt
+(wird noch erweitert)
 
 \section{React}
 \label{sec:react}
 
-React ist eine JavaScript Bibliothek zum bauen Von Benutzeroberflächen.
+React ist eine JavaScript Bibliothek zum bauen von Benutzeroberflächen.
 React ist Komponentenbasiert.
 Das bedeutet, das React aus einzelnen Komponenten bestehen, die ihren eigenen State haben, und die zusammengesetzt ein komplexes \ac{ui} bilden.
 ~\autocite{banks:react}
