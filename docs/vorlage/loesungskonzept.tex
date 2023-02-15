@@ -162,5 +162,44 @@ Ein Value besteht aus einem Key, einem Typ, optional einer Referenz auf eine and
 \section{Planung des Frontends}
 \label{sec:planung_frontend}
 
+Um das Frontend zu planen, wurden in Miro, einem funktionsreichen Online-Whiteboard, Wireframes für die Screens des MongoDB Visualisierungstools gezeichnet.
+
+Um ein einheitliches Layout und damit Anforderung ~\nameref{itm:fa5} zu gewährleisten, wird das gleiche Grundlayout wie in dem ER-Bildschirm des ER Modellierungstools verwendet.
+Auf der linken Seite gibt es eine Left Sidebar, welche anstatt der ER-Elemente Verbindungsoptionen für die MongoDB Datenbank enthält. 
+Der Hauptscreen in der Mitte zeigt nach erfolgreicher Verbindung die vom Backend extrahierten Hauptschemas jeder Collection als Tabellen an.
+Diese Tabellen enthalten den Key, den Type und optional die referenzierte Collection.
+Wenn der Datentyp Array oder Embedded Document ist, kann man eine Untertabelle aufklappen, welche die verschachtelten Daten enthält.
+
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{images/wireframe_vis_tool}
+    \caption{Visualization Tool Wireframe}
+    \label{fig:wireframe_vis_tool}
+\end{figure}
+
+Wenn man auf den Titel einer Tabelle in der Schema Übersicht klickt, öffnet sich die Detail View dieser Collection in einem Popup.
+In dieser Detail View werden alle Variationen des Schemas angezeigt.
+Zusätzliche Felder werden grün markiert, und fehlende in rot aufgelistet.
+Zudem steht über jeder Schemavariation, von wie vielen Dokumenten diese Variation verwendet wird.
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{images/wireframe_detail_view}
+    \caption{Detail View Wireframe}
+    \label{fig:wireframe_detail_view}
+\end{figure}
+
 \section{Modularität des Frontends}
 \label{sec:mod_frontend}
+
+Um das Frontend Modular weiterbauen zu können, sind die Elemente im Components Package in ein Package pro Anwendung unterteilt.
+Alle weiteren Packages werden Anwendungsübergreifend verwendet, sind also nicht weiter unterteilt.
+Bei einer größeren Anzahl von Anwendungen könnten jedoch auch in diesen Packages Unterteilungen sinnvoll sein.
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth / 3]{images/frontend_package_structure}
+    \caption{Frontend Package Structure}
+    \label{fig:frontend_package_structure}
+\end{figure}
+
+Zudem wurde ein Titelbildschirm hinzugefügt, von welchem aus diese Anwendungen aufgerufen werden können.
+Um eine neue Anwendung hinzuzufügen, muss man lediglich ein neues Package in Components erstellen und die benötigten Elemente anlegen, sowie im Titelbildschirm einen weiteren Button für die Anwendung hinzufügen.
