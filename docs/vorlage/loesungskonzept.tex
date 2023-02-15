@@ -66,7 +66,7 @@ Da man zum Teil Code von dem bestehenden Backend übernehmen könnte, bietet es 
 Für Spring gibt es eine MongoDB Implementierung namens Spring Data MongoDB.
 Diese Implementierung ist jedoch dafür ausgelegt, \ac{pojo}s auf Dokumente zu mappen.
 Im MongoDB Visualisierungstool sollen hingegen MongoDB Dokumente dynamisch eingelesen und analysiert werden.
-Um ~\nameref{itm:a5} zu erfüllen, ist es desweiteren nötig, beliebig viele verschiedene Datenbanken gleichzeitig zu verbinden und zu analysieren.
+Um ~\nameref{itm:ba2} zu erfüllen, ist es desweiteren nötig, beliebig viele verschiedene Datenbanken gleichzeitig zu verbinden und zu analysieren.
 Die Verbindung mit MongoDB Datenbanken Spring Data MongoDB erfolgt jedoch mit festgelegten Datenbanken, welche in der application.properties Datei definiert werden.
 ~\autocite{spring:spring-data-mongodb}
 Deshalb ist die Spring Data MongoDB Bibliothek für diese Anwendung nicht geeignet.
@@ -87,12 +87,12 @@ Jedoch hat Flask nicht nur Vorteile gegenüber Spring:
 Flask ist grundsätzlich deutlich unperformanter als Spring.
 Dies liegt unter anderem daran, dass Python eine interpretierte Sprache ist, und Java eine kompilierte.
 ~\autocite{sverker:rest_comparison}
-Dies widerspricht zunächst der Anforderung ~\nameref{itm:a3}.
+Dies widerspricht zunächst der Anforderung ~\nameref{itm:ba1}.
 Die Performance-Probleme lassen sich aber durch Multiprocessing ausgleichen.
 Multiprocessing bedeutet, dass bestimmte Teile der Berechnung auf mehrere Threads im Prozessor aufgeteilt werden und dadurch parallell ausgeführt werden.
 Python bietet eine simpel zu implementierende Lösung für Multiprocessing an, welche man bei der Analyse der Dokumente der MongoDB Datenbanken gut einsetzen kann.
 Beispielsweise kann die Analyse jeder Collection von einem extra Thread ausgeführt werden.
-Dadurch lässt sich die Anforderung ~\nameref{itm:a3} mit Flask erfüllen.
+Dadurch lässt sich die Anforderung ~\nameref{itm:ba1} mit Flask erfüllen.
 
 In Python gibt es die Bibliothek PyMongo, welche alle der genannten Nachteile von Spring Data MongoDB ausbessert:
 Mit PyMongo kann man direkt im Code beliebig viele MongoDB Datenbanken parallel dynamisch einbinden.
@@ -113,12 +113,14 @@ Dies ist in dieser Anwendung jedoch kein großer Nachteil, da die Hauptaufgabe d
 Deshalb wird das Frontend dieser Anwendung als Webapp entwickelt.
 
 Das ER Modellierungstool benutzt das Frontend Framework React.
-Da das ER Modellierungstool und das MongoDB Visualisierungstool Teil eines Datenbank Toolkits werden sollen, muss das MongoDB Visualisierungstool Frontend ebenfalls in React geschrieben werden, damit Anforderung ~\nameref{itm:a1} erfüllt werden kann.
-Da React dank React Elements und React Components in seiner Grundstruktur  sehr modular ist, eignet sich React sehr gut, um Anforderung ~\nameref{itm:a2} zu erfüllen.
+Da das ER Modellierungstool und das MongoDB Visualisierungstool Teil eines Datenbank Toolkits werden sollen, muss das MongoDB Visualisierungstool Frontend ebenfalls in React geschrieben werden, damit Anforderung ~\nameref{itm:fa1} erfüllt werden kann.
+Da React dank React Elements und React Components in seiner Grundstruktur  sehr modular ist, eignet sich React sehr gut, um Anforderung ~\nameref{itm:fa2} zu erfüllen.
 ~\autocite{banks:react}
-Die Tools lassen sich mittels Ordner strukturell voneinander Trennen, und trotzdem können die Tools sich Komponenten teilen und diese wiederverwenden.
+Die Tools lassen sich mittels Ordner strukturell voneinander trennen, und trotzdem können die Tools sich Komponenten teilen und diese wiederverwenden.
 Dank der Komponentenbibliothek Material UI kann man in React vordefinierte Elemente benutzen, was oftmals das Definieren der Komponenten von Hand erspart.
 Dadurch spart man sich einerseits Programmieraufwand, andererseits verringert dies aber auch die Code-Komplexität und verbessert somit die Lesbarkeit des Codes.
+Zudem erleichtert Material UI das Umsetzen eines einheitlichen Designs, da man mithilfe von Material UI global verwendbare Themes erstellen kann.
+Dies ermöglicht das Umsetzen von Anforderung ~\nameref{itm:fa5}
 ~\autocite{mui:mui}
 
 \section{REST-Schnittstelle}

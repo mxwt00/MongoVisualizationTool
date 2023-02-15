@@ -18,14 +18,64 @@ Anforderungen:
 
 \fi
 
+
+
 An das MongoDB Visualisierungstool gibt es eine Reihe von Anforderungen, welche erfüllt werden müssen, damit das Projekt gelingen kann:
 
+\section{Anforderungen an das Frontend}
+\label{sec:anf_frontend}
+
+Das Resultat des Projekts soll eine Gesamtlösung sein, die aus dem bestehenden ER Modellierungstool und dem MongoDB Visualisierungstool besteht. 
+Diese Gesamtlösung soll flexibel durch weitere Anwendungen und Funktionalitäten erweitert werden können.
+Deshalb muss das Frontend in einer gemeinsamen Webapp ausgeliefert werden (\nameref{itm:fa1}).
+Diese Webapp muss in der Paketstruktur sowie in den verwendeten Komponenten modular sein (\nameref{itm:fa2}).
+Um auf die einzelnen Anwendungen der Gesamtlösung zugreifen zu können, wird ein Startbildschirm benötigt, von welchem aus man die Applikationen starten kann (\nameref{itm:fa3}). 
+
+Die Anwendung soll intuitiv benutzbar sein.
+Das bedeutet, dass ein Nutzer das System benutzen können muss, ohne vorher eine Benutzeranleitung oder ähnliches zu lesen (\nameref{itm:fa4}).
+Dies erfordert auch, dass alle Frontend-Anwendungen der Gesamtlösung sich gleich benutzen lassen und ein einheitliches Design verwenden, da dies sonst den Arbeitsfluss und dadurch die intuitive Bedienung behindert (\nameref{itm:fa5}).
+
+MongoDB Dokumente können beliebig groß und beliebig verschachtelt sein.
+Damit die Visualisierung großer Dokumente trotzdem einen Mehrwert hat, müssen diese unabhängig von der Größe übersichtlich und verständlich sein.
+Deshalb ist eine übersichtliche Darstellung der Schemata sehr wichtig (\nameref{itm:fa6}).
+
+Die Dokumente in einer Collection müssen nicht das gleiche Schema haben.
+Für einen Entwickler kann es hilfreich sein, einen Überblick über alle Variationen in einer Collection zu haben.
+Deshalb soll das MongoDB Visualisierungstool für jede Collection eine Detailansicht haben, die diese Variationen visualisiert.
+Der unterschied in diesen Variationen kann unter Umständen nicht direkt ersichtlich sein.
+Aus diesem Grund müssen diese Abweichungen vom Hauptschema deutlich hervorgehoben werden.(\nameref{itm:fa7})
+
+\section{Anforderungen an das Backend}
+\label{sec:anf_backend}
+
+Das MongoDB Visualisierungstool muss auch sehr große MongoDB Datenbanken analysieren können.
+Die Analyse sollte jedoch nicht länger als ein paar Sekunden dauern, da dies den Arbeitsfluss der Benutzer unterbrechen würde.
+Deshalb müssen die Datenbanken möglichst performant analysiert werden(\nameref{itm:ba1}).
+
+Die Webapp kann potenziell von beliebig vielen Personen gleichzeitig benutzt werden.
+Dies bedeutet dass das Backend des MongoDB Visualisierungstools mehrere Anfragen gleichzeitig abarbeiten müssen kann.
+Deshalb müssen mehrere MongoDB Datenbanken gleichzeitig verbunden und analysiert werden könnnen(\nameref{itm:ba2}).
+
+
+\section{Übersicht über die Anforderungen}
+\label{sec:anf_uebersicht}
+
+Frontend:
+
 \begin{description}
-    \item[\textbf{A1}\label{itm:a1}] Das Visualisierungstool muss das bestehende Er Modellierungstool erweitern.
-    \item[\textbf{A2}\label{itm:a2}] Das Gesamtsystem muss weiterhin modular sein, sodass das System ohne Änderungen an den bestehenden Komponenten um weitere Komponenten erweitert werden kann.
-    \item[\textbf{A3}\label{itm:a3}] Die Analyse der MongoDB muss performant genug sein, um Datenbanken in wenigen sekunden analysieren zu können.
-    \item[\textbf{A4}\label{itm:a4}] Das Frontend muss beliebig aufgebaute MongoDB Dokumente anschaulich visualisieren können.
-    \item[\textbf{A5}\label{itm:a5}] Die Anwendung muss von mehreren Nutzern gleichzeitig benutzbar sein.
+    \item[\textbf{FA1}\label{itm:fa1}] Gemeinsame Webapp aller Anwendungen der Gesamtlösung
+    \item[\textbf{FA2}\label{itm:fa2}] Modularität
+    \item[\textbf{FA3}\label{itm:fa3}] Startbildschirm
+    \item[\textbf{FA4}\label{itm:fa4}] Intuitive Benutzbarkeit
+    \item[\textbf{FA5}\label{itm:fa5}] Einheitliches Design und Layout
+    \item[\textbf{FA6}\label{itm:fa6}] Übersichtliche Darstellung der Schemata
+    \item[\textbf{FA7}\label{itm:fa7}] Visualisierung der Schema-Variationen in einer Collection
 \end{description}
 
-(Dieser Teil wird noch deutlich ausführlicher)
+Backend:
+
+\begin{description}
+    \item[\textbf{BA1}\label{itm:ba1}] Möglichst performante Analyse
+    \item[\textbf{BA2}\label{itm:ba2}] Verbindung und Analyse mehrerer MongoDB Datenbanken gleichzeitig
+\end{description}
+
