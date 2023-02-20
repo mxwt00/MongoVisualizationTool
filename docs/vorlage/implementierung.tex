@@ -174,7 +174,7 @@ Ansonsten wird das Attribut count in dem bereits vorhandenen ProcessedDocument O
 \end{lstlisting}
 
 Darüber hinaus enthält ProcessedCollection die methode post\_processing.
-post\_processing ruft methoden auf, die die ProcessedDocuments der ProcessedCollection nachbearbeiten.
+post\_processing ruft Methoden auf, welche die ProcessedDocuments der ProcessedCollection nachbearbeiten.
 Folgende Nachbearbeitungsschritte werden ausgeführt:
 \begin{enumerate}
     \item Durchschnittliches Alter aller Dokumente eines ProcessedDocuments ausrechnen
@@ -213,7 +213,7 @@ Folgende Nachbearbeitungsschritte werden ausgeführt:
         for i in range(1, len(self.documents)):
             for value in main_doc.values:
                 if value not in self.documents[i].values:
-                    self.documents[i].missing_values.append(value.key)
+                    self.documents[i] .missing_values.append(value.key)
 \end{lstlisting}
 
 \subsection{ProcessedDocument}
@@ -226,7 +226,6 @@ Wenn der Primary Key vom Typ Object ID ist, wird in Zeile 6 bis 8 das alter des 
 Diese Liste dient später dazu, das Durchschnittsalter des ProcessedDocuments zu berechnen.
 Das bestimmen des Alters eines Dokuments ist nur möglich, wenn der Primary Key vom Typ Object ID ist, da Object IDs einen Zeitstempel beinhalten.
 Des weiteren initialisiert der Konstruktor noch einige Werte, die für die Nachbearbeitung benötigt werden.
-
 
 \begin{lstlisting}[language=python, caption={ProcessedDocument.\_\_init\_\_},label={lst:backend_processed_document_init}]
     def __init__(self, document):
@@ -300,7 +299,6 @@ def get_type(value):
     raise Exception(f"Type {type(value)} of value {value} is not identifiable!")
 \end{lstlisting}
 
-
 Wenn es sich bei dem Value um ein Array handelt, wird für jeden Wert im Array ein Value-Objekt erstellt.
 Die Besonderheit bei diesen Value-Objekten ist, dass das Feld Key leer bleibt, da Values in Arrays keinen eigenen Key besitzen.
 Wenn das Array array\_values des darüberliegenden Values noch keinen Value enthält, der den gleichen Datentyp hat, wird das eben erzeugte Value-Objekt in array\_values gespeichert.
@@ -319,10 +317,133 @@ Wenn das Array array\_values des darüberliegenden Values noch keinen Value enth
         self.array_values.append(new_array_value)
 \end{lstlisting}
 
-
 \section{Frontend}
 \label{sec:frontend}
 
-\subsection{}
-\label{sub:rest_api}
+\subsection{Startbildschirm und Auswahl des Tools}
+\label{sub:fe_startbildschirm}
+
+Um auswählen zu können, welches Tool man benutzen will, wurde ein Startbildschirm eingefügt.
+Der Startbildschirm ist ein simpes div, welches die Überschrift sowie die Buttons beinhaltet.
+Die onClick Funktionen der Buttons rufen die Funktion switchAppMode auf, welche als Parameter das enum AppScreen übergeben bekommt.
+Diese Funktion nutzt dann React Router, um zu der entsprechenden URL des Screens zu navigieren.
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{images/frontend_titlescreen}
+    \caption{Frontend Startbildschrim}
+    \label{fig:frontend_titlescreen}
+\end{figure}
+
+Das Rendern der einzelnen Tools erfolgt in App.js.
+Hier wird mittels React Router der Startbildschirm als Index Element definiert, welches initial angezeigt wird.
+zudem wird der Pfad aller weiterer Screens definiert.
+
+\begin{lstlisting}[language=JavaScript, caption={React Router in App.js},label={lst:app.js}]
+    <BrowserRouter>
+        <Routes>
+            <Route index element={<TitleScreen/>}/>
+            <Route path={AppScreens.dbModellingTool} element={<DatabaseModellingTool/>}/>
+            <Route path={AppScreens.mongoVisTool} element={<MongoManager/>}/>
+        </Routes>
+    </BrowserRouter>
+\end{lstlisting}
+
+\subsection{Aufbau des Frontends}
+\label{sub:fe_aufbau}
+Das oberste Element des MongoDB Visualization Tools ist der MongoManager, welcher die MongoLeftSidebar und das MongoDiagram hält.
+Die MongoLeftSidebar dient der Verbindung mit einer MongoDB.
+Nach dem Verbinden und Analysieren werden in der MongoLeftSideBar DocumentTables angezeigt, welche rekursiv geschachtelt wieder DocumentTables enthalten können.
+Darüber hinaus gibt es noch ein DetailView Popup, welches angezeigt wird, wenn man auf den Titel eines DocumentTables klickt.
+Die DetailView enthält wiederum DocumentTables welche auch wieder rekursiv geschachtelt sein können.
+Das DetailView Popup ist in der nachfolgenden Grafik jedoch nicht abgebildet.
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{images/frontend_layers}
+    \caption{Frontend Elemente}
+    \label{fig:frontend_layers}
+\end{figure}
+
+\subsection{Left Sidebar}
+\label{sub:fe_left_sidebar}
+
+Die  MongoLeftSideBar nutzt die Material UI Komponenten Typography, TextField, FormControl und Buttonr, um das Eingeben der Verbindungs- und Analysedetails zu ermöglichen.
+Diese Informationen werden bei jeder Änderung im State der MongoLeftSideBar gespeichert.
+Nach dem Klicken des Connect-Buttons wird die Methode connectToDB aufgerufen.
+In dieser Methode wird mit den im State gespeicherten Informationen mithilfe von Axios ein HTTP Request an das Backend gesendet.
+Wenn die Verbindung erfolgreich ist, werden daraufhin die analysierten Daten des Backends im ReduxStore gespeichert.
+Dies löst daraufhin das Rendering der DocumentTables im MongoDiagram aus.
+Zudem wird das Feedback Label in der MongoLeftSideBar aktualisiert.
+Im Fehlerfall wird nur das Feedback Label aktualisiert.
+
+
+%TODO url als Umgebungsvariable abfragen
+\begin{lstlisting}[language=JavaScript, caption={MongoLeftSideBar.connectToDB},label={lst:mongo_left_side_bar_connect_to_db}]
+    function connectToDB() {
+        console.log("connecting to db")
+        setConnectionState(ConnectionStates.connecting)
+        const url = "http://127.0.0.1:5000/connect"
+
+        let contentToSend = {
+            connection_string: connectionString,
+            database: dbName,
+            analyse_ref: analyseRef,
+            sort_method: sortMethod
+        };
+
+        axios.post(url, contentToSend).then((response) => {
+            connectionSuccessful(response)
+            dispatch(setCollections(response.data))
+        }).catch(error => connectionFailed(error))
+    }
+
+    function connectionSuccessful(response) {
+        console.log("data: " + response.data)
+        setConnectionState(ConnectionStates.connected)
+        dispatch(setCollections(response.data))
+    }
+
+    function connectionFailed(error) {
+        console.log(error)
+        setConnectionState(ConnectionStates.connectionFailed)
+    }
+\end{lstlisting}
+
+\subsection{MongoDiagram}
+\label{sub:fe_mongo_diagram}
+
+\subsection{DocumentTable}
+\label{sub:fe_document_table}
+
+Es gibt mehrere Arten von DocumentTables, welche je nach Verwendungszweck mit dem Enum DocumentTableType unterschieden werden:
+\begin{itemize}
+    \item main ist die standard Tabelle, welche im MongoDiagram benutzt wird
+    \item nested ist eine veschachtelte Untertabelle
+    \item array wird für den Datentyp Array benutzt
+    \item detail wird im Detail View Popup benutzt
+\end{itemize}
+
+Dem Element DocumentTable liegt der Material UI Table zugrunde.
+Material UI Tables haben eine Toolbar, welche hier je nach Typ angepasst wird.
+In dem Main DocumentTable besteht die Toolbar aus einem Button mit dem Namen der dargestellten Collection als Label.
+Die onClick Methode dieses Buttons öffnet den Detail View dieser Collection.
+Der detail DocumentTable zeigt die Anzahl der Dokumente, die dieses Schema benutzen, sowie eventuell die fehlenden Felder gegenüber dem Hauptschema.
+In allen anderen fällen bleibt die Toolbar leer.
+
+Der TableHead (Die Spaltenüberschriften) sind Key - Type - Reference.
+Wenn es sich um ein Array Handelt, wird die Spalte Key weggelassen.
+Die Reihen selbst haben in der ersten Spalte entweder einen Expand Button, mit dem sich Untertabellen und Arrays ausklappen lassen, oder nichts.
+In den nachfolgenden Spalten werden die Daten eingefüllt.
+Nach jeder Reihe folgt eine zunächst unsichtbare Reihe.
+Wenn der Datentyp des Werts in dieser Reihe Array oder Embedded document entspricht, wird in dieser unsichtbaren Reihe die entsprechende Untertabelle geladen.
+Diese lässt sich dann mit dem Expand Button ausklappen und anzeigen.
+
+
+\subsection{DetailView Popup}
+\label{sub:fe_detail_view}
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{images/frontend_detail_view}
+    \caption{Frontend Detail View Popup}
+    \label{fig:frontend_detail_view}
+\end{figure}
 
