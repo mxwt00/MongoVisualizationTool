@@ -41,8 +41,14 @@ Manchmal hilft auch eine kleine Tabelle:
 Details siehe Tabelle~\ref{tab:my-table}.
 \fi
 
+Das erarbeitete Lösungskonzept wurde anschließend mit den zuvor beschriebenen Technologien umgesetzt.
+Die konkrete Implementierung sieht dabei wie folgt aus:
+
 \section{Backend}
 \label{sec:backend}
+
+\subsection{Endpunkte}
+\label{sub:ba_endpunkte}
 
 Der bereits beschriebene eine Endpunkt im Backend ließt in Zeile 6 bis 9 alle benötigten Werte aus dem Request Body aus.
 Mit diesen Daten wird dann ein neues Objekt vom Typ DatabaseAnalysis erstellt.
@@ -70,6 +76,9 @@ Entsprechend dem Resultat wird entweder ein Fehlercode zurückgegeben oder die D
         return json.dumps(document_dict)
 \end{lstlisting}
 
+\subsection{DatabaseAnalysis}
+\label{sub:ba_database_analysis}
+
 Die Methode connect der Klasse DatabaseAnalysis nutzt  den MongoDB Client, um eine Verbindung zu einer MongoDB Datenbank mit dem spezifizierten Connection String und dem Datenbanknamen herzustellen.
 Wenn die Verbindung nach 5 Sekunden noch nicht steht, wird der Versuch abgebrochen und False zurückgegeben.
 Ansonsten werden die verbundene Datenbank und der verbundene Client im Objekt gespeichert und True zurückgegeben.
@@ -88,6 +97,8 @@ In der Methode analyse derselben Klasse werden daraufhin alle Collection Namen i
 Für jeden Namen wird die Collection mit diesem Namen als Dictionary ausgelesen.
 Dieses Dictionary enthält wiederum alle Dokumente der Collection.
 Jedes Dokument wird in der Methdode ProcessedCollection.add\_doc analysiert und, falls noch nicht vorhanden, der ProcessedCollection hinzugefügt.
+Danach werden die ProcessedCollections nachbearbeitet.
+Dies beinhaltet Schritte wie beispielsweise das sortieren der Dokumente und das Markieren der Abweichungen von dem Hauptschema.
 Wenn alle Dokumente durchlaufen wurden, wird die Verbindung zur Datenbank geschlossen und die ProcessedCollection wird in ein Dictionary umgewandelt und zurückgegeben.
 
 \begin{lstlisting}[language=python, caption={DatabaseAnalysis.analyse},label={lst:backend_analyse}]
@@ -109,13 +120,13 @@ Wenn alle Dokumente durchlaufen wurden, wird die Verbindung zur Datenbank geschl
         return docs_dict
 \end{lstlisting}
 
-Die Methdoe analy\_references in DatabaseAnalysis wird nur ausgeführt, wenn der im Endpunkt übergebene Wert analyse\_ref auf True gesetzt ist.
+Die Methode analyse\_references in DatabaseAnalysis wird nur ausgeführt, wenn der im Endpunkt übergebene Wert analyse\_ref auf True gesetzt ist.
 In der Methode selbst werden alle Values aller verarbeiteten Dokumente durchlaufen und überprüft, ob es sich dabei um eine Referenz auf ein anderes Dokument handeln könnte.
-Wenn der Datentyp Object ID ist und der Name des Values nicht \_id ist (Es sich also nicht um den Primary Key handelt), wird angenommen, dass der Value eine Referenz ist.
-Wenn dies der Fall ist, werden aus den Originaldokumenten, die im Verarbeiteten Dokument abgespeichert sind, die Werte der soeben identifizierten Referent ausgelesen.
+Wenn der Datentyp des Values Object ID ist und der Name des Values nicht \_id entspricht (Es sich also nicht um den Primary Key handelt), wird angenommen, dass der Value eine Referenz ist.
+Wenn dies der Fall ist, werden aus den Originaldokumenten, die im Verarbeiteten Dokument abgespeichert sind, die Werte der soeben identifizierten Referenz ausgelesen.
 Mit diesen Werten wird dann get\_referenced\_collection so lange aufgerufen, bis die Methode einmal nicht None zurückgibt.
 get\_referenced\_collection durchläuft die \_id Werte aller (unverarbeiteten) Dokumente und vergleicht diese mit der übergebenen Object ID.
-Sobald eine Übereinstimmung gefunden wurde, wird die Collection zurückgegeben, in der sich das Dokument mit der passenden \_id befindet.
+Sobald eine Übereinstimmung gefunden wird, wird der Name der Collection zurückgegeben, in der sich das Dokument mit der passenden \_id befindet.
 Wenn keine Übereinstimmung gefunden wird, dann wird None zurückgegeben.
 
 \begin{lstlisting}[language=python, caption={DatabaseAnalysis.analyse\_references},label={lst:backend_analyse_ref}]
@@ -138,6 +149,12 @@ Wenn keine Übereinstimmung gefunden wird, dann wird None zurückgegeben.
         return None
 \end{lstlisting}
 
+Die Bestimmung der Referenzen mit dieser Methode ist nicht immer akkurat, da der Primary Key eines Schemas auch einen anderen Datentyp als Object ID haben kann.
+Da die Bestimmung der Referenzen sonst jedoch sehr komplex und rechenintensiv werden würde, werden die Referenzen in dieser Arbeit nur mit dieser vereinfachten Methode analysiert.
+
+\subsection{ProcessedCollection}
+\label{sub:ba_processed_collection}
+
 Die Methode add\_doc in der Klasse ProcessedCollection erstellt aus dem übergebenen Dictionary ein neues Objekt der Klasse ProcessedDocument.
 Wenn sich noch kein Objekt mit den gleichen Werten in der aktuellen ProcessedCollection befindet, wird das ProcessedDocument der ProcessedCollection hinzugefügt.
 Ansonsten wird das Attribut count in dem bereits vorhandenen ProcessedDocument Objekt hochgezählt.
@@ -155,6 +172,153 @@ Ansonsten wird das Attribut count in dem bereits vorhandenen ProcessedDocument O
                 return
         self.documents.append(new_doc)
 \end{lstlisting}
+
+Darüber hinaus enthält ProcessedCollection die methode post\_processing.
+post\_processing ruft methoden auf, die die ProcessedDocuments der ProcessedCollection nachbearbeiten.
+Folgende Nachbearbeitungsschritte werden ausgeführt:
+\begin{enumerate}
+    \item Durchschnittliches Alter aller Dokumente eines ProcessedDocuments ausrechnen
+    \item Dokumente nach dem Durchschnittsalter oder nach der Anzahl der Aufrufe sortieren
+    \item Zusätzliche Werte gegenüber dem Hauptschema ermitteln (das Hauptschema ist das Schema, welches in der Sortierung an oberster Stelle steht)
+    \item Fehlende Werte gegenüber dem Hauptschema ermitteln
+\end{enumerate}
+
+\begin{lstlisting}[language=python, caption={ProcessedCollection.post\_processing},label={lst:backend_post_processing}]
+    def post_processing(self, sort_method):
+        self.calc_document_averages()
+        self.sort_documents(sort_method)
+        self.mark_additional_values()
+        self.mark_missing_values()
+
+    def calc_document_averages(self):
+        for document in self.documents:
+            if document.document_ages:
+                document.avg_age = sum(document.document_ages) / len(document.document_ages)
+
+    def sort_documents(self, sort_method):
+        if sort_method == "documentCount":
+            self.documents = sorted(self.documents, key=lambda document: document.count, reverse=True)
+        elif sort_method == "avgAge":
+            self.documents = sorted(self.documents, key=lambda document: document.avg_age, reverse=True)
+
+    def mark_additional_values(self):
+        main_doc = self.documents[0]
+        for i in range(1, len(self.documents)):
+            for value in self.documents[i].values:
+                if value not in main_doc.values:
+                    value.is_additional = True
+
+    def mark_missing_values(self):
+        main_doc = self.documents[0]
+        for i in range(1, len(self.documents)):
+            for value in main_doc.values:
+                if value not in self.documents[i].values:
+                    self.documents[i].missing_values.append(value.key)
+\end{lstlisting}
+
+\subsection{ProcessedDocument}
+\label{sub:ba_processed_document}
+
+Sämtliche logik in der ProcessedDocument Klasse steckt im Konstruktor.
+Der Konstruktor nimmt ein Dokument im JSON Format entgegen.
+In diesem Dokument werden mithilfe der Methode analyse\_values in der Datei value.py alle Werte analysiert und die ergebnisse als Liste des eigenen Datentyps Value im ProcessedDocument gespeichert.
+Wenn der Primary Key vom Typ Object ID ist, wird in Zeile 6 bis 8 das alter des dokuments ermittelt und in einer Liste gespeichert.
+Diese Liste dient später dazu, das Durchschnittsalter des ProcessedDocuments zu berechnen.
+Das bestimmen des Alters eines Dokuments ist nur möglich, wenn der Primary Key vom Typ Object ID ist, da Object IDs einen Zeitstempel beinhalten.
+Des weiteren initialisiert der Konstruktor noch einige Werte, die für die Nachbearbeitung benötigt werden.
+
+
+\begin{lstlisting}[language=python, caption={ProcessedDocument.\_\_init\_\_},label={lst:backend_processed_document_init}]
+    def __init__(self, document):
+        self.values = analyse_values(document)
+        self.count = 1
+        self.document_ages = list()
+        _id = document.get("_id")
+        if isinstance(_id, bson.ObjectId):
+            document_generation_time = document.get("_id").generation_time
+            document_age = (datetime.datetime.now(datetime.timezone.utc) - document_generation_time).total_seconds()
+            self.document_ages.append(document_age)
+        self.avg_age = None
+        self.missing_values = list()
+        self.original_documents = list()
+        self.original_documents.append(document)
+\end{lstlisting}
+
+\subsection{Value}
+\label{sub:ba_value}
+
+Die Methode analyse\_values in value.py ist eine factory methode, welche für alle Key Value Paare im übergebenen Dokument-Dictionary einen Value erstellt und als Liste zurückgibt.
+
+\begin{lstlisting}[language=python, caption={Value.analyse\_values},label={lst:backend_value_analyse_values}]
+def analyse_values(document):
+    values = list()
+    for key, value in zip(document, document.values()):
+        value = Value(key, value)
+        values.append(value)
+    return values
+\end{lstlisting}
+
+Der Konstruktor der Value Klasse initialisiert alle im ER-Diagramm beschriebenen Values und analysiert den Datentyp des Values mit der Methode get\_type.
+Darüber hinaus wird im Konstruktor überprüft, ob es sich bei dem Value um ein verschachteltes Dokument oder ein Array handelt. 
+Wenn dies der Fall ist, Werden die entsprechenden Analysemethoden aufgerufen.
+
+\begin{lstlisting}[language=python, caption={Value.\_\_init\_\_},label={lst:backend_value_init}]
+    def __init__(self, key, raw_value):
+        self.key = key
+        self.ref = None
+        self.nested_document = None
+        self.array_values = None
+        self.val_type = get_type(raw_value)
+        self.is_additional = False
+        if self.val_type == "Embedded document":
+            self.nested_document = analyse_values(raw_value)
+        elif self.val_type == "Array":
+            self.analyse_array(raw_value)
+\end{lstlisting}
+
+get\_type enthält simple If-Bedingungen, welche Datentypen eines Werts zu Strings mappen.
+Wenn der Datentyp nicht von den If-Bedingungen abgedeckt wird, wird eine Exception geworfen.
+
+\begin{lstlisting}[language=python, caption={Value.get\_type},label={lst:backend_value_get_type}]
+def get_type(value):
+    if value is None or type(value) is None:
+        return "Null"
+    if isinstance(value, str):
+        return "String"
+    if isinstance(value, bson.ObjectId):
+        return "Object ID"
+    if isinstance(value, bool):
+        return "Boolean"
+    if isinstance(value, (int, float, complex, bson.Decimal128)):
+        return "Number"
+    if isinstance(value, datetime.date):
+        return "Date"
+    if isinstance(value, collections.abc.Sequence):
+        return "Array"
+    if isinstance(value, dict):
+        return "Embedded document"
+    raise Exception(f"Type {type(value)} of value {value} is not identifiable!")
+\end{lstlisting}
+
+
+Wenn es sich bei dem Value um ein Array handelt, wird für jeden Wert im Array ein Value-Objekt erstellt.
+Die Besonderheit bei diesen Value-Objekten ist, dass das Feld Key leer bleibt, da Values in Arrays keinen eigenen Key besitzen.
+Wenn das Array array\_values des darüberliegenden Values noch keinen Value enthält, der den gleichen Datentyp hat, wird das eben erzeugte Value-Objekt in array\_values gespeichert.
+
+\begin{lstlisting}[language=python, caption={Value.analyse\_array},label={lst:backend_value_analyse_array}]
+    def analyse_array(self, raw_value):
+        self.array_values = list()
+        for arr_element in raw_value:
+            array_value = Value(None, arr_element)
+            self.add_array_value(array_value)
+
+    def add_array_value(self, new_array_value):
+        for array_value in self.array_values:
+            if array_value == new_array_value:
+                return
+        self.array_values.append(new_array_value)
+\end{lstlisting}
+
 
 \section{Frontend}
 \label{sec:frontend}
