@@ -1,3 +1,4 @@
+\iffalse
 Aufgabe des Kapitels Inbetriebnahme ist es, die Überführung der in 
 Kapitel \ref{cha:implementierung} entwickelte Lösung in das betriebliche 
 Umfeld aufzuzeigen. Dabei wird beispielsweise die Inbetriebnahme eines 
@@ -6,3 +7,18 @@ Programmodules dargestellt.
 
 Bei der Software-Erstellung entspricht dieses Kapitel der 
 Auslieferungsphase (Deployment) im \ac{rup}.
+\fi
+
+Das MongoDB Visualisation Tool wird auf einem Linux Server mit Debian 11 gehostet.
+Das Flask Backend läuft in einem Docker Container.
+Der Vorteil von Docker ist, dass der Applikation eine eigene Umgebung bereitgestellt wird, die unabhängig vom Host-System ist.
+Um das Backend als Dockercontainer auszuliefern, wurde das vorkonfigurierte Docker Image uwsgi-nginx-flask von tiangolo genutzt.
+In diesem Docker Image ist uWSGI und Nginx vorinstalliert, was das ausliefern von Flask Applikationen erleichtert.
+~\autocite{tiangolo:uwsgi-nginx-flask}
+
+Das Backend für das ER Modelling Tool ist als Heroku-App deployed.
+Heroku ist ein cloudbasierter Serviceanbieter, welcher ein kostenloses Modell für das Hosting von Software und DNS anbietet.
+
+Das Frontend wurde mit NPM gebaut und auf dem Server bereitgestellt.
+Mittels NGINX wurde das Webinterface daraufhin gehostet. 
+Das Interface ist nun unter der Adresse \url{http://kodewisch.com:12030} erreichbar.
