@@ -323,10 +323,13 @@ Wenn das Array array\_values des darüberliegenden Values noch keinen Value enth
 \subsection{Startbildschirm und Auswahl des Tools}
 \label{sub:fe_startbildschirm}
 
+Die Gesamtlösung des Frontends besteht aus mehreren Tools, die zu einer Toolbox für Datenbanken zusammengefasst werden.
 Um auswählen zu können, welches Tool man benutzen will, wurde ein Startbildschirm eingefügt.
-Der Startbildschirm ist ein simpes div, welches die Überschrift sowie die Buttons beinhaltet.
+Der Startbildschirm ist ein simpes div, welches den Titel der Anwendung sowie Buttons beinhaltet.
+Die Buttons sind mit den Namen der einzelnen Tools beschriftet.
 Die onClick Funktionen der Buttons rufen die Funktion switchAppMode auf, welche als Parameter das enum AppScreen übergeben bekommt.
-Diese Funktion nutzt dann React Router, um zu der entsprechenden URL des Screens zu navigieren.
+AppScreen teilt der Funktion wiederum mit, welches Tool ausgewählt wurde und geladen werden muss.
+switchAppMode nutzt dann React Router, um zu der entsprechenden URL des Screens zu navigieren.
 
 \begin{figure}[H]
     \includegraphics[width=\textwidth]{images/frontend_titlescreen}
@@ -334,9 +337,9 @@ Diese Funktion nutzt dann React Router, um zu der entsprechenden URL des Screens
     \label{fig:frontend_titlescreen}
 \end{figure}
 
-Das Rendern der einzelnen Tools erfolgt in App.js.
+Das Rendern der einzelnen Tool Screens erfolgt daraufhin in der Datei App.js.
 Hier wird mittels React Router der Startbildschirm als Index Element definiert, welches initial angezeigt wird.
-zudem wird der Pfad aller weiterer Screens definiert.
+Zudem wird der Pfad aller weiteren Screens definiert, über welchen diese dann geladen werden können.
 
 \begin{lstlisting}[language=JavaScript, caption={React Router in App.js},label={lst:app.js}]
     <BrowserRouter>
@@ -348,14 +351,14 @@ zudem wird der Pfad aller weiterer Screens definiert.
     </BrowserRouter>
 \end{lstlisting}
 
-\subsection{Aufbau des Frontends}
+\subsection{Aufbau des MongoDB Visualisation Tool Frontends}
 \label{sub:fe_aufbau}
-Das oberste Element des MongoDB Visualization Tools ist der MongoManager, welcher die MongoLeftSidebar und das MongoDiagram hält.
-Die MongoLeftSidebar dient der Verbindung mit einer MongoDB.
-Nach dem Verbinden und Analysieren werden in der MongoLeftSideBar DocumentTables angezeigt, welche rekursiv geschachtelt wieder DocumentTables enthalten können.
+Das oberste Element des MongoDB Visualization Tools ist der MongoManager, welcher die MongoLeftSidebar und das MongoDiagram enthält.
+Mithilfe der MongoLeftSideBar kann die Verbindung und Analyse der MongoDB Datenbank konfiguriert und durchgeführt werden.
+Nach dem Verbinden und Analysieren werden in dem MongoManager DocumentTables angezeigt, welche rekursiv geschachtelt wieder DocumentTables enthalten können.
 Darüber hinaus gibt es noch ein DetailView Popup, welches angezeigt wird, wenn man auf den Titel eines DocumentTables klickt.
-Die DetailView enthält wiederum DocumentTables welche auch wieder rekursiv geschachtelt sein können.
-Das DetailView Popup ist in der nachfolgenden Grafik jedoch nicht abgebildet.
+Die DetailView enthält wiederum DocumentTables, welche auch wieder rekursiv geschachtelt sein können.
+(Das DetailView Popup ist in der nachfolgenden Grafik nicht abgebildet)
 
 \begin{figure}[H]
     \includegraphics[width=\textwidth]{images/frontend_layers}
@@ -366,9 +369,9 @@ Das DetailView Popup ist in der nachfolgenden Grafik jedoch nicht abgebildet.
 \subsection{Left Sidebar}
 \label{sub:fe_left_sidebar}
 
-Die  MongoLeftSideBar nutzt die Material UI Komponenten Typography, TextField, FormControl und Buttonr, um das Eingeben der Verbindungs- und Analysedetails zu ermöglichen.
+Die  MongoLeftSideBar nutzt die Material UI Komponenten Typography, TextField, FormControl und Button, um das Eingeben der Verbindungs- und Analysedetails zu ermöglichen.
 Diese Informationen werden bei jeder Änderung im State der MongoLeftSideBar gespeichert.
-Nach dem Klicken des Connect-Buttons wird die Methode connectToDB aufgerufen.
+Nach dem Drücken des Connect-Buttons wird die Methode connectToDB aufgerufen.
 In dieser Methode wird mit den im State gespeicherten Informationen mithilfe von Axios ein HTTP Request an das Backend gesendet.
 Wenn die Verbindung erfolgreich ist, werden daraufhin die analysierten Daten des Backends im ReduxStore gespeichert.
 Dies löst daraufhin das Rendering der DocumentTables im MongoDiagram aus.
@@ -408,31 +411,29 @@ Im Fehlerfall wird nur das Feedback Label aktualisiert.
     }
 \end{lstlisting}
 
-\subsection{MongoDiagram}
-\label{sub:fe_mongo_diagram}
-
 \subsection{DocumentTable}
 \label{sub:fe_document_table}
 
+Ein DocumentTable repräsentiert ein Schema von Dokumenten ein einer Collection.
 Es gibt mehrere Arten von DocumentTables, welche je nach Verwendungszweck mit dem Enum DocumentTableType unterschieden werden:
 \begin{itemize}
-    \item main ist die standard Tabelle, welche im MongoDiagram benutzt wird
-    \item nested ist eine veschachtelte Untertabelle
-    \item array wird für den Datentyp Array benutzt
-    \item detail wird im Detail View Popup benutzt
+    \item \textbf{main} ist die standard Tabelle, welche im MongoDiagram benutzt wird, um das Hauptschema einer Collection darzustellen.
+    \item \textbf{nested} ist eine veschachtelte Untertabelle, entspricht also dem Datentyp Embedded Document.
+    \item \textbf{array} wird für den Datentyp Array benutzt.
+    \item \textbf{detail} wird im Detail View Popup benutzt, um alle Variatonen der Schemas einer Collection darzustellen.
 \end{itemize}
 
-Dem Element DocumentTable liegt der Material UI Table zugrunde.
-Material UI Tables haben eine Toolbar, welche hier je nach Typ angepasst wird.
-In dem Main DocumentTable besteht die Toolbar aus einem Button mit dem Namen der dargestellten Collection als Label.
-Die onClick Methode dieses Buttons öffnet den Detail View dieser Collection.
-Der detail DocumentTable zeigt die Anzahl der Dokumente, die dieses Schema benutzen, sowie eventuell die fehlenden Felder gegenüber dem Hauptschema.
-In allen anderen fällen bleibt die Toolbar leer.
+Dem Element DocumentTable liegt die Material UI Table zugrunde.
+Material UI Tables haben eine Toolbar, welche hier je nach DocumentTableType angepasst wird.
+In der Main DocumentTable besteht die Toolbar aus einem Button, mit dem Namen der dargestellten Collection als Label.
+Die onClick Methode dieses Buttons öffnet die Detail View dieser Collection.
+Wenn der DocumentTableType detail entspricht, zeigt die Toolbar die Anzahl der Dokumente, die dieses Schema benutzen, sowie eventuell die fehlenden Felder gegenüber dem Hauptschema.
+In allen anderen Fällen bleibt die Toolbar leer.
 
-Der TableHead (Die Spaltenüberschriften) sind Key - Type - Reference.
+Die Spaltenüberschriften im Tablehead sind <Leer> - Key - Type - Reference.
 Wenn es sich um ein Array Handelt, wird die Spalte Key weggelassen.
 Die Reihen selbst haben in der ersten Spalte entweder einen Expand Button, mit dem sich Untertabellen und Arrays ausklappen lassen, oder nichts.
-In den nachfolgenden Spalten werden die Daten eingefüllt.
+In den nachfolgenden Spalten werden die Daten aus dem Backend eingefüllt.
 Nach jeder Reihe folgt eine zunächst unsichtbare Reihe.
 Wenn der Datentyp des Werts in dieser Reihe Array oder Embedded document entspricht, wird in dieser unsichtbaren Reihe die entsprechende Untertabelle geladen.
 Diese lässt sich dann mit dem Expand Button ausklappen und anzeigen.
@@ -441,9 +442,58 @@ Diese lässt sich dann mit dem Expand Button ausklappen und anzeigen.
 \subsection{DetailView Popup}
 \label{sub:fe_detail_view}
 
+Tatsächlich rendert die return Methode des DetailViewPopups zunächst nur einen Button. 
+Erst wenn dieser Button gedrückt wird, wird das Popup als Material UI Modal angezeigt.
+Dieses Modal lädt daraufhin, wie auch der MongoManager, DocumentTables.
+Der DocumentTableType ist in diesen Tabellen jedoch nicht main, sondern detail, was die Toolbars der Tabellen verändert.
+
+
 \begin{figure}[H]
     \includegraphics[width=\textwidth]{images/frontend_detail_view}
     \caption{Frontend Detail View Popup}
     \label{fig:frontend_detail_view}
 \end{figure}
 
+\subsection{Redux Store}
+\label{sub:fe_redux}
+
+Der Redux Store dient dem Speichern von States losgelöst von einzelnen React Komponenten.
+Für das Speichern eines States wird ein sogenannter ContentSlice verwendet.
+Die ContentSlices für das MongoDB Visualisation Tool sind grundsätzlich alle gleich aufgebaut:
+Im initialState wird der Ausgangszustand des States definiert. 
+Im MongoContentSlice wird initial collections auf null gesetzt.
+Reducer sind Methoden, welche das Beschreiben des States erlauben.
+in diesem Fall wurde der Reducer setCollections definiert, welcher es erlaubt, in collections das argument documents zu schreiben.
+Abschließend werden die actions und die reducer des ContentSlice exportiert, sodass diese global erreichbar sind.
+
+\begin{lstlisting}[language=JavaScript, caption={MongoContentSlice},label={lst:fe_redux_slice}]
+    export const mongoContentSlice = createSlice({
+        name: 'mongoContent',
+        initialState: {
+            collections: null
+        },
+        reducers: {
+            setCollections: (state, documents) => {
+                state.collections = documents
+            }
+        }
+    })
+
+    export const {setCollections} = mongoContentSlice.actions
+    export default mongoContentSlice.reducer
+\end{lstlisting}
+
+Auf diese Weise lassen sich schnell und einfach weitere ContentSlices definieren.
+Um diese ContentSlices zu verwenden, müssen sie nur noch in den Redux Store eingefügt werden.
+
+\begin{lstlisting}[language=JavaScript, caption={Redux Store},label={lst:fe_redux_store}]
+    export const store = configureStore({
+        reducer: {
+            erContent: erContentSlice,
+            relationalContent: relationalContentSlice,
+            mongoContent: mongoContentSlice
+        }
+    })
+
+    export default store;
+\end{lstlisting}
