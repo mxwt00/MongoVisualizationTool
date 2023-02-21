@@ -35,7 +35,12 @@ const MongoLeftSideBar = () => {
         console.log("connecting to db")
         setConnectionState(ConnectionStates.connecting)
         //TODO url relativ abfragen
-        const url = "http://127.0.0.1:5000/connect"
+        let url = "http://127.0.0.1:5000"
+        const envUrl = process.env.REACT_APP_MVT_BACKEND_URL
+        console.log("envUrl: " + envUrl)
+        if (envUrl)
+            url = envUrl
+        url += "/connect"
 
         let contentToSend = {
             connection_string: connectionString,
@@ -46,13 +51,13 @@ const MongoLeftSideBar = () => {
 
         axios.post(url, contentToSend).then((response) => {
             connectionSuccessful(response)
-            dispatch(setCollections(response.data))
         }).catch(error => connectionFailed(error))
     }
 
     function connectionSuccessful(response) {
         console.log("data: " + response.data)
         setConnectionState(ConnectionStates.connected)
+        dispatch(setCollections(response.data))
     }
 
 

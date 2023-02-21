@@ -5,7 +5,7 @@ const MongoManager = () => {
 
     return (
         <div style={{textAlign: "center"}}>
-            <div className="canvasStyle" id="canvas">
+            <div className="mongoManager" id="canvas">
                 <MongoLeftSideBar/>
                 <MongoDiagram/>
             </div>
