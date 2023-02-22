@@ -25,7 +25,45 @@ Das einheitliche Layout wird durch Verwendung der gleichen Grundelemente wie das
 Um das einheitliche Design sicherzustellenbn, wurden die gleichen Farben, Schriftgrößen und Co. in den CSS Dateien verwendet.
 Um Entwicklern weiterer Tools das einhalten eines einheitlichen Designs zu erleichtern, wurde ein Material UI Theme erstellt, und wo möglich, Material UI Komponenten verwendet.
 
-Die übersichtliche Darstellung der Schemata (\nameref{itm:fa6}) wurde durch kustomisierte Material UI Tabellen Realisert.
+Die übersichtliche Darstellung der Schemata (\nameref{itm:fa6}) wurde durch kustomisierte Material UI Tabellen realisert.
 Durch das dynamische Ausklappen von verschachtelten Dokumenten sowie Arrays lassen sich beliebig tief verschachtelte Schemata übersichtlich darstellen.
 Damit die Unterschiede aller Schemata in einer Collection übersichtlich dargestellt werden, gibt es eine Detail View, in der alle Abweichungen des Hauptschemas Farblich markiert sind.
 Dadurch ist die Anforderung \nameref{itm:fa7} erfüllt.
+
+Eine Anforderung an das Backend ist, dass auch große Datenbanken in wenigen Sekunden analysiert werden können müssen (\nameref{itm:ba1}).
+Um die Erfüllung dieser Anforderung zu verifizieren, wurden mit Test MongoDB Datenbanken Tests durchgeführt.
+Als Test Datenbanken wurden die Sample Datenbanken von MongoDB Atlas genutzt, welche auch über MongoDB Atlas gehostet werden.
+Für diesen Test wurde das Backend lokal auf einem Laptop mit dem Prozessor AMD Ryzen 5 4500U (6 Kerne) gehostet.
+Jede Datenbank wurde mehrfach ohne und mit Referenzanalyse getestet.
+Durch das mehrfache Testen werden Testungenauigkeiten vermieden.
+
+Diese Tests ergaben folgende Resultate:
+
+\begin{tabular}{ |r|m{2cm}|m{2cm}|m{2cm}|m{2cm}|m{2cm}| }
+        \hline
+        \textbf{Datenbank Name} & \textbf{Anzahl Collections} & \textbf{Anzahl Dokumente} & \textbf{Datenmenge} & \textbf{Analyse-Dauer} & \textbf{Dauer (mit Referenzen)}\\
+        \hline
+        sample\_airbnb & 1 & 5555 & 89.99MB & 10.8s & 10.9\\
+        sample\_analytics & 3 & 3992 & 15.79MB & 2.7s & 2.7s\\
+        sample\_geospatial & 1 & 11095 & 3.47MB & 1.1s & 1.1s\\
+        sample\_guides & 1 & 8 & 1.29KB & 0.3s & 0.3s\\
+        sample\_mflix & 5 & 66359 & 47.57MB & 8.3s & 9.0s\\
+        sample\_restaurants & 2 & 25554 & 13.36MB & 3.5s & 3.5s\\
+        sample\_supplies & 1 & 5000 & 4.13MB & 1.3s & 1.3s\\
+        sample\_training & 7 & 296502 & 113.76MB & 29.9s & 27.0s\\
+        sample\_weatherdata & 1 & 10000 & 16.15MB & 4.0s & 3.9s\\
+        \hline
+\end{tabular}
+
+Die Analyse der meisten Datenbanken bewegt sich in einem Zeitraum von unter 11 Sekunden.
+Dies ist für die Nutzer eine annehmbare Zeit, da den Nutzern durch ein Fortschrittsrad signalisiert wird, dass Berechnungen vorgenommen werden.
+Dadurch bekommen die Nutzer nicht das Gefühl, dass die Anwendung sich aufgehangen hätte.
+Einzig die Analyse der Datenbank sample\_training mit fast 300.000 Dokumenten dauert circa 30 Sekunden.
+Die Anforderung \nameref{itm:ba1} ist also  nur für Datenbanken bis zu einer gewissen Größe erfüllt.
+Dies ist also ein Punkt, in dem das MongoDB Visualisierungstool noch Verbesserungsbedarf hat.
+
+Der Endpunkt im Flask Backend ist von mehreren Nutzern gleichzeitig ansteuerbar.
+Damit es beim Verbinden und Analysieren mehrerer Datenbanken gleichzeitig nicht zu Konflikten kommt, ist der gesamte Prozess Objektorientiert aufgebaut.
+Dadurch hat jede Analyse ihre eigenen Objekte, die nicht mit anderen interferieren.
+Die Verbindung selbst erfolgt über die Bibliothek Pymongo, welche das dynamische Anbinden beliebig vieler MongoDB Datenbanken erlaubt.
+Dadurch ist die Anforderung \nameref{itm:ba2} erfüllt.
