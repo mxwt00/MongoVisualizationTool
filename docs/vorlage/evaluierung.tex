@@ -7,3 +7,25 @@ Ursachen hierfür auch außerhalb des Verantwortungsbereichs des
 Praktikanten liegen können.
 \fi
 
+Die Anforderung \nameref{itm:fa1} verlangt, dass das MongoDB Visualisation Tool in einer gemeinsamen Webapp mit dem ER Modelling Tool implementiert wird.
+Dies wurde durch das Einfügen eines Startbildschirms zur Auswahl des Tools erreicht (\nameref{itm:fa3}).
+Der Startbildschirm erleichtert zudem das Einfügen weiterer Tools in das Database Toolkit.
+\nameref{itm:fa2} verlangt, dass die Anwendung modular ist, um einfach weitere Tools hinzuzufügen.
+Diese Anforderung wird neben dem Startbildschirm durch die verbesserte Package Struktur im Frontend, sowie der Microservice Architektur im Backend erfüllt.
+
+\nameref{itm:fa4} verlangt, dass das Frontend intuitiv Benutzbar ist.
+Die Interaktionsmöglichkeiten mit dem MongoDB Visualisation Tool sind relativ klein, da die Hauptaufgabe der Anwendung Visualisierung ist.
+Der Großteil der Interaktionsmöglichkeiten befindet sich in der LeftSideBar.
+In dieser werden nur Standardkomponenten von Material UI verwendet, deren Benutzung jedem Nutzer geläufig sind.
+Zudem sind alle Elemente aussagekräftig beschriftet.
+Deshalb ist die Anforderung \nameref{itm:fa4} erfüllt.
+
+Um die Intuitive Benutzbarkeit zu gewährleisten, müssen alle Tools ein einheitliches Design und Layout besitzen (\nameref{itm:fa5}).
+Das einheitliche Layout wird durch Verwendung der gleichen Grundelemente wie das ER Modelling Tool gewährleistet.
+Um das einheitliche Design sicherzustellenbn, wurden die gleichen Farben, Schriftgrößen und Co. in den CSS Dateien verwendet.
+Um Entwicklern weiterer Tools das einhalten eines einheitlichen Designs zu erleichtern, wurde ein Material UI Theme erstellt, und wo möglich, Material UI Komponenten verwendet.
+
+Die übersichtliche Darstellung der Schemata (\nameref{itm:fa6}) wurde durch kustomisierte Material UI Tabellen Realisert.
+Durch das dynamische Ausklappen von verschachtelten Dokumenten sowie Arrays lassen sich beliebig tief verschachtelte Schemata übersichtlich darstellen.
+Damit die Unterschiede aller Schemata in einer Collection übersichtlich dargestellt werden, gibt es eine Detail View, in der alle Abweichungen des Hauptschemas Farblich markiert sind.
+Dadurch ist die Anforderung \nameref{itm:fa7} erfüllt.
