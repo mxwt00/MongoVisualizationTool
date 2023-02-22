@@ -17,6 +17,40 @@ Sie können aber auch das Werkzeug Citavi\autocite{SAS:Citavi} benutzen
 und dort nach \textsc{Bib}\TeX{} exportieren.
 \fi
 
+\section{HTTP}
+\label{sec:http}
+
+\ac{http} ist ein Protokoll, das benutzt wird, um über das Internet zu kommunizieren.
+Hauptsächlich wird \ac{http} für die Kommunikation zwischen einem Webbrowser und einem Webserver benutzt.
+In \ac{http} wird mittels Nachrichten kommuniziert.
+Es wird erst ein Request vom Client abgesetzt, der daraufhin von dem Server mit einer Response beantwortet wird.
+Diese Nachrichten bestehen aus einem Header und einem Body.
+Der Body enthält die Nachricht selbst.
+Der Header enthält Meta-Daten über einen Request, wie beispielsweise die angefragten Ressourcen und Datentypen des Body.
+
+\section{REST API}
+\label{sec:rest}
+
+Ein \ac{api} ist eine Schnittstelle, über die von außen mit einem Programm interagiert werden kann.
+Das Grundprinzip von \ac{rest} ist ein Backend, welches Resourcen beinhaltet.
+Ein Client kann über die gängigen \nameref{sec:http} Operationen mit diesen Resourcen interagieren.
+Jede Resource hat eine global eindeutige ID und wird meist durch \ac{json} oder \ac{xml} repräsentiert.
+In Java wird ein \ac{rest}ful Webservice für gewöhnlich mit \ac{jaxrs} umgesetzt.
+~\autocite{schiesser:javaEE7}
+
+\section{SQL}
+\label{sec:sql}
+
+Die \ac{sql} ist eine Datenbanksprache für relationale Datenbanken.
+In \ac{sql} werden die Daten in Tabellen organisiert, die ein festes Schema definieren.
+Man kann \ac{sql} in 2 Teile aufteilen:
+Die \ac{ddl} definiert den Aufbau des Schemas.
+Mit ihr können Datenbankobjekte erzeugt und gelöscht werden.
+Zur \ac{ddl} gehören unter anderem die Befehle CREATE, ALTER, DROP und TRUNCATE\@.
+Mit der \ac{dml} können Daten manipuliert, also eingefügt, geändert, gelesen und gelöscht werden.
+Die Befehle hierfür lauten SELECT, INSERT, UPDATE, DELETE, MERGE und noch weitere.
+~\autocite{schicker:datenbanken}
+
 \section{JSON}
 \label{sec:json}
 
@@ -65,40 +99,6 @@ In JSON gibt es unter anderem folgende Datentypen:
     \end{minipage}\hfill
 \end{figure}
 
-\section{HTTP}
-\label{sec:http}
-
-\ac{http} ist ein Protokoll, das benutzt wird, um über das Internet zu kommunizieren.
-Hauptsächlich wird \ac{http} für die Kommunikation zwischen einem Webbrowser und einem Webserver benutzt.
-In \ac{http} wird mittels Nachrichten kommuniziert.
-Es wird erst ein Request vom Client abgesetzt, der daraufhin von dem Server mit einer Response beantwortet wird.
-Diese Nachrichten bestehen aus einem Header und einem Body.
-Der Body enthält die Nachricht selbst.
-Der Header enthält Meta-Daten über einen Request, wie beispielsweise die angefragten Ressourcen und Datentypen des Body.
-
-\section{REST API}
-\label{sec:rest}
-
-Ein \ac{api} ist eine Schnittstelle, über die von außen mit einem Programm interagiert werden kann.
-Das Grundprinzip von \ac{rest} ist ein Backend, welches Resourcen beinhaltet.
-Ein Client kann über die gängigen \nameref{sec:http} Operationen mit diesen Resourcen interagieren.
-Jede Resource hat eine global eindeutige ID und wird meist durch \ac{json} oder \ac{xml} repräsentiert.
-In Java wird ein \ac{rest}ful Webservice für gewöhnlich mit \ac{jaxrs} umgesetzt.
-~\autocite{schiesser:javaEE7}
-
-\section{SQL}
-\label{sec:sql}
-
-Die \ac{sql} ist eine Datenbanksprache für relationale Datenbanken.
-In \ac{sql} werden die Daten in Tabellen organisiert, die ein festes Schema definieren.
-Man kann \ac{sql} in 2 Teile aufteilen:
-Die \ac{ddl} definiert den Aufbau des Schemas.
-Mit ihr können Datenbankobjekte erzeugt und gelöscht werden.
-Zur \ac{ddl} gehören unter anderem die Befehle CREATE, ALTER, DROP und TRUNCATE\@.
-Mit der \ac{dml} können Daten manipuliert, also eingefügt, geändert, gelesen und gelöscht werden.
-Die Befehle hierfür lauten SELECT, INSERT, UPDATE, DELETE, MERGE und noch weitere.
-~\autocite{schicker:datenbanken}
-
 \section{MongoDB}
 \label{sec:mongodb}
 
@@ -130,10 +130,10 @@ Der Python Interpreter ist in C geschrieben, weshalb man die Funktionalität des
 \label{sec:flask}
 
 Flask ist ein minimalistisches Open-Source Web Framework.
-Flask kommt mit ein paar Kernpaketen, welche für Web Apps benötigt werden.
+In Flask sind ein paar wenige Kernpakete vorinstalliert, welche für ein minimales Backend benötigt werden.
 Alles weitere muss der Nutzer selbst über PIP installieren.
-Durch diesen minimalistischen Ansatz kann man Flask sehr flexibel einsetzen.
-Flask ist beispielsweise flexibel mit SQL oder NoSQL Datenbanken, aber auch ohne Datenbanken einsetzbar.
+Durch diesen minimalistischen Ansatz ist Flask sehr flexibel einsetzbar.
+Flask ist beispielsweise mit SQL oder NoSQL Datenbanken, aber auch ohne Datenbanken einsetzbar.
 ~\autocite{grindberg:flask}
 
 % TODO DOM
@@ -142,10 +142,9 @@ Flask ist beispielsweise flexibel mit SQL oder NoSQL Datenbanken, aber auch ohne
 \label{sec:js}
 
 JavaScript ist eine High-Level Programmiersprache, die just-in-time kompiliert wird.
-JavaScript ist besonders bekannt als Skriptsprache für Webseiten.
+JavaScript ist besonders bekannt als Skriptsprache für Webseiten, wird aber auch für Backendanwendungen, Automatisierungsaufgaben und vieles mehr verwendet.
 Die Pakete in JavaScript werden mittels dem Paketmanager npm verwaltet.
 % TODO mehr zu JavaScript schreiben, Quelle fehlt
-(wird noch erweitert)
 
 \section{React}
 \label{sec:react}
@@ -159,7 +158,7 @@ Das bedeutet, das React aus einzelnen Komponenten bestehen, die ihren eigenen St
 \subsection{Redux Store}
 \label{sub:redux}
 
-Redux ist ein State Container für JacaScript Apps, der es ermöglicht, States nicht mehr in den Komponenten, sondern in einem Zentralen Container zu speichern.
+Redux ist ein State Container für JavaScript Apps, der es ermöglicht, States nicht mehr in den einzelnen React Komponenten, sondern in einem zentralen Container zu speichern.
 Dadurch können beispielsweise States wiederhergestellt werden, nachdem eine Komponente geschlossen und wieder geöffnet wurde.
 Außerdem erleichtert Redux es, State Änderungen in Komponenten nachzuvollziehen.
 ~\autocite{freecodecamp:redux}
@@ -169,3 +168,24 @@ Außerdem erleichtert Redux es, State Änderungen in Komponenten nachzuvollziehe
 
 Axios ist ein HTTP-Client für JavaScript.
 Mithilfe von Axios Können HTTP-Requests versendet und die Responses von diesen verarbeitet werden.
+
+\subsection{Docker Container}
+\label{sub:docker}
+
+Ein Container ist eine virtuelle Umgebung, die, ähnlich wie eine virtuelle Maschine, eine Anwendung in eine isolierte Umgebung verpackt.
+Jedoch wird im Gegensatz zu virtuellen Maschinen nicht das ganze Betriebssystem virtualisiert, sondern nur einzelne Anwendungen.
+Dadurch ist ein Container deutlich schlanker als eine virtuelle Maschine.
+Container können dadurch als sogenannte Images auf verschiedenen Systemen ausgeliefert werden, und dabei aufgrund der Isolierung unabhängig vom System zuverlässig funktionieren.
+Docker ist eine weit verbreitete Open-Source Software, welche das Container Prinzip implementiert.
+~\autocite{devInsider:container}
+
+\subsection{Nginx}
+\label{sub:nginx}
+
+Nginx, ausgesprochen Engine X, ist ein Open-Source Web Server.
+In Nginx sind einige Features für das Hosten von Webservern integriert, wie beispielsweise Load Balancing, Reverse Proxies, Web Sockets Mail Server und vieles mehr.
+Dabei unterstütz Nginx alle gängigen Betriebssysteme, wie Windows, Windows Server, MacOS und Linux.
+Die Konfiguration in Nginx erfolgt über Konfigurationsdateien.
+Die Nutzung von Nginx als Webserver nimmt jedes Jahr weiter zu im Vergleich zum Kompetitoren wie Apache.
+Im Januar 2023 liefen 21,20\% der meistgenutzten Seiten über Nginx.
+~\autocite{nginx:nginx}
