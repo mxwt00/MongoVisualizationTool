@@ -14,26 +14,18 @@ haben. Es wird beispielsweise aufzeigt, in welches Produkt sie eingehen,
 welcher Ablauf verbessert werden soll etc.
 \fi
 
+Für einen Entwickler, der mit einer Datenbank arbeitet, ist es wichtig zu wissen, wie diese Datenbank aussieht, was für abhängigkeiten es gibt, und ob die Implementierung auch wirklich der Planung entspricht.
+Aus diesem Grund werden Visualisierungs- und Analysetools für Datenbanken benötigt.
 MongoDB hat sich in den letzten Jahren zu einem der wichtigsten Datenbanksysteme entwickelt, da aufgrund immer größerer werdenden Datenmengen die Vorteile von NoSQL-Datenbanken für immer mehr Anwendungen überwiegen.
 ~\autocite{db-engines:mongodb}
 Da MongoDB keine relationale Datenbank ist, können herkömmliche Visualisierungs- und Analysetools, die für SQL entwickelt wurden, nicht verwendet werden.
-Für MongoDB gibt es zwar ein paar visualisierungstools wie Beispielsweise MongoDB Charts und MongoDB Compass, die meisten davon visualisieren aber die Daten in der Datenbank, und nicht die Struktur und das Schema der Dokumente in der Datenbank.
+Für MongoDB gibt es zwar ein paar Visualisierungstools, wie Beispielsweise MongoDB Charts und MongoDB Compass, die meisten davon visualisieren aber die Daten in der Datenbank, und nicht die Struktur und das Schema der Dokumente in der Datenbank.
 ~\autocite{knowi:mongo_vis_tools}
-Ziel dieses Projekts ist es deshalb, ein Visualisierungstool für MongoDB Datenbanken zu entwickeln, welches die Dokumente der Datenbanken analysiert und auswertet.
-Diese Schemas werden dann in Form von verschachtelten Tabellen visualisiert.
-Das erleichtert es den Entwicklern der Datenbanken, die Strukturen und Abhängigkeiten in ihren Datenbanken zu verstehen und zu verbessern.
+Die Daten selbst können jedoch sehr vielzahlig sein, was ein vollständiges Überblicken der Datenbank schwierig bis unmöglich macht.
+Auß diesem Grund soll das Ziel dieser Arbeit sein, solch ein Visualisierungstool zu entwickeln.
 
 \section{Problemstellung und -abgrenzung}
 \label{sec:problemstellung}
-
-Um Datenbanken analysieren zu können, muss es möglich sein, sich mit diesen zu verbinden.
-Dies erfordert einerseits eine Nutzeroberfläche, über die der Nutzer die Verbindungsdaten eingeben kann.
-Andererseits erfordert dies die Verbindung mit der Datenbank selbst über eine geeignete MongoDB Schnittstelle.
-Die Dokumente der Datenbank müssen anschließend in möglichst kurzer Zeit analysiert werden, um aus ihnen Schemas zu extrahieren.
-Diese Schemas müssen dann in einem Frontend übersichtlich und visuell ansprechend angezeigt werden.
-Dafür werden hauptsächlich 2 Ansichten benötigt:
-Einerseits wird eine Übersicht über alle Collections benötigt, in welcher  für jede Collection das meistverwendete Schema angezeigt werden soll.
-Andererseits wird für jede Collection eine Detailansicht benötigt, welche alle Schema-Variationen in einer Collection sowie  weitere Details und Daten anzeigt.
 
 \iffalse
 Die Problemstellung dient dazu, das zu lösende Problem klar zu 
@@ -43,6 +35,10 @@ werden, dass zu viele Probleme gleichzeitig angegangen werden. Eine
 Negativabgrenzung verhindert, dass beim Leser später nicht erfüllte 
 Erwartungen geweckt werden.
 \fi
+
+Es soll ein MongoDB Visualisierungstool entwickelt werden, welches eine MongoDB Datenbank analysiert und auswertet.
+Daraus sollen Schemas extrahiert und visualisiert werden.
+Das Visualisieren der konkreten Daten in der MongoDB Datenbank ist nicht Teil des Problems.
 
 \section{Vorangegangene Arbeit}
 \label{sec:vorangegangene_arbeit}
@@ -55,9 +51,21 @@ Ein Hauptfokus des MongoDB Visualisierungstools liegt deshalb darauf, diese Modu
 \section{Ziel der Arbeit}
 \label{sec:ziel}
 
-Das Ziel der Projektarbeit ist die Planung und Umsetzung der oben beschriebenen Problemstellung.
+Ziel dieses Projekts ist es, ein Visualisierungstool für MongoDB Datenbanken zu entwickeln, welches die Dokumente einer Datenbank analysiert und auswertet.
+Daraus sollen Schemas abgeleitet werden, welche anschließend visualisiert werden.
+Dies erleichtert es den Entwicklern der Datenbanken, die Strukturen und Abhängigkeiten in ihren Datenbanken zu verstehen und zu verbessern.
 Dafür soll eine Backendanwendung zur Verbindung und Analyse von MongoDb Datenbanken entwickelt werden, sowie ein Webfrontend für die Visualisierung der analysierten Daten.
-Das Visualisierungstool soll dafür in die vorangegangene Arbeit integriert werden und die Gesamtlösung dabei modular halten.
+Das Visualisierungstool soll dabei in die vorangegangene Arbeit integriert werden und die Gesamtlösung dabei modular halten.
+
+Um Datenbanken analysieren zu können, muss es möglich sein, sich mit diesen zu verbinden.
+Dies erfordert einerseits eine Nutzeroberfläche, über die der Nutzer die Verbindungsdaten eingeben kann.
+Andererseits erfordert dies die Verbindung mit der Datenbank selbst über eine geeignete MongoDB Schnittstelle im Backend.
+Die Dokumente der Datenbank müssen anschließend in möglichst kurzer Zeit analysiert werden, um aus ihnen Schemas zu extrahieren.
+Diese Schemas müssen dann in einem Frontend übersichtlich und visuell ansprechend angezeigt werden.
+Dafür werden hauptsächlich 2 Ansichten benötigt:
+Einerseits wird eine Übersicht über alle Collections benötigt, in welcher  für jede Collection das meistverwendete Schema angezeigt werden soll.
+Andererseits wird für jede Collection eine Detailansicht benötigt, welche alle Schema-Variationen in einer Collection sowie  weitere Details und Daten anzeigt.
+
 
 \iffalse
 \section{Vorgehen}
