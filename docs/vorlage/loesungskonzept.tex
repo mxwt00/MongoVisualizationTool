@@ -19,7 +19,7 @@ Es gibt bereits MongoDB Visualisierungtools auf dem Markt, jedoch erfüllt keine
 \label{sub:mongodb_data_explorer}
 
 MongoDB Data Explorer ist ein Tool, welches in MongoDB Atlas integriert ist.
-MongoDB Atlas ist ein Web-Tool zur verwaltung von MongoDB Datenbanken.
+MongoDB Atlas ist ein Web-Tool zur Verwaltung von MongoDB Datenbanken.
 Mittels dem MongoDB Data Explorer kann man die Dokumente, Collections und Indexe einer Datenbank anschauen, sowie die Daten mit CRUD Operationen verwalten.
 Jedoch bietet der MongoDB Data Explorer keine Möglichkeiten, die Schemas der Dokumente zu analysieren.
 \begin{figure}[H]
@@ -31,9 +31,10 @@ Jedoch bietet der MongoDB Data Explorer keine Möglichkeiten, die Schemas der Do
 \subsection{MongoDB Compass}
 \label{sub:mongodb_compass}
 
-MongoDB Compass ist eine Desktop Anwendung zur Analyse von MongoDB Datenbanken.
+MongoDB Compass ist eine Desktop-Anwendung zur Analyse von MongoDB Datenbanken.
 MongoDB Compass besitzt ein Schema-Visualisierungstool.
-Dieses Schema-Visualisierungstool zeigt sehr genaue Daten zu jedem Feld an, ist jedoch nicht besonders übersichtlich, wenn man das gesamte Schema der Dokumente einer Collection analysieren will.
+Dieses Schema-Visualisierungstool zeigt sehr genaue Daten zu jedem Feld der Dokumente einer Collection an.
+Diese Ansicht ist jedoch nicht besonders übersichtlich, wenn man das gesamte Schema der Dokumente einer Collection analysieren will.
 Ebenfalls nicht gut ersichtlich in MongoDB Compass ist die Varianz im Schema zwischen den Dokumenten in einer Collection.
 \begin{figure}[H]
     \includegraphics[width=\textwidth]{images/mongodb_compass}
@@ -67,14 +68,14 @@ Für Spring gibt es eine MongoDB Implementierung namens Spring Data MongoDB.
 Diese Implementierung ist jedoch dafür ausgelegt, \ac{pojo}s auf Dokumente zu mappen.
 Im MongoDB Visualisierungstool sollen hingegen MongoDB Dokumente dynamisch eingelesen und analysiert werden.
 Um ~\nameref{itm:ba2} zu erfüllen, ist es desweiteren nötig, beliebig viele verschiedene Datenbanken gleichzeitig zu verbinden und zu analysieren.
-Die Verbindung mit MongoDB Datenbanken Spring Data MongoDB erfolgt jedoch mit festgelegten Datenbanken, welche in der application.properties Datei definiert werden.
+Die Verbindung mit MongoDB Datenbanken in Spring Data MongoDB erfolgt jedoch mit fixen Datenbanken, welche in der application.properties Datei definiert werden.
 ~\autocite{spring:spring-data-mongodb}
 Deshalb ist die Spring Data MongoDB Bibliothek für diese Anwendung nicht geeignet.
 Neben der Spring Data MongoDB Bibliothek gibt es auch noch einen anderen MognoDB Java Client, Java Sync.
 Dieser funktioniert jedoch nicht zusammen mit dem Spring Framework.
 Aus diesem Grund kann Spring sowie andere Java Backend Frameworks nicht genutzt werden.
 
-Als alternatives Backend Framework mit REST API bietet sich Flask an.
+Als alternatives Backend Framework mit REST Api bietet sich Flask an.
 Ein großer Vorteil von Flask ist, dass Flask sehr minimal ist und nur mit dem minimum an benötigten Bibliotheken vorkonfiguriert ist.
 Spring ist im Gegensatz dazu ein sehr mächtiges Framework mit vielen Features, von denen in diesem Projekt aber nur sehr wenige gebraucht werden.
 Ein weiterer Vorteil von Flask sowie von Python ist die Schlankheit des Codes.
@@ -83,6 +84,7 @@ Dazu kommt, dass in Flask sehr viel weniger Boilerplate Code benötigt wird als 
 Ein minimaler Endpunkt in Flask lässt sich bereits mit 2 Zeilen Code umsetzen.
 Zudem ist die dynamische Typisierung in Python beim Auswerten der MongoDB Dokumente von Vorteil, da man im Voraus nicht weiß, welche Datentypen die Werte in den Dokumenten haben, und die dynamische Typisierung deshalb das Handling dieser Werte vereinfacht.
 ~\autocite{khoirom2020comparative}
+
 Jedoch hat Flask nicht nur Vorteile gegenüber Spring:
 Flask ist grundsätzlich deutlich unperformanter als Spring.
 Dies liegt unter anderem daran, dass Python eine interpretierte Sprache ist, und Java eine kompilierte.
@@ -107,7 +109,7 @@ Dies erleichtert die Analyse der Dokumente und hat darüber hinaus den Vorteil, 
 
 Web Apps haben gegenüber Desktop Apps einige Vorteile:
 Web Apps müssen nicht installiert werden, sie müssen nicht für mehrere Betriebssysteme entwickelt werden und der Auslieferungs- Update- und Administrierungsprozess ist deutlich vereinfacht.
-Jedoch haben Web Apps oftmals nicht die interaktionsmöglichkeiten von Desktop Apps, da sie innerhalb eines Browsers laufen.
+Jedoch haben Web Apps oftmals nicht die Interaktionsmöglichkeiten von Desktop Apps, da sie innerhalb eines Browsers laufen.
 Dies ist in dieser Anwendung jedoch kein großer Nachteil, da die Hauptaufgabe der Anwendung die Visualisierung von Daten ist, und dies nicht viele Interaktionsmöglichkeiten erfordert.
 ~\autocite{zepeda2007desktop}
 Deshalb wird das Frontend dieser Anwendung als Webapp entwickelt.
@@ -117,10 +119,11 @@ Da das ER Modellierungstool und das MongoDB Visualisierungstool Teil eines Daten
 Da React dank React Elements und React Components in seiner Grundstruktur  sehr modular ist, eignet sich React sehr gut, um Anforderung ~\nameref{itm:fa2} zu erfüllen.
 ~\autocite{banks:react}
 Die Tools lassen sich mittels Ordner strukturell voneinander trennen, und trotzdem können die Tools sich Komponenten teilen und diese wiederverwenden.
+
 Dank der Komponentenbibliothek Material UI kann man in React vordefinierte Elemente benutzen, was oftmals das Definieren der Komponenten von Hand erspart.
 Dadurch spart man sich einerseits Programmieraufwand, andererseits verringert dies aber auch die Code-Komplexität und verbessert somit die Lesbarkeit des Codes.
 Zudem erleichtert Material UI das Umsetzen eines einheitlichen Designs, da man mithilfe von Material UI global verwendbare Themes erstellen kann.
-Dies ermöglicht das Umsetzen von Anforderung ~\nameref{itm:fa5}.
+Dies ermöglicht das Erfüllen der Anforderung ~\nameref{itm:fa5}.
 ~\autocite{mui:mui}
 
 \section{REST-Schnittstelle}
@@ -146,7 +149,7 @@ Dictionaries beinhalten eine Reihe an Key-Value Paaren.
 Der Key entspricht dem Name des Feldes.
 Aus dem Value kann man den Datentyp auslesen.
 Ansonsten sind die Values nicht weiter von Relevanz, außer es handelt sich bei dem Datentyp um ein Array oder um einen Dictionary, also um ein verschachteltes Dokument.
-In diesen werden dann nämlich wieder Rekursiv die Key-Value Paare ausgelesen.
+In diesem Fall werden rekursiv wieder die Key-Value Paare aus dem entsprechenden Value ausgelesen. 
 Die Ergebnisse dieser Analyse werden in einer Objektorientierten Datenstruktur gespeichert:
 In der Klasse ProcessedCollection werden alle Variationen von Schemas gespeichert, inclusive dem Namen der Collection 
 Die Schemas selber werden in der Klasse ProcessedDocument gespeichert incluive der Nummer an Dokumenten, die nach diesem Schema aufgebaut sind.

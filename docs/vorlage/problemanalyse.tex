@@ -18,9 +18,8 @@ Anforderungen:
 
 \fi
 
-
-
-An das MongoDB Visualisierungstool gibt es eine Reihe von Anforderungen, welche erfüllt werden müssen, damit das Projekt gelingen kann:
+An das MongoDB Visualisierungstool gibt es eine Reihe von Anforderungen, welche erfüllt werden müssen, damit das Projekt als Erfolg gewertet werden kann.
+Diese werden im Nachfolgenden nach Frontend und Backend getrennt analysiert.
 
 \section{Anforderungen an das Frontend}
 \label{sec:anf_frontend}
@@ -40,9 +39,9 @@ Damit die Visualisierung großer Dokumente trotzdem einen Mehrwert hat, müssen 
 Deshalb ist eine übersichtliche Darstellung der Schemata sehr wichtig (\nameref{itm:fa6}).
 
 Die Dokumente in einer Collection müssen nicht das gleiche Schema haben.
-Für einen Entwickler kann es hilfreich sein, einen Überblick über alle Variationen in einer Collection zu haben.
-Deshalb soll das MongoDB Visualisierungstool für jede Collection eine Detailansicht haben, die diese Variationen visualisiert.
-Der unterschied in diesen Variationen kann unter Umständen nicht direkt ersichtlich sein.
+Für einen Entwickler kann es deshalb hilfreich sein, einen Überblick über alle Variationen in einer Collection zu haben.
+Aus diesem Grund soll das MongoDB Visualisierungstool für jede Collection eine Detailansicht haben, die diese Variationen visualisiert.
+Der Unterschied in diesen Variationen kann unter Umständen nicht direkt ersichtlich sein.
 Aus diesem Grund müssen diese Abweichungen vom Hauptschema deutlich hervorgehoben werden.(\nameref{itm:fa7})
 
 \section{Anforderungen an das Backend}
@@ -53,7 +52,7 @@ Die Analyse sollte jedoch nicht länger als ein paar Sekunden dauern, da dies de
 Deshalb müssen die Datenbanken möglichst performant analysiert werden(\nameref{itm:ba1}).
 
 Die Webapp kann potenziell von beliebig vielen Personen gleichzeitig benutzt werden.
-Dies bedeutet dass das Backend des MongoDB Visualisierungstools mehrere Anfragen gleichzeitig abarbeiten müssen kann.
+Dies bedeutet, dass das Backend des MongoDB Visualisierungstools mehrere Anfragen gleichzeitig abarbeiten können muss.
 Deshalb müssen mehrere MongoDB Datenbanken gleichzeitig verbunden und analysiert werden könnnen(\nameref{itm:ba2}).
 
 

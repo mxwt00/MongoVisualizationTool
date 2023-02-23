@@ -1,4 +1,4 @@
-\if False
+\iffalse
 In diesem Kapitel das für das Praktikum relevante Grundlagenwissen 
 dargestellt. Der Praktikant soll hierzu das ihm durch Vorlesungen 
 bekannte, bzw. durch Recherchen vertiefte theoretische Wissen 
@@ -20,19 +20,20 @@ und dort nach \textsc{Bib}\TeX{} exportieren.
 \section{HTTP}
 \label{sec:http}
 
-\ac{http} ist ein Protokoll, das benutzt wird, um über das Internet zu kommunizieren.
-Hauptsächlich wird \ac{http} für die Kommunikation zwischen einem Webbrowser und einem Webserver benutzt.
+\ac{http} ist ein Protokoll, welches benutzt wird, um über das Internet zu kommunizieren.
+Hauptsächlich wird \ac{http} für die Kommunikation zwischen einem Webbrowser und einem Webserver genutzt.
 In \ac{http} wird mittels Nachrichten kommuniziert.
 Es wird erst ein Request vom Client abgesetzt, der daraufhin von dem Server mit einer Response beantwortet wird.
-Diese Nachrichten bestehen aus einem Header und einem Body.
-Der Body enthält die Nachricht selbst.
+Nachrichten bestehen aus einem Header und einem Body.
+Der Body enthält den Inhalt der Nachricht.
 Der Header enthält Meta-Daten über einen Request, wie beispielsweise die angefragten Ressourcen und Datentypen des Body.
 
 \section{REST API}
 \label{sec:rest}
 
 Ein \ac{api} ist eine Schnittstelle, über die von außen mit einem Programm interagiert werden kann.
-Das Grundprinzip von \ac{rest} ist ein Backend, welches Resourcen beinhaltet.
+\ac{rest} ist ein Protokoll, welches die Kommunikation über HTTP spezifiziert.
+\ac{rest} sieht ein Backend vor, welches Resourcen beinhaltet.
 Ein Client kann über die gängigen \nameref{sec:http} Operationen mit diesen Resourcen interagieren.
 Jede Resource hat eine global eindeutige ID und wird meist durch \ac{json} oder \ac{xml} repräsentiert.
 In Java wird ein \ac{rest}ful Webservice für gewöhnlich mit \ac{jaxrs} umgesetzt.
@@ -102,12 +103,12 @@ In JSON gibt es unter anderem folgende Datentypen:
 \section{MongoDB}
 \label{sec:mongodb}
 
-MongoDB ist eine Dokument-Orientierte Datenbank. 
-In Dokument-Orientierten Datenbanken wird das aus SQL bekannte Konzept von Reihen durch Dokumente ersetzt.
-Dokumente haben im Gegensatz zu Reihen in Tabellen kein fixes Schema, dass sie erfüllen müssen, sondern sind sehr flexibel.
+MongoDB ist eine Dokument-orientierte Datenbank. 
+In Dokument-orientierten Datenbanken wird das aus SQL bekannte Konzept von Reihen durch Dokumente ersetzt.
+Dokumente haben im Gegensatz zu Reihen in Tabellen kein fixes Schema, welches sie erfüllen müssen, sondern sind sehr flexibel.
 Grundsätzlich bestehen Dokumente aus Key - Value Paaren, welche in einer JSON-Ähnlichen Struktur gespeichert werden.
-Dokumente können, wie auch in JSON, ineinander verschachtelt sein, was Hierarchische Strukturen und dadurch Denormalisierung ermöglicht.
-Die Dokumente werden in Collections Organisiert.
+Dokumente können, wie auch in JSON, ineinander verschachtelt sein, was hierarchische Strukturen und dadurch Denormalisierung ermöglicht.
+Die Dokumente werden in Collections organisiert.
 Eine Collection entspricht in SQL einer Tabelle ohne das fixe Schema.
 Diese Collections befinden sich wiederum in Datenbanken.
 Eine MongoDB Instanz kann mehrere voneinander unabhängige Datenbanken beinhalten.
@@ -117,10 +118,10 @@ Man kann sich mit der MongoShell mit einer MongoDB Instanz verbinden, um mit der
 \section{Python}
 \label{sec:python}
 
-Python ist eine Objektorientierte High-Level Programmiersprache, die besonderen Wert auf Lesbarkeit legt.
-Variablen in Python werden dynamisch getyped.
+Python ist eine objektorientierte high-level Programmiersprache, die besonderen Wert auf Lesbarkeit legt.
+Variablen in Python werden dynamisch typisiert.
 Das bedeutet, dass eine Variable in Python keinen festen Typ hat, sondern dieser dynamisch über den ihr zugewiesenen Wert bestimmt wird.
-Python ist keine Compilierte, sondern eine interpretierte Programmiersprache.
+Python ist keine compilierte, sondern eine interpretierte Programmiersprache.
 Diese Eigenschaften machen Python zu der idealen Sprache für das Schreiben von Skripten, sowie für Anwendungen, die schnell und simpel entwickelt werden sollen.
 PIP ist ein in Python integrierter Paketmanager, der das installieren von Packages erleichtert.
 Der Python Interpreter ist in C geschrieben, weshalb man die Funktionalität des Interpreters durch C-Programme erweitern kann, um beispielsweise laufzeitkritische Funktionen in C auszuführen.
@@ -129,7 +130,7 @@ Der Python Interpreter ist in C geschrieben, weshalb man die Funktionalität des
 \section{Flask}
 \label{sec:flask}
 
-Flask ist ein minimalistisches Open-Source Web Framework.
+Flask ist ein minimalistisches Open-Source Web Framework für Python.
 In Flask sind ein paar wenige Kernpakete vorinstalliert, welche für ein minimales Backend benötigt werden.
 Alles weitere muss der Nutzer selbst über PIP installieren.
 Durch diesen minimalistischen Ansatz ist Flask sehr flexibel einsetzbar.
@@ -149,7 +150,7 @@ Die Pakete in JavaScript werden mittels dem Paketmanager npm verwaltet.
 \section{React}
 \label{sec:react}
 
-React ist eine JavaScript Bibliothek zum bauen von Benutzeroberflächen.
+React ist eine JavaScript Bibliothek zum Bauen von Benutzeroberflächen.
 React ist Komponentenbasiert.
 Das bedeutet, das React aus einzelnen Komponenten bestehen, die ihren eigenen State haben, und die zusammengesetzt ein komplexes \ac{ui} bilden.
 ~\autocite{banks:react}
@@ -159,7 +160,7 @@ Das bedeutet, das React aus einzelnen Komponenten bestehen, die ihren eigenen St
 \label{sub:redux}
 
 Redux ist ein State Container für JavaScript Apps, der es ermöglicht, States nicht mehr in den einzelnen React Komponenten, sondern in einem zentralen Container zu speichern.
-Dadurch können beispielsweise States wiederhergestellt werden, nachdem eine Komponente geschlossen und wieder geöffnet wurde.
+Dadurch können States wiederhergestellt werden, nachdem eine Komponente geschlossen und wieder geöffnet wurde.
 Außerdem erleichtert Redux es, State Änderungen in Komponenten nachzuvollziehen.
 ~\autocite{freecodecamp:redux}
 
@@ -183,9 +184,11 @@ Docker ist eine weit verbreitete Open-Source Software, welche das Container Prin
 \label{sub:nginx}
 
 Nginx, ausgesprochen Engine X, ist ein Open-Source Web Server.
-In Nginx sind einige Features für das Hosten von Webservern integriert, wie beispielsweise Load Balancing, Reverse Proxies, Web Sockets Mail Server und vieles mehr.
+In Nginx sind einige Features für das Hosten von Webservern integriert, wie beispielsweise Load Balancing, Reverse Proxies, Web Sockets, Mail Server und vieles mehr.
 Dabei unterstütz Nginx alle gängigen Betriebssysteme, wie Windows, Windows Server, MacOS und Linux.
 Die Konfiguration in Nginx erfolgt über Konfigurationsdateien.
 Die Nutzung von Nginx als Webserver nimmt jedes Jahr weiter zu im Vergleich zum Kompetitoren wie Apache.
 Im Januar 2023 liefen 21,20\% der meistgenutzten Seiten über Nginx.
 ~\autocite{nginx:nginx}
+
+%TODO microservice architecture
