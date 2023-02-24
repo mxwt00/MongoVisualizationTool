@@ -53,6 +53,38 @@ Diese Tools konzentrieren sich jedoch alle auf die Visualisierung der Daten, nic
     \label{fig:mongodb_charts}
 \end{figure}
 
+\subsection{Vergleich der bestehenden Tools}
+\label{sub:vergleich_tools}
+
+In der Nachfolgenden Tabelle wird verglichen, welche Anforderungen erfüllt werden, und welche nicht.
+Dabei wurden alle Anforderungen ignoriert, welche sich auf die Gesamtlösung des Database Toolkits bezogen, da diese nicht auf spezialisierte Anwendungen anwendbar sind.
+Ebenso weggelassen wurde die Anforderung \nameref{itm:ba2} "Verbindung und Analyse mehrerer MongoDB Datenbanken gleichzeitig.
+Da alle Anwendungen von beliebig vielen Nutzern gleichzeitig benutzbar sind, ist diese Anforderung überall Erfüllt.
+Die Bestimmung der Analysedauer für die Anforderung \nameref{itm:ba1} wurde exemplarisch mit der größten Datenbank der MongoDB Atlas Beispieldatenbanken (sample\_training) durchgeführt.
+
+\begin{tabular}{ |m{6cm}|m{2cm}|m{2cm}|m{2cm}|}
+    \hline
+     & MongoDB Data Explorer & MongoDB Compass & MongoDB Charts \& Co. \\
+    \hline
+    \textbf{FA1: Webapp} & \checkmark & X & \checkmark\\ 
+    \hline
+    \textbf{FA4: Intuitiv Benutzbar} & \checkmark & \checkmark & X \\ 
+    \hline
+    \textbf{FA6: Übersichtliche Darstellung der Schemata} & X & X & X \\ 
+    \hline
+    \textbf{FA7: Visualisierung der Schema-Variationen} & X & X & X \\ 
+    \hline
+    \textbf{BA1: Analyse der Datenbanken in unter 10 Sekunden} & - & ? & -\\
+    \hline
+\end{tabular}
+
+Der MongoDB Data Explorer führt gar keine Analyse-Dauer durch, deshalb kann die Analysedauer für  \nameref{itm:ba1} nicht bestimmt werden.
+MongoDB Compass analysiert immer nur einzelne Collections der Datenbank, und nicht ganze Datenbanken auf einmal, weshalb sich hier die Zeit ebenfalls nicht bestimmen lässt.
+MongoDB Charts analysiert, wie auch der Data Explorer, keine Schemas, weshalb es hier ebenfalls keine Analysedauer gibt.
+
+Keine der Anwendungen erfüllt die Anforderungen \nameref{itm:fa6} und \nameref{itm:fa7}.
+Das Bedeutet, dass keine der Anwendungen die Schemas ausreichend Übersichtlich darstellt, und somit keine der Anwendungen die Problemstellung erfüllt.
+
 \section{Verwendete Technologien}
 \label{sec:verwendete_technologien}
 
