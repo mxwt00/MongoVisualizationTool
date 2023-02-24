@@ -160,7 +160,9 @@ Dies ermöglicht das Erfüllen der Anforderung ~\nameref{itm:fa5}.
 
 \section{REST-Schnittstelle}
 \label{sec:rest_schnittstelle}
-Das Backend stellt einen einzigen Endpunkt bereit: 
+Das Backend hat eine einzige Funktion:
+Das Verbinden und Analysieren von MongoDB Datenbanken.
+Aus diesem Grund stellt ~Das Backend nur einen einzigen Endpunkt bereit: 
 \textit{/connect} erwartet im Body des Requests folgende Daten im JSON-Format:
 \begin{itemize}
     \item connection\_string: Der Connection String zur Verbindung mit der MongoDB Instanz
@@ -169,8 +171,10 @@ Das Backend stellt einen einzigen Endpunkt bereit:
     \item sort\_method: Bestimmt, wie die Dokument-Variationen in einer Collection sortiert werden sollen
 \end{itemize}
 Mithilfe dieser Variablen versucht das Backend, sich mit der MongoDB Datenbank zu verbinden.
-Wenn dies gelingt, wird die Datenbank ausgewertet und das Ergebnis als JSON im Response-Body zurückgegeben.
+Dafür erstellt es ein Objekt der Klasse DatabaseAnalysis, und ruft die entsprechenden Operationen in diesem Objekt auf.
+Wenn die Verbindung erfolgreich, wird die Datenbank ausgewertet und das Ergebnis als JSON im Response-Body zurückgegeben.
 Wenn die Verbindung fehlschlägt, wird der Statuscode 406 zurückgegeben.
+406 ist in diesem Fall ein Willkührlich gewählter, für gewöhnlich selten verwendeter Response Code, da HTTP keinen Response Code für das Fehlschlagen von Verbindungen mit Drittanbietern vorgesehen hat.
 
 \section{Analyse der MongoDB Datenbank}
 \label{sec:mongoDB_analyse}
@@ -178,15 +182,18 @@ Wenn die Verbindung fehlschlägt, wird der Statuscode 406 zurückgegeben.
 Dokumente in MongoDB sind in einem JSON-Ähnlichen Format geschrieben.
 Da man in Python JSON zu Dictionaries konvertieren kann, kann man mithilfe von PyMongo Dokumente als Dictionaries auslesen.
 Dictionaries beinhalten eine Reihe an Key-Value Paaren.
-Der Key entspricht dem Name des Feldes.
-Aus dem Value kann man den Datentyp auslesen.
-Ansonsten sind die Values nicht weiter von Relevanz, außer es handelt sich bei dem Datentyp um ein Array oder um einen Dictionary, also um ein verschachteltes Dokument.
-In diesem Fall werden rekursiv wieder die Key-Value Paare aus dem entsprechenden Value ausgelesen. 
-Die Ergebnisse dieser Analyse werden in einer Objektorientierten Datenstruktur gespeichert:
-In der Klasse ProcessedCollection werden alle Variationen von Schemas gespeichert, inclusive dem Namen der Collection 
-Die Schemas selber werden in der Klasse ProcessedDocument gespeichert incluive der Nummer an Dokumenten, die nach diesem Schema aufgebaut sind.
-ProcessedDocument enthält wiederum eine Liste an Values.
-Ein Value besteht aus einem Key, einem Typ, optional einer Referenz auf eine andere Collection (Wenn der Datentyp ObjectId ist und der Name nicht id\_ ist) und optional einem verschachtelten Dokument.
+Jedes dieser Key-Value Paare wird ausgewertet, und das Ergebnis der Auswertund in dem Objekt Value gespeichert.
+Der Key entspricht dem Name des Feldes und wird direkt im Value-Objekt abgespeichert.
+Aus dem Value des Key-Value Paares wird der Datentyp auslesen.
+Wenn der Datentyp des Values Embedded Document oder Array entspricht, werden rekursiv die Key-Value Paare aus dem Value ausgelesen. 
+Diese rekursiven Verschachtelungen werden ebenfalls in dafür vorgesehenen Variablen im Value-Objekt gespeichert
+Falls es sich um eine ObjectId handelt, und nicht den Key \_id besitzt (Also kein Primary Key ist), dann wird davon ausgegangen, dass es sich bei dem Value um eine Referenz handelt.
+Je nachdem, ob der Boolean analyse\_ref true ist oder nicht, wird daraufhin versucht, die referenzierte Collection zu finden. 
+
+Alle Values eines Dokuments werden in einem ProcessedDocument Objekt gespeichert, welches das Schema des Dokuments repräsentiert.
+Die Klasse ProcessedCollection speichert wiederum eine Liste an ProcessedDocuments.
+Diese ProcessedDocuments sind einmalig.
+Wenn ProcessedDocuments mehrfach vorkommen, dann wird in das bestehende ProcessedDocument die Anzahl der Dokumente mit diesem Schema geschrieben.
 
 \begin{figure}[H]
     \includegraphics[width=\textwidth]{images/backend_uml}
@@ -236,5 +243,12 @@ Bei einer größeren Anzahl von Anwendungen könnten jedoch auch in diesen Packa
     \label{fig:frontend_package_structure}
 \end{figure}
 
-Zudem wurde ein Titelbildschirm hinzugefügt, von welchem aus diese Anwendungen aufgerufen werden können.
-Um eine neue Anwendung hinzuzufügen, muss man lediglich ein neues Package in Components erstellen und die benötigten Elemente anlegen, sowie im Titelbildschirm einen weiteren Button für die Anwendung hinzufügen.
+Zudem gibt es einen Startbildschirm welchem aus diese Anwendungen aufgerufen werden können.
+Um eine neue Anwendung hinzuzufügen, muss man lediglich ein neues Package in Components erstellen und die benötigten Elemente anlegen, sowie im Startbildschirm einen weiteren Button für die Anwendung hinzufügen.
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{images/wireframe_titlescreen}
+    \caption{Startbildschirm Wireframe}
+    \label{fig:wireframe_titlescreen}
+\end{figure}
+
