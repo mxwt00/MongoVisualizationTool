@@ -23,3 +23,66 @@ Heroku ist ein cloudbasierter Serviceanbieter, welcher ein kostenloses Modell f�
 Das Frontend wurde mittels NPM gebaut und auf dem Server bereitgestellt.
 Mittels NGINX wurde das Webinterface daraufhin gehostet. 
 Das Interface ist nun unter der Adresse \url{http://kodewisch.com:12030} erreichbar.
+
+\section{Buildprozess des Backends}
+\label{sec:build_backend}
+
+Um das Backend starten zu können, muss Python 3.10 oder neuer installiert sein.
+
+Wenn dies der Fall ist, können mit dem Befehl \lstinline{pip -r requirements.txt} im Verzeichnis mongo\_vis\_backend alle benötigten Pakete installiert werden.
+Um Konflikte mit anderen Python installationen zu vermeiden, führt man diesen Befehl am besten in einem Virtual Environment aus.
+Anschließend kann das Backend mit dem Befehl \lstinline{python3 -m flask run} ausgeführt werden.
+
+Eine Anleitung für das Deployment des Backends als Docker Container kann unter \url{https://hub.docker.com/r/tiangolo/uwsgi-nginx-flask/} gefunden werden.
+
+\section{Buildprozess des Frontends}
+\label{sec:build_frontend}
+
+Node und NPM müssen installiert sein, damit das Frontend gebaut werden kann.
+Über \url{tps://nodejs.org/en/download/} können Node und NPM installiert werden.
+
+Anschließend müssen im Verzeichnis frontend folgende Befehle ausgeführt werden, um es zu starten:
+
+\begin{lstlisting}[language=bash, caption={Frontend build commands},label={lst:fe_build_commands}]
+$ npm install
+$ npm start
+\end{lstlisting}    
+
+Um das Frontend auszuliefern, kann das Frontend mit dem Befehl \lstinline{npm run build} gebaut werden.
+Die gebauten Dateien befinden sich dann im Ordner build.
+
+Vorausgesetzt wird ein Debian- oder Ubuntubasierter Computer/ Server, auf dem Nginx mit SSL Zertifikat konfiguriert ist.
+Um die Dateien auf solch einem Server auszuliefern, müssen die Dateien in den Ordner /var/www/db-toolkit/html verschoben werden.
+db-toolkit kann auch durch einen beliebigen Namen ersetzt werden.
+Daraufhin muss folgende Nginx Konfiguration im Ordner /etx/nginx/conf.d mit dem namen db-toolkit.conf angelegt werden:
+
+\begin{lstlisting}[language=bash, caption={db-toolkit.conf},label={lst:db-toolkit.conf}]
+server { 
+    listen 80; 
+    listen [::]:80; 
+    server_name db-toolkit.kodewisch.com; 
+    return 301 https://$host$request_uri; 
+} 
+
+server { 
+    listen 443 ssl; 
+    server_name db-toolkit.kodewisch.com;
+
+    ssl_certificate /etc/letsencrypt/live/kodewisch.com/fullchain.pem; 
+    ssl_certificate_key /etc/letsencrypt/live/kodewisch.com/privkey.pem; 
+    include /etc/letsencrypt/options-ssl-nginx.conf; 
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; 
+
+    root /var/www/db-toolkit/html;
+    index index.html index.htm;
+
+    location / { 
+        try_files $uri $uri/ =404; 
+    } 
+}
+\end{lstlisting}    
+
+Diese Nginx Konfiguration zeigt die mit root und index spezifizierte Resource für alle anfragen an, die auf die Subdomain db-toolkit.kodewisch.com eingehen.
+Die obere Server-Konfiguration nimmt die HTTP Anfragen auf Port 80 entgegen und leitet diese auf HTTPS um.
+Die untere Server-Konfiguration nimmt die HTTPS Anfragen auf Port 443 entgegen, spezifiziert das SSL-Zertifikat und zeigt die Resource an.
+Die ssl\_certificate Pfade müssen durch die entsprechenden Pfade auf dem Server ersetzt werden, ebenso wie die Domain.

@@ -56,24 +56,24 @@ In diesem Objekt wird anschließend die Funktion connect aufgerufen, welche Vers
 Entsprechend dem Resultat wird entweder ein Fehlercode zurückgegeben oder die Datenbank analysiert und das Resultat der Analyse im JSON-Format im Request Body zurückgegeben.
 
 \begin{lstlisting}[language=python, caption={app.py},label={lst:backend_app}]
-    app = Flask("Mongodb Visualization Tool")
-    CORS(app)
+app = Flask("Mongodb Visualization Tool")
+CORS(app)
 
-    @app.post("/connect")
-    def get_tables_and_keys():
-        connection_string = request.json.get("connection_string")
-        database_name = request.json.get("database")
-        analyse_ref = request.json.get("analyse_ref")
-        sort_method = request.json.get("sort_method")
+@app.post("/connect")
+def get_tables_and_keys():
+    connection_string = request.json.get("connection_string")
+    database_name = request.json.get("database")
+    analyse_ref = request.json.get("analyse_ref")
+    sort_method = request.json.get("sort_method")
 
-        db_analysis = DatabaseAnalysis(connection_string, database_name, analyse_ref, sort_method)
-        connection_successful = db_analysis.connect()
-        if not connection_successful:
-            return Response(status=406)
+    db_analysis = DatabaseAnalysis(connection_string, database_name, analyse_ref, sort_method)
+    connection_successful = db_analysis.connect()
+    if not connection_successful:
+        return Response(status=406)
 
-        document_dict = db_analysis.analyse()
+    document_dict = db_analysis.analyse()
 
-        return json.dumps(document_dict)
+    return json.dumps(document_dict)
 \end{lstlisting}
 
 \subsection{DatabaseAnalysis}
@@ -84,13 +84,13 @@ Wenn die Verbindung nach 5 Sekunden noch nicht steht, wird der Versuch abgebroch
 Ansonsten werden die verbundene Datenbank und der verbundene Client im Objekt gespeichert und True zurückgegeben.
 
 \begin{lstlisting}[language=python, caption={DatabaseAnalysis.connect},label={lst:backend_connect}]
-    def connect(self, connection_string, database):
-        try:
-            self.mongodb_client = MongoClient(connection_string, serverSelectionTimeoutMS=5000)
-            self.database = self.mongodb_client[database]
-        except pymongo.errors.ServerSelectionTimeoutError:
-            return False
-        return True
+def connect(self, connection_string, database):
+    try:
+        self.mongodb_client = MongoClient(connection_string, serverSelectionTimeoutMS=5000)
+        self.database = self.mongodb_client[database]
+    except pymongo.errors.ServerSelectionTimeoutError:
+        return False
+    return True
 \end{lstlisting}
 
 In der Methode analyse derselben Klasse werden daraufhin alle Collection Namen in der Datenbank ausgelesen.
@@ -102,22 +102,22 @@ Dies beinhaltet Schritte wie beispielsweise das sortieren der Dokumente und das 
 Wenn alle Dokumente durchlaufen wurden, wird die Verbindung zur Datenbank geschlossen und die ProcessedCollection wird in ein Dictionary umgewandelt und zurückgegeben.
 
 \begin{lstlisting}[language=python, caption={DatabaseAnalysis.analyse},label={lst:backend_analyse}]
-    def analyse(self):
-        self.collection_names = self.database.list_collection_names()
-        docs_dict = {"collections": []}
-        for name in self.collection_names:
-            processed_collection = ProcessedCollection(name)
-            collection = self.database.get_collection(name)
-            documents = collection.find({})
-            for document in documents:
-                processed_collection.add_doc(document)
+def analyse(self):
+    self.collection_names = self.database.list_collection_names()
+    docs_dict = {"collections": []}
+    for name in self.collection_names:
+        processed_collection = ProcessedCollection(name)
+        collection = self.database.get_collection(name)
+        documents = collection.find({})
+        for document in documents:
+            processed_collection.add_doc(document)
 
-            processed_collection .post_processing(sort_method=self.sort_method)
-            if self.analyse_ref:
-                self.analyse_references(processed_collection)
-            docs_dict["collections"] .append(processed_collection.to_dict())
-        self.mongodb_client.close()
-        return docs_dict
+        processed_collection .post_processing(sort_method=self.sort_method)
+        if self.analyse_ref:
+            self.analyse_references(processed_collection)
+        docs_dict["collections"] .append(processed_collection.to_dict())
+    self.mongodb_client.close()
+    return docs_dict
 \end{lstlisting}
 
 Die Methode analyse\_references in DatabaseAnalysis wird nur ausgeführt, wenn der im Endpunkt übergebene Wert analyse\_ref auf True gesetzt ist.
@@ -130,23 +130,23 @@ Sobald eine Übereinstimmung gefunden wird, wird der Name der Collection zurück
 Wenn keine Übereinstimmung gefunden wird, dann wird None zurückgegeben.
 
 \begin{lstlisting}[language=python, caption={DatabaseAnalysis.analyse\_references},label={lst:backend_analyse_ref}]
-    def analyse_references(self, processed_collection):
-        for document in processed_collection.documents:
-            for value in document.values:
-                if value.val_type == "Object ID" and value.key != "_id":
-                    for orig_document in document.original_documents:
-                        referenced_collection = self.get_referenced_collection (orig_document.get(value.key))
-                        if referenced_collection is not None:
-                            value.ref = referenced_collection
-                            return
+def analyse_references(self, processed_collection):
+    for document in processed_collection.documents:
+        for value in document.values:
+            if value.val_type == "Object ID" and value.key != "_id":
+                for orig_document in document.original_documents:
+                    referenced_collection = self.get_referenced_collection (orig_document.get(value.key))
+                    if referenced_collection is not None:
+                        value.ref = referenced_collection
+                        return
 
-    def get_referenced_collection(self, _id):
-        for collection_name in self.collection_names:
-            collection = self.database.get_collection(collection_name)
-            document = collection.find_one({"_id": _id})
-            if document is not None:
-                return collection_name
-        return None
+def get_referenced_collection(self, _id):
+    for collection_name in self.collection_names:
+        collection = self.database.get_collection(collection_name)
+        document = collection.find_one({"_id": _id})
+        if document is not None:
+            return collection_name
+    return None
 \end{lstlisting}
 
 Die Bestimmung der Referenzen mit dieser Methode ist nicht immer akkurat, da der Primary Key eines Schemas auch einen anderen Datentyp als Object ID haben kann.
@@ -161,16 +161,16 @@ Ansonsten wird das Attribut count in dem bereits vorhandenen ProcessedDocument O
 
 
 \begin{lstlisting}[language=python, caption={ProcessedCollection.add\_doc},label={lst:backend_add_doc}]
-    def add_doc(self, document):
-        new_doc = ProcessedDocument(document)
-        for doc in self.documents:
-            if doc == new_doc:
-                doc.count += 1
-                if doc.document_ages:
-                    doc.document_ages .append(new_doc.document_ages[0])
-                doc.original_documents .append(new_doc.original_documents[0])
-                return
-        self.documents.append(new_doc)
+def add_doc(self, document):
+    new_doc = ProcessedDocument(document)
+    for doc in self.documents:
+        if doc == new_doc:
+            doc.count += 1
+            if doc.document_ages:
+                doc.document_ages .append(new_doc.document_ages[0])
+            doc.original_documents .append(new_doc.original_documents[0])
+            return
+    self.documents.append(new_doc)
 \end{lstlisting}
 
 Darüber hinaus enthält ProcessedCollection die methode post\_processing.
@@ -184,36 +184,36 @@ Folgende Nachbearbeitungsschritte werden ausgeführt:
 \end{enumerate}
 
 \begin{lstlisting}[language=python, caption={ProcessedCollection.post\_processing},label={lst:backend_post_processing}]
-    def post_processing(self, sort_method):
-        self.calc_document_averages()
-        self.sort_documents(sort_method)
-        self.mark_additional_values()
-        self.mark_missing_values()
+def post_processing(self, sort_method):
+    self.calc_document_averages()
+    self.sort_documents(sort_method)
+    self.mark_additional_values()
+    self.mark_missing_values()
 
-    def calc_document_averages(self):
-        for document in self.documents:
-            if document.document_ages:
-                document.avg_age = sum(document.document_ages) / len(document.document_ages)
+def calc_document_averages(self):
+    for document in self.documents:
+        if document.document_ages:
+            document.avg_age = sum(document.document_ages) / len(document.document_ages)
 
-    def sort_documents(self, sort_method):
-        if sort_method == "documentCount":
-            self.documents = sorted(self.documents, key=lambda document: document.count, reverse=True)
-        elif sort_method == "avgAge":
-            self.documents = sorted(self.documents, key=lambda document: document.avg_age, reverse=True)
+def sort_documents(self, sort_method):
+    if sort_method == "documentCount":
+        self.documents = sorted(self.documents, key=lambda document: document.count, reverse=True)
+    elif sort_method == "avgAge":
+        self.documents = sorted(self.documents, key=lambda document: document.avg_age, reverse=True)
 
-    def mark_additional_values(self):
-        main_doc = self.documents[0]
-        for i in range(1, len(self.documents)):
-            for value in self.documents[i].values:
-                if value not in main_doc.values:
-                    value.is_additional = True
+def mark_additional_values(self):
+    main_doc = self.documents[0]
+    for i in range(1, len(self.documents)):
+        for value in self.documents[i].values:
+            if value not in main_doc.values:
+                value.is_additional = True
 
-    def mark_missing_values(self):
-        main_doc = self.documents[0]
-        for i in range(1, len(self.documents)):
-            for value in main_doc.values:
-                if value not in self.documents[i].values:
-                    self.documents[i] .missing_values.append(value.key)
+def mark_missing_values(self):
+    main_doc = self.documents[0]
+    for i in range(1, len(self.documents)):
+        for value in main_doc.values:
+            if value not in self.documents[i].values:
+                self.documents[i] .missing_values.append(value.key)
 \end{lstlisting}
 
 \subsection{ProcessedDocument}
@@ -228,19 +228,19 @@ Das bestimmen des Alters eines Dokuments ist nur möglich, wenn der Primary Key 
 Des weiteren initialisiert der Konstruktor noch einige Werte, die für die Nachbearbeitung benötigt werden.
 
 \begin{lstlisting}[language=python, caption={ProcessedDocument.\_\_init\_\_},label={lst:backend_processed_document_init}]
-    def __init__(self, document):
-        self.values = analyse_values(document)
-        self.count = 1
-        self.document_ages = list()
-        _id = document.get("_id")
-        if isinstance(_id, bson.ObjectId):
-            document_generation_time = document.get("_id").generation_time
-            document_age = (datetime.datetime.now(datetime.timezone.utc) - document_generation_time).total_seconds()
-            self.document_ages.append(document_age)
-        self.avg_age = None
-        self.missing_values = list()
-        self.original_documents = list()
-        self.original_documents.append(document)
+def __init__(self, document):
+    self.values = analyse_values(document)
+    self.count = 1
+    self.document_ages = list()
+    _id = document.get("_id")
+    if isinstance(_id, bson.ObjectId):
+        document_generation_time = document.get("_id").generation_time
+        document_age = (datetime.datetime.now(datetime.timezone.utc) - document_generation_time).total_seconds()
+        self.document_ages.append(document_age)
+    self.avg_age = None
+    self.missing_values = list()
+    self.original_documents = list()
+    self.original_documents.append(document)
 \end{lstlisting}
 
 \subsection{Value}
@@ -262,17 +262,17 @@ Darüber hinaus wird im Konstruktor überprüft, ob es sich bei dem Value um ein
 Wenn dies der Fall ist, Werden die entsprechenden Analysemethoden aufgerufen.
 
 \begin{lstlisting}[language=python, caption={Value.\_\_init\_\_},label={lst:backend_value_init}]
-    def __init__(self, key, raw_value):
-        self.key = key
-        self.ref = None
-        self.nested_document = None
-        self.array_values = None
-        self.val_type = get_type(raw_value)
-        self.is_additional = False
-        if self.val_type == "Embedded document":
-            self.nested_document = analyse_values(raw_value)
-        elif self.val_type == "Array":
-            self.analyse_array(raw_value)
+def __init__(self, key, raw_value):
+    self.key = key
+    self.ref = None
+    self.nested_document = None
+    self.array_values = None
+    self.val_type = get_type(raw_value)
+    self.is_additional = False
+    if self.val_type == "Embedded document":
+        self.nested_document = analyse_values(raw_value)
+    elif self.val_type == "Array":
+        self.analyse_array(raw_value)
 \end{lstlisting}
 
 get\_type enthält simple If-Bedingungen, welche Datentypen eines Werts zu Strings mappen.
@@ -304,17 +304,17 @@ Die Besonderheit bei diesen Value-Objekten ist, dass das Feld Key leer bleibt, d
 Wenn das Array array\_values des darüberliegenden Values noch keinen Value enthält, der den gleichen Datentyp hat, wird das eben erzeugte Value-Objekt in array\_values gespeichert.
 
 \begin{lstlisting}[language=python, caption={Value.analyse\_array},label={lst:backend_value_analyse_array}]
-    def analyse_array(self, raw_value):
-        self.array_values = list()
-        for arr_element in raw_value:
-            array_value = Value(None, arr_element)
-            self.add_array_value(array_value)
+def analyse_array(self, raw_value):
+    self.array_values = list()
+    for arr_element in raw_value:
+        array_value = Value(None, arr_element)
+        self.add_array_value(array_value)
 
-    def add_array_value(self, new_array_value):
-        for array_value in self.array_values:
-            if array_value == new_array_value:
-                return
-        self.array_values.append(new_array_value)
+def add_array_value(self, new_array_value):
+    for array_value in self.array_values:
+        if array_value == new_array_value:
+            return
+    self.array_values.append(new_array_value)
 \end{lstlisting}
 
 \section{Frontend}
@@ -342,13 +342,13 @@ Hier wird mittels React Router der Startbildschirm als Index Element definiert, 
 Zudem wird der Pfad aller weiteren Screens definiert, über welchen diese dann geladen werden können.
 
 \begin{lstlisting}[language=JavaScript, caption={React Router in App.js},label={lst:app.js}]
-    <BrowserRouter>
-        <Routes>
-            <Route index element={<TitleScreen/>}/>
-            <Route path={AppScreens.dbModellingTool} element={<DatabaseModellingTool/>}/>
-            <Route path={AppScreens.mongoVisTool} element={<MongoManager/>}/>
-        </Routes>
-    </BrowserRouter>
+<BrowserRouter>
+    <Routes>
+        <Route index element={<TitleScreen/>}/>
+        <Route path={AppScreens.dbModellingTool} element={<DatabaseModellingTool/>}/>
+        <Route path={AppScreens.mongoVisTool} element={<MongoManager/>}/>
+    </Routes>
+</BrowserRouter>
 \end{lstlisting}
 
 \subsection{Aufbau des MongoDB Visualisation Tool Frontends}
@@ -381,34 +381,34 @@ Im Fehlerfall wird nur das Feedback Label aktualisiert.
 
 %TODO url als Umgebungsvariable abfragen
 \begin{lstlisting}[language=JavaScript, caption={MongoLeftSideBar.connectToDB},label={lst:mongo_left_side_bar_connect_to_db}]
-    function connectToDB() {
-        console.log("connecting to db")
-        setConnectionState(ConnectionStates.connecting)
-        const url = "http://127.0.0.1:5000/connect"
+function connectToDB() {
+    console.log("connecting to db")
+    setConnectionState(ConnectionStates.connecting)
+    const url = "http://127.0.0.1:5000/connect"
 
-        let contentToSend = {
-            connection_string: connectionString,
-            database: dbName,
-            analyse_ref: analyseRef,
-            sort_method: sortMethod
-        };
+    let contentToSend = {
+        connection_string: connectionString,
+        database: dbName,
+        analyse_ref: analyseRef,
+        sort_method: sortMethod
+    };
 
-        axios.post(url, contentToSend).then((response) => {
-            connectionSuccessful(response)
-            dispatch(setCollections(response.data))
-        }).catch(error => connectionFailed(error))
-    }
-
-    function connectionSuccessful(response) {
-        console.log("data: " + response.data)
-        setConnectionState(ConnectionStates.connected)
+    axios.post(url, contentToSend).then((response) => {
+        connectionSuccessful(response)
         dispatch(setCollections(response.data))
-    }
+    }).catch(error => connectionFailed(error))
+}
 
-    function connectionFailed(error) {
-        console.log(error)
-        setConnectionState(ConnectionStates.connectionFailed)
-    }
+function connectionSuccessful(response) {
+    console.log("data: " + response.data)
+    setConnectionState(ConnectionStates.connected)
+    dispatch(setCollections(response.data))
+}
+
+function connectionFailed(error) {
+    console.log(error)
+    setConnectionState(ConnectionStates.connectionFailed)
+}
 \end{lstlisting}
 
 \subsection{DocumentTable}
@@ -467,33 +467,33 @@ in diesem Fall wurde der Reducer setCollections definiert, welcher es erlaubt, i
 Abschließend werden die actions und die reducer des ContentSlice exportiert, sodass diese global erreichbar sind.
 
 \begin{lstlisting}[language=JavaScript, caption={MongoContentSlice},label={lst:fe_redux_slice}]
-    export const mongoContentSlice = createSlice({
-        name: 'mongoContent',
-        initialState: {
-            collections: null
-        },
-        reducers: {
-            setCollections: (state, documents) => {
-                state.collections = documents
-            }
+export const mongoContentSlice = createSlice({
+    name: 'mongoContent',
+    initialState: {
+        collections: null
+    },
+    reducers: {
+        setCollections: (state, documents) => {
+            state.collections = documents
         }
-    })
+    }
+})
 
-    export const {setCollections} = mongoContentSlice.actions
-    export default mongoContentSlice.reducer
+export const {setCollections} = mongoContentSlice.actions
+export default mongoContentSlice.reducer
 \end{lstlisting}
 
 Auf diese Weise lassen sich schnell und einfach weitere ContentSlices definieren.
 Um diese ContentSlices zu verwenden, müssen sie nur noch in den Redux Store eingefügt werden.
 
 \begin{lstlisting}[language=JavaScript, caption={Redux Store},label={lst:fe_redux_store}]
-    export const store = configureStore({
-        reducer: {
-            erContent: erContentSlice,
-            relationalContent: relationalContentSlice,
-            mongoContent: mongoContentSlice
-        }
-    })
+export const store = configureStore({
+    reducer: {
+        erContent: erContentSlice,
+        relationalContent: relationalContentSlice,
+        mongoContent: mongoContentSlice
+    }
+})
 
-    export default store;
+export default store;
 \end{lstlisting}
