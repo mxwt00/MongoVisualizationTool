@@ -57,7 +57,7 @@ Von diesem Ausgehend werden alle weiteren Klassen von Außen nach Innen beleucht
 Der bereits beschriebene eine Endpunkt im Backend ließt in Zeile 6 bis 9 alle benötigten Werte aus dem Request Body aus.
 Mit diesen Daten wird dann ein neues Objekt vom Typ DatabaseAnalysis erstellt.
 In diesem Objekt wird anschließend die Funktion connect aufgerufen, welche Versucht, sich mit der spezifizierten MongoDB Datenbank zu verbinden.
-Wenn die Verbindung erfolgreich ist, wird die Datenbank anschließend analysiert.
+Wenn die Verbindung erfolgreich ist, wird die Datenbank daraufhin analysiert.
 Das Resultat der Analyse wird als JSON in der Response zurückgegeben
 Im Fehlerfall wird der Response Code 406 zurückgegeben.
 
@@ -265,7 +265,7 @@ def analyse_values(document):
 
 Der Konstruktor der Value Klasse initialisiert alle im ER-Diagramm beschriebenen Values und analysiert den Datentyp des Values mit der Methode get\_type.
 Darüber hinaus wird im Konstruktor überprüft, ob es sich bei dem Value um ein verschachteltes Dokument oder ein Array handelt. 
-Wenn dies der Fall ist, Werden die entsprechenden Analysemethoden aufgerufen.
+Wenn dies der Fall ist, werden die entsprechenden Analysemethoden aufgerufen.
 
 \begin{lstlisting}[language=python, caption={Value.\_\_init\_\_},label={lst:backend_value_init}]
 def __init__(self, key, raw_value):
@@ -427,13 +427,13 @@ Es gibt mehrere Arten von DocumentTables, welche je nach Verwendungszweck mit de
     \item \textbf{main} ist die standard Tabelle, welche im MongoDiagram benutzt wird, um das Hauptschema einer Collection darzustellen.
     \item \textbf{nested} ist eine veschachtelte Untertabelle, entspricht also dem Datentyp Embedded Document.
     \item \textbf{array} wird für den Datentyp Array benutzt.
-    \item \textbf{detail} wird im Detail View Popup benutzt, um alle Variatonen der Schemas einer Collection darzustellen.
+    \item \textbf{detail} wird im DetailView Popup benutzt, um alle Variatonen der Schemas einer Collection darzustellen.
 \end{itemize}
 
 Dem Element DocumentTable liegt die Material UI Table zugrunde.
 Material UI Tables haben eine Toolbar, welche hierfür je nach DocumentTableType angepasst wird.
 In der Main DocumentTable besteht die Toolbar aus einem Button, mit dem Namen der dargestellten Collection als Label.
-Die onClick Methode dieses Buttons öffnet die Detail View dieser Collection.
+Die onClick Methode dieses Buttons öffnet die DetailView dieser Collection.
 Wenn der DocumentTableType detail entspricht, zeigt die Toolbar die Anzahl der Dokumente, die dieses Schema benutzen, sowie eventuell die fehlenden Felder gegenüber dem Hauptschema.
 In allen anderen Fällen bleibt die Toolbar leer.
 
@@ -446,7 +446,7 @@ Wenn der Datentyp des Werts in dieser Reihe Array oder Embedded document entspri
 Diese lässt sich dann mit dem Expand Button ausklappen und anzeigen.
 
 \begin{figure}[H]
-    \includegraphics[width=360]{images/table_types}
+    \includegraphics[width=360pt]{images/table_types}
     \caption{Frontend DocumentTable Typen}
     \label{fig:table_types}
 \end{figure}
@@ -462,7 +462,7 @@ Der DocumentTableType ist in diesen Tabellen jedoch nicht main, sondern detail, 
 
 \begin{figure}[H]
     \includegraphics[width=\textwidth]{images/frontend_detail_view}
-    \caption{Frontend Detail View Popup}
+    \caption{Frontend DetailView Popup}
     \label{fig:frontend_detail_view}
 \end{figure}
 

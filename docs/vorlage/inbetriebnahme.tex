@@ -13,7 +13,7 @@ Das MongoDB Visualisation Tool wird auf einem Linux Server mit Debian 11 gehoste
 Das Flask Backend läuft in einem Docker Container.
 Der Vorteil von Docker ist, dass der Applikation eine eigene Umgebung bereitgestellt wird, die unabhängig vom Host-System ist.
 Um das Backend als Dockercontainer auszuliefern, wurde das vorkonfigurierte Docker Image uwsgi-nginx-flask von tiangolo genutzt.
-In diesem Docker Image sind uWSGI und Nginx vorinstalliert, was das ausliefern von Flask Applikationen erleichtert.
+In diesem Docker Image sind uWSGI und Nginx vorinstalliert, was das Ausliefern von Flask Applikationen erleichtert.
 ~\autocite{tiangolo:uwsgi-nginx-flask}
 
 Das Backend für das ER Modelling Tool ist als Heroku-App deployed.
@@ -22,7 +22,7 @@ Heroku ist ein cloudbasierter Serviceanbieter, welcher ein kostenloses Modell f�
 
 Das Frontend wurde mittels NPM gebaut und auf dem Server bereitgestellt.
 Mittels NGINX wurde das Webinterface daraufhin gehostet. 
-Das Interface ist nun unter der Adresse \url{http://kodewisch.com:12030} erreichbar.
+Das Interface ist nun unter der Adresse \url{https://db-toolkit.kodewisch.com} erreichbar.
 
 \section{Buildprozess des Backends}
 \label{sec:build_backend}
@@ -30,7 +30,7 @@ Das Interface ist nun unter der Adresse \url{http://kodewisch.com:12030} erreich
 Um das Backend starten zu können, muss Python 3.10 oder neuer installiert sein.
 
 Wenn dies der Fall ist, können mit dem Befehl \lstinline{pip -r requirements.txt} im Verzeichnis mongo\_vis\_backend alle benötigten Pakete installiert werden.
-Um Konflikte mit anderen Python installationen zu vermeiden, führt man diesen Befehl am besten in einem Virtual Environment aus.
+Um Konflikte mit anderen Python Installationen zu vermeiden, führt man diesen Befehl am besten in einem Virtual Environment aus.
 Anschließend kann das Backend mit dem Befehl \lstinline{python3 -m flask run} ausgeführt werden.
 
 Eine Anleitung für das Deployment des Backends als Docker Container kann unter \url{https://hub.docker.com/r/tiangolo/uwsgi-nginx-flask/} gefunden werden.
@@ -39,9 +39,9 @@ Eine Anleitung für das Deployment des Backends als Docker Container kann unter 
 \label{sec:build_frontend}
 
 Node und NPM müssen installiert sein, damit das Frontend gebaut werden kann.
-Über \url{tps://nodejs.org/en/download/} können Node und NPM installiert werden.
+Über \url{https://nodejs.org/en/download/} können Node und NPM installiert werden.
 
-Anschließend müssen im Verzeichnis frontend folgende Befehle ausgeführt werden, um es zu starten:
+Anschließend müssen im Verzeichnis frontend folgende Befehle ausgeführt werden, um das Frontend zu starten:
 
 \begin{lstlisting}[language=bash, caption={Frontend build commands},label={lst:fe_build_commands}]
 $ npm install
@@ -51,9 +51,9 @@ $ npm start
 Um das Frontend auszuliefern, kann das Frontend mit dem Befehl \lstinline{npm run build} gebaut werden.
 Die gebauten Dateien befinden sich dann im Ordner build.
 
-Vorausgesetzt wird ein Debian- oder Ubuntubasierter Computer/ Server, auf dem Nginx mit SSL Zertifikat konfiguriert ist.
+Vorausgesetzt wird ein Debian- oder Ubuntubasierter Computer oder Server, auf dem Nginx mit SSL-Zertifikat konfiguriert ist.
 Um die Dateien auf solch einem Server auszuliefern, müssen die Dateien in den Ordner /var/www/db-toolkit/html verschoben werden.
-db-toolkit kann auch durch einen beliebigen Namen ersetzt werden.
+Der Ordnername db-toolkit kann auch durch einen beliebigen anderen Namen ersetzt werden.
 Daraufhin muss folgende Nginx Konfiguration im Ordner /etx/nginx/conf.d mit dem namen db-toolkit.conf angelegt werden:
 
 \begin{lstlisting}[language=bash, caption={db-toolkit.conf},label={lst:db-toolkit.conf}]
@@ -82,7 +82,7 @@ server {
 }
 \end{lstlisting}    
 
-Diese Nginx Konfiguration zeigt die mit root und index spezifizierte Resource für alle anfragen an, die auf die Subdomain db-toolkit.kodewisch.com eingehen.
+Diese Nginx Konfiguration zeigt die unter root und index spezifizierte Resource für alle Anfragen an, die auf die Subdomain db-toolkit.kodewisch.com eingehen.
 Die obere Server-Konfiguration nimmt die HTTP Anfragen auf Port 80 entgegen und leitet diese auf HTTPS um.
 Die untere Server-Konfiguration nimmt die HTTPS Anfragen auf Port 443 entgegen, spezifiziert das SSL-Zertifikat und zeigt die Resource an.
 Die ssl\_certificate Pfade müssen durch die entsprechenden Pfade auf dem Server ersetzt werden, ebenso wie die Domain.

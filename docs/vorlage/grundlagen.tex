@@ -95,7 +95,7 @@ In JSON gibt es unter anderem folgende Datentypen:
 \begin{figure}[H]
     \begin{minipage}[t]{0.45\textwidth}
         \textbf{Number} ist eine Zahl.
-        Number kann sowohl eine Gleitkommazahl als auch eine Ganzzahl sein, und kann positiv sowie negativ sein.
+        Number kann sowohl eine Gleitkommazahl als auch eine Ganzzahl sein und kann positiv sowie negativ sein.
         \includegraphics[width=0.9\textwidth]{images/json_number}
         \caption{JSON Number}
         \label{fig:json_number}
@@ -123,7 +123,7 @@ Man kann sich mit der MongoShell mit einer MongoDB Instanz verbinden, um mit der
 Python ist eine objektorientierte high-level Programmiersprache, die besonderen Wert auf Lesbarkeit legt.
 Variablen in Python werden dynamisch typisiert.
 Das bedeutet, dass eine Variable in Python keinen festen Typ hat, sondern dieser dynamisch über den ihr zugewiesenen Wert bestimmt wird.
-Python ist keine compilierte, sondern eine interpretierte Programmiersprache.
+Python ist keine kompilierte, sondern eine interpretierte Programmiersprache.
 Diese Eigenschaften machen Python zu der idealen Sprache für das Schreiben von Skripten, sowie für Anwendungen, die schnell und simpel entwickelt werden sollen.
 PIP ist ein in Python integrierter Paketmanager, der das installieren von Packages erleichtert.
 Der Python Interpreter ist in C geschrieben, weshalb man die Funktionalität des Interpreters durch C-Programme erweitern kann, um beispielsweise laufzeitkritische Funktionen in C auszuführen.
@@ -137,7 +137,7 @@ In Flask sind ein paar wenige Kernpakete vorinstalliert, welche für ein minimal
 Alles weitere muss der Nutzer selbst über PIP installieren.
 ~\autocite{grindberg:flask}
 Durch diesen minimalistischen Ansatz ist Flask sehr flexibel einsetzbar.
-Flask ist beispielsweise mit SQL oder NoSQL Datenbanken, aber auch ohne Datenbanken einsetzbar.
+Flask ist beispielsweise mit SQL oder NoSQL Datenbanken, aber auch ganz ohne Datenbanken einsetzbar.
 
 % TODO DOM
 
@@ -148,14 +148,14 @@ JavaScript ist eine High-Level Programmiersprache, die just-in-time kompiliert w
 JavaScript ist besonders bekannt als Skriptsprache für Webseiten, wird aber auch für Backendanwendungen, Automatisierungsaufgaben und vieles mehr verwendet.
 Die Besonderheit von JavaScript gegenüber anderen Sprachen ist eine vollständige native Kompatibilität und Integration in HTML und CSS.
 ~\autocite{javascript:javascript}
-Die Pakete in JavaScript werden mittels dem Paketmanager npm verwaltet.
+Die Pakete in JavaScript werden mittels dem Paketmanager NPM verwaltet.
 
 \section{React}
 \label{sec:react}
 
 React ist eine JavaScript Bibliothek zum Bauen von Benutzeroberflächen.
 React ist Komponentenbasiert.
-Das bedeutet, das React aus einzelnen Komponenten bestehen, die ihren eigenen State haben, und die zusammengesetzt ein komplexes \ac{ui} bilden.
+Das bedeutet, das React aus einzelnen Komponenten bestehen, die ihren eigenen State haben und die zusammengesetzt ein komplexes \ac{ui} bilden.
 ~\autocite{banks:react}
 
 
@@ -167,11 +167,13 @@ Redux ist ein State Container für JavaScript Apps, der es ermöglicht, States n
 Dadurch können States wiederhergestellt werden, nachdem eine Komponente geschlossen und wieder geöffnet wurde.
 Außerdem erleichtert Redux es, State Änderungen in Komponenten nachzuvollziehen.
 
+\iffalse
 \subsection{Axios}
 \label{sub:axios}
 
 Axios ist ein HTTP-Client für JavaScript.
 Mithilfe von Axios Können HTTP-Requests versendet und die Responses von diesen verarbeitet werden.
+\fi
 
 \section{Docker Container}
 \label{sec:docker}
@@ -179,8 +181,8 @@ Mithilfe von Axios Können HTTP-Requests versendet und die Responses von diesen 
 Ein Container ist eine virtuelle Umgebung, die, ähnlich wie eine virtuelle Maschine, eine Anwendung in eine isolierte Umgebung verpackt.
 Jedoch wird im Gegensatz zu virtuellen Maschinen nicht das ganze Betriebssystem virtualisiert, sondern nur einzelne Anwendungen.
 Dadurch ist ein Container deutlich schlanker als eine virtuelle Maschine.
-Container können dadurch als sogenannte Images auf verschiedenen Systemen ausgeliefert werden, und dabei aufgrund der Isolierung unabhängig vom System zuverlässig funktionieren.
-Docker ist eine weit verbreitete Open-Source Software, welche das Container Prinzip implementiert.
+Container können als sogenannte Images auf verschiedenen Systemen ausgeliefert werden und dabei aufgrund der Isolierung unabhängig vom System zuverlässig funktionieren.
+Docker ist eine weit verbreitete Open-Source Software, welche das Container-Prinzip implementiert.
 ~\autocite{devInsider:container}
 
 \section{Nginx}
@@ -198,6 +200,6 @@ Im Januar 2023 liefen 21,20\% der meistgenutzten Seiten über Nginx.
 \label{sec:microservices}
 
 Die Microservice Architektur ist eine Architektur, bei der das Endprodukt aus einer Sammlung einzelner Services besteht.
-Diese Services sind an sich voneinander Unabhängig auslieferbar, und sind nur lose gekoppelt.
-Jeder Service wird von einem einzelnen kleinen Team entwickelt, und muss ohne großen Aufwand testbar und wartbar sein.
+Diese Services sind an sich voneinander Unabhängig auslieferbar und sind nur lose gekoppelt.
+Jeder Service wird von einem einzelnen kleinen Team entwickelt und muss ohne großen Aufwand testbar und wartbar sein.
 ~\autocite{richardson:microservices}

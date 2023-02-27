@@ -30,12 +30,12 @@ Das Frontend des ER-Modellierungstools besteht aus einer React Webapp.
 Deshalb muss das Frontend der Gesamtlösung ebenfalls in einer gemeinsamen Webapp ausgeliefert werden (\nameref{itm:fa1}).
 Diese Webapp muss in der Paketstruktur sowie in den verwendeten Komponenten modular sein (\nameref{itm:fa2}).
 Ohne diese Modularität wäre die Erweiterbarkeit des Frontends nicht gegeben.
-Um auf die einzelnen Anwendungen der Gesamtlösung zugreifen zu können, wird ein Startbildschirm benötigt, von welchem aus man die Applikationen starten kann (\nameref{itm:fa3}). 
+Um auf die einzelnen Tools der Gesamtlösung zugreifen zu können, wird ein Startbildschirm benötigt, von welchem aus man die Tools starten kann (\nameref{itm:fa3}). 
 
 Da das MongoDB Visualisierungstool ein relativ kleines Tool ohne großen Funktionsumfang ist, sind die meisten Nutzer nicht bereit, erst ein Handbuch für die Benutzung der Anwendung zu lesen.
 Aus diesem Grund muss die Anwendeung intuitiv benutzbar sein.
 Das bedeutet, dass alle Funktionen der Anwendung selbsterklärend, oder in der Anwendung selbst ausreichend beschrieben sein müssen (\nameref{itm:fa4}).
-Dies erfordert auch, dass alle Frontend-Anwendungen der Gesamtlösung sich gleich benutzen lassen und ein einheitliches Design verwenden, da dies sonst den Arbeitsfluss und dadurch die intuitive Bedienung behindert (\nameref{itm:fa5}).
+Dies erfordert auch, dass sich alle Frontend-Anwendungen der Gesamtlösung gleich benutzen lassen und ein einheitliches Design verwenden, da dies sonst den Arbeitsfluss und dadurch die intuitive Bedienung behindert (\nameref{itm:fa5}).
 
 MongoDB Dokumente können beliebig groß und beliebig verschachtelt sein.
 Ein Dokument kann eingebettete Dokumente, sowie Arrays in belibiger Tiefe ineinander geschachtelt haben.
@@ -43,12 +43,12 @@ Damit die Visualisierung großer Dokumente trotzdem einen Mehrwert hat, müssen 
 Aus diesem Grund ist eine übersichtliche Darstellung der Schemata sehr wichtig (\nameref{itm:fa6}).
 
 Die Dokumente in einer Collection müssen nicht zwangsläufig das gleiche Schema haben.
-Diese Schema Abweichungen können Verschiedene Ursachen haben:
-Das Schema kann einige Optionale Felder haben, welche in manchen Dokumenten nicht gesetzt sind.
+Diese Schema Abweichungen können verschiedene Ursachen haben:
+Das Schema kann einige optionale Felder haben, welche in manchen Dokumenten nicht gesetzt sind.
 Es könnte sich aber auch um verschiedene Versionen eines Schemas handeln, das sich im Laufe der Entwicklung gewandelt hat.
 Es könnte sich bei den Abweichungen aber auch um Fehler in der Implementierung handeln.
 Für einen Entwickler kann es deshalb hilfreich sein, einen Überblick über alle Variationen in einer Collection zu haben.
-Aus diesem Grund soll das MongoDB Visualisierungstool für jede Collection eine Detailansicht haben, die diese Variationen visualisiert.
+Aus diesem Grund soll das MongoDB Visualisierungstool für jede Collection eine Detailansicht haben, welche diese Variationen visualisiert.
 Der Unterschied in diesen Variationen kann vor allem bei großen Dokumenten unter Umständen nicht direkt ersichtlich sein.
 Aus diesem Grund müssen diese Abweichungen vom Hauptschema deutlich hervorgehoben werden.(\nameref{itm:fa7})
 
@@ -56,24 +56,22 @@ Aus diesem Grund müssen diese Abweichungen vom Hauptschema deutlich hervorgehob
 \label{sec:anf_backend}
 
 Das MongoDB Visualisierungstool muss auch sehr große MongoDB Datenbanken analysieren können.
-Vor allem bei großen Datenbanken ist ein Visualisierungstool besonders hilfreich, da große Datenmengen sehr schwer Überschaubar sind.
+Vor allem bei großen Datenbanken ist ein Visualisierungstool besonders hilfreich, da große Datenmengen sehr schwer überschaubar sind.
 Die Analyse sollte jedoch nicht länger als ein paar Sekunden dauern, da dies den Arbeitsfluss der Benutzer unterbrechen würde.
 Ein Entwickler sollte während der Arbeit an der Datenbank das Visualisierungstool schnell starten können, um ihn bei der Analyse der Datenbank zu unterstützen.
 Deshalb müssen die Datenbanken möglichst performant analysiert werden.
 Die Laufzeit der Analyse sollte 10 Sekunden nicht überschreiten (\nameref{itm:ba1}).
-%TODO warum 10 Sekunden?
 
 Die Webapp kann potenziell von beliebig vielen Personen gleichzeitig benutzt werden.
 Dies bedeutet, dass das Backend des MongoDB Visualisierungstools mehrere Anfragen gleichzeitig abarbeiten können muss.
 Deshalb müssen mehrere MongoDB Datenbanken gleichzeitig verbunden und analysiert werden könnnen (\nameref{itm:ba2}).
 
 \cleardoublepage
-baum
 
 \section{Übersicht über die Anforderungen}
 \label{sec:anf_uebersicht}
 
-Frontend:
+\textbf{Frontend:}
 
 \begin{description}
     \item[\textbf{FA1}\label{itm:fa1}] Gemeinsame Webapp aller Anwendungen der Gesamtlösung
@@ -85,7 +83,7 @@ Frontend:
     \item[\textbf{FA7}\label{itm:fa7}] Visualisierung der Schema-Variationen in einer Collection
 \end{description}
 
-Backend:
+\textbf{Backend:}
 
 \begin{description}
     \item[\textbf{BA1}\label{itm:ba1}] Analyse der Datenbanken in unter 10 Sekunden

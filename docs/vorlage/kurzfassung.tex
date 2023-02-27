@@ -23,10 +23,23 @@
 
     In diesem Bericht geht es um die Entwicklung eines Visualisierungstools für MongoDB Datenbanken.
     Ziel dieses Tools ist es, aus den Dokumenten und Collections einer MongoDB Datenbank Schemas zu extrahieren, welche daraufhin anschaulich visualisiert werden.
-    Dieses Tool ist Teil eines größeren Datenbank Toolkits, weshalb großer Wert auf Modulatität und Erweiterbarkeit gelegt wird.
+    Dieses Tool ist Teil eines größeren Datenbank Toolkits, weshalb in der Entwicklung großen Wert auf Modulatität und Erweiterbarkeit gelegt wird.
 
     Das MongoDB Visualisierungstool besteht aus einem React Frontend und einem Flask Backend, welche über HTTP miteinander kommunizieren.
     Die Aufgabe des Backends ist es, sich mit einer MongoDB Datenbank zu verbinden.
-    Diese Datenbank wir bei erfolgreicher Verbindung analysiert und das Ergebnis der Analyse als JSON zurückgegeben.
+    Diese Datenbank wir bei erfolgreicher Verbindung analysiert und das Ergebnis der Analyse an das Frontend zurückgegeben.
     Das Frontend visualisiert diese Daten daraufhin in Form von Tabellen.
+    
+    Das Erarbeiten dieses Tools wird in diesem Bericht von der Problemstellung über die Planung und Entwicklung bis hin zu der Auslieferung erläutert.
+    In der Einleitung wird zunächst die Bedeutung von MongoDB und die Wichtigkeit dieses Tools herausgearbeitet.
+    Im Kapitel Grundlagen werden daraufhin einige Technologien vorgestellt, die für die Lösung des Problems benötigt werden.
+    Welche Anforderungen das Tool erfüllen muss, um als Erfolg gewertet werden zu können, wird im Kapitel Problemanalyse herausgearbeitet.
+    Im Lösungskonzept werden zunächst die bestehenden Analyse- und Visualisierungstools für MongoDB analysiert, um den Nutzen und die Besonderheit des MongoDB Visualisierungstools herauszufinden.
+    Daraufhin wird ermittelt, mit welchen Tools sich die in der Problemanalyse erarbeiteten Anforderungen am besten erfüllen lassen.
+    Anschließend wird geplant, wie die konkrete Umsetzung aussehen soll.
+    Im Backend geschiet dies vor allem anhand von UML-Diagrammen, im Frontend anhand von Wireframes.
+    In der Implementierung wird die Umsetzung dieses Lösungskonzepts in Python und JavaScript dokumentiert.
+    Abschließend wird noch die Auslieferung der Lösung, sowie die Evaluierung der Ergebnisse und einen Ausblick auf die weitere Entwicklung des Database Toolkits präsentiert.
+    
+    
 \end{abstract}

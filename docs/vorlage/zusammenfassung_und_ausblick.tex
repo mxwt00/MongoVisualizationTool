@@ -9,12 +9,12 @@ dies nachgewiesen).
 \fi
 
 In diesem Projekt wurde das Problem angegangen, dass es keine geeigneten Schema-Analysetools für MongoDB Datenbanken gibt.
-Deshalb wurde das MongoDB Visualisierungstool
+Deshalb wurde das MongoDB Visualisierungstool entwickelt.
 Dieses Tool wurde in das bestehende Projekt ER Modellierungstool integriert, um ein erweiterbares Datenbank Toolkit zu bilden.
 Das Tool selbst besteht dabei aus 2 Teilen:
 Der erste Teil ist ein Frontend, welches in das ER Modellierungstool Frontend integriert wurde.
 Dieses Frontend wurde mit JavaScript und React umgesetzt.
-Die Modularität dieser Gesamtlösung wurde durch einen Startbildschirm, sowie strukturelle Anpassungen im Code beibehalten und erweitert.
+Die Modularität dieser Gesamtlösung wurde durch einen Startbildschirm, sowie strukturelle Anpassungen im Code erhalten und erweitert.
 Das MongoDB Visualisierungstool Frontend besteht aus drei Hauptelementen:
 \begin{itemize}
     \item Der LeftSidebar, die das Verbinden mit einer MongoDB Datenbank ermöglicht
@@ -27,7 +27,7 @@ Die Schemas wurden hierbei mit der Komponente DokumentTable umgesetzt, welche au
 Der zweite Teil des MongoDB Visualisierungstools ist ein Backend, welches in dem Python-Framework Flask geschrieben wurde.
 Das Backend besitzt einen einzigen REST-Endpunkt.
 Die Aufgabe dieses Endpunkts ist es, sich mit der spezifizierten Datenbank zu verbinden und diese zu analysieren.
-Die Ergebnisse der Analyse werden an das Frontend im JSON-Format zurückgegeben welches diese dann visualisert.
+Die Ergebnisse der Analyse werden an das Frontend im JSON-Format zurückgegeben, welches diese anschließend visualisert.
 
 \section{Ausblick}
 \label{sec:ausblick}
@@ -45,46 +45,47 @@ Es gibt ein Paar Funktionen des MongoDB Visualisierungstools, die noch weiter au
 \subsection{Referenzen}
 \label{sub:ausblick_referenzen}
 
-Einerseits Ist das Ermitteln der Referenzen noch nicht besonders genau.
-In dem aktuellen Algorithmus wird davon ausgegangen, dass alle Werte des Typs Object ID, welche nicht den namen \_id besitzen, Referenzen sind.
+Einerseits erfolgt das Ermitteln der Referenzen noch nicht sehr präzise.
+In dem aktuellen Algorithmus wird davon ausgegangen, dass alle Werte des Typs Object ID, welche nicht den Namen \_id besitzen, Referenzen sind.
 Jedoch kann es auch Referenzen geben, die nicht den Typ Object ID besitzen, da der Primary Key eines Dokuments nicht zwangsläufig eine Object ID sein muss.
 Deshalb könnte man die Bestimmung der Referenzen noch weiter verbessern.
 
 Die Visualisierung der Referenzen könnte ebenfalls ausgebaut werden:
 Man könnte eine Ansicht der Collections als Graph mit den Collections als Knoten und den Referenzen als Kanten darstellen.
-Dies würde es Entwicklern bei Datenbanken mit vielen Referenzen erleichtern, die Abhängigkeiten zwischen den Collections zu Überblicken.
+Dies würde es Entwicklern bei Datenbanken mit vielen Referenzen erleichtern, die Abhängigkeiten zwischen den Collections zu überblicken.
 
 \subsection{Performance der Analyse}
 \label{sub:ausblick_performance}
 
-Wie in dem Experiment im Kapitel \nameref{cha:evaluierung} festgestellt wurde, kann die Analyse von Größeren Datenbanken lange dauern.
+Wie in dem Experiment im Kapitel \nameref{cha:evaluierung} festgestellt wurde, kann die Analyse von großen Datenbanken lange dauern.
 Die Analyse der größten Datenbank im Experiment dauerte 30 Sekunden.
-Solch eine lange Wartezeit unterbricht den Arbeitsablauf eine Entwicklers, und sollte deswegen möglichst minimiert werden,
+Solch eine lange Wartezeit unterbricht den Arbeitsablauf eine Entwicklers und sollte deswegen möglichst vermieden werden.
 Dafür gibt es mehrere Ansätze:
 
-Mittels Multithreading die Analysezeit erheblich reduziert werden.
-Beispielsweise könnte jede Collection auf einem eigenen Thread analysiiert werden.
-Da das Backend in Python geschrieben wurde, ist die Umsetzung von Multithreading relativ simpel.
-Python bietet mit der Bibliothek MultiProcessing eine simple, aber effiziente Implementierung von Multithreading.
+Mittels Multithreading kann die Analysezeit erheblich reduziert werden.
+Beispielsweise kann jede Collection auf einem eigenen Thread analysiert werden.
+Da das Backend in Python geschrieben ist, ist die Umsetzung von Multithreading relativ simpel.
+Python bietet mit der Bibliothek MultiProcessing eine simple, aber effiziente Implementierung von Multithreading an.
 ~\autocite{python:multiprocessing}
 
 Eine weitere Möglichkeit, die Laufzeit der Analyse zu senken, ist, in größeren Datenbanken optional nur einen Teil der Dokumente jeder Collection zu analysieren.
-Damit könnte, je nach Anzahl der nicht analysierten Dokumente, die Laufzeit linear gesenkt werden.
+Damit kann die Laufzeit linear gesenkt werden, abhängig von der Anzahl der nicht Dokumente, die nicht analysiert werden.
 Jedoch ist es mit dieser Methode nicht mehr möglich, alle Schemavariationen einer Collection zuverlässig anzuzeigen.
 
-Abgesehen von Software-Seitigen Optimierungen kann die Laufzeit verbessert werden, in dem man das Backend auf einem Leistungsstärkeren Server ausliefert.
+Abgesehen von Software-Seitigen Optimierungen kann die Laufzeit verbessert werden, in dem man das Backend auf einem leistungsstärkeren Server ausliefert.
 
 \subsection{Weitere Datenbanksysteme}
 \label{sub:ausblick_weitere_dbs}
 
 Neben MongoDB gibt es noch eine Vielzahl weiterer Datenbanksysteme, für welche keine geeigneten Visualisierungstools existieren.
-Man könnte das MongoDB Visualisierungstool beispielsweise zu einem NoSQL Visualisierungstool erweitern.
-Man könnte dafür in der LeftSideBar den Datenbanktyp auswählen, und daraufhin in dem Hauptbildschirm eine passende Visualisierung der Datenbank generieren.
-Vor allem für Dokument-Datenbanken und andere zu MongoDB ähnliche Datenbanken wäre der Aufwand, diese zu integrieren, gering, da die nötigen Komponenten zur Visualisierung dieser bereits existieren, und lediglich angepasst werden müssten.
+Man kann das MongoDB Visualisierungstool beispielsweise zu einem NoSQL Visualisierungstool erweitern.
+Vorstellbar wäre eine Einstellung in der LeftSideBar, in der man den Typ der zu analysierenden Datenbank auswählen kann.
+Mit dieser Information kann man daraufhin in der MongoDiagram Komponente eine passende Visualisierung anzeigen.
+Vor allem für Dokument-Datenbanken und andere zu MongoDB ähnliche Datenbanken wäre der Aufwand, diese zu integrieren, gering, da die nötigen Komponenten zur Visualisierung dieser bereits existieren und lediglich angepasst werden müssten.
 Aber auch andere NoSQL Datenbanken, wie beispielsweise Graph-Datenbanken, könnten in das Visualisierungstool integriert werden.
 
 \subsection{Weitere Tools}
 \label{sub:ausblick_tools}
 
 Neben den zwei bestehenden Tools kann das Datenbank Toolkit um weitere Tools erweitert werden.
-Das Datenbank Toolkit ist entsprechend modular aufgebaut, dass weitere Tools ohne große Änderungen in das bestehende Toolkit integriert werden können.
+Das Datenbank Toolkit ist entsprechend modular aufgebaut, sodass weitere Tools ohne große Änderungen in das bestehende Toolkit integriert werden können.

@@ -34,7 +34,7 @@ Jedoch bietet der MongoDB Data Explorer keine Möglichkeiten, die Schemas der Do
 MongoDB Compass ist eine Desktop-Anwendung zur Analyse von MongoDB Datenbanken.
 MongoDB Compass besitzt ein Schema-Visualisierungstool.
 Dieses Schema-Visualisierungstool zeigt sehr genaue Daten zu jedem Feld der Dokumente einer Collection an.
-Diese Ansicht ist jedoch nicht besonders übersichtlich, wenn man das gesamte Schema der Dokumente einer Collection analysieren will.
+Diese Ansicht ist jedoch nicht besonders übersichtlich, wenn man das gesamte Schema der Dokumente einer Collection analysieren und überblicken will.
 Ebenfalls nicht gut ersichtlich in MongoDB Compass ist die Varianz im Schema zwischen den Dokumenten in einer Collection.
 \begin{figure}[H]
     \includegraphics[width=\textwidth]{images/mongodb_compass}
@@ -56,37 +56,40 @@ Diese Tools konzentrieren sich jedoch alle auf die Visualisierung der Daten, nic
 \subsection{Vergleich der bestehenden Tools}
 \label{sub:vergleich_tools}
 
-In der Nachfolgenden Tabelle wird verglichen, welche Anforderungen erfüllt werden, und welche nicht.
-Dabei wurden alle Anforderungen ignoriert, welche sich auf die Gesamtlösung des Database Toolkits bezogen, da diese nicht auf spezialisierte Anwendungen anwendbar sind.
-Ebenso weggelassen wurde die Anforderung \nameref{itm:ba2} "Verbindung und Analyse mehrerer MongoDB Datenbanken gleichzeitig.
-Da alle Anwendungen von beliebig vielen Nutzern gleichzeitig benutzbar sind, ist diese Anforderung überall Erfüllt.
+In der Nachfolgenden Tabelle wird verglichen, welche Anforderungen erfüllt werden und welche nicht.
+Dabei werden alle Anforderungen ignoriert, welche sich auf die Gesamtlösung des Database Toolkits beziehen, da diese nicht auf spezialisierte Anwendungen anwendbar sind.
+Ebenso weggelassen wird die Anforderung \nameref{itm:ba2} "Verbindung und Analyse mehrerer MongoDB Datenbanken gleichzeitig".
+Da alle Anwendungen von beliebig vielen Nutzern gleichzeitig benutzbar sind, wird diese Anforderung von jedem Tool erfüllt.
 Die Bestimmung der Analysedauer für die Anforderung \nameref{itm:ba1} wurde exemplarisch mit der größten Datenbank der MongoDB Atlas Beispieldatenbanken (sample\_training) durchgeführt.
 
 \begin{tabular}{ |m{6cm}|m{2cm}|m{2cm}|m{2cm}|}
     \hline
      & MongoDB Data Explorer & MongoDB Compass & MongoDB Charts \& Co. \\
     \hline
-    \textbf{FA1: Webapp} & \checkmark & X & \checkmark\\ 
+    FA1: Webapp & \checkmark & X & \checkmark\\ 
     \hline
-    \textbf{FA4: Intuitiv Benutzbar} & \checkmark & \checkmark & X \\ 
+    FA4: Intuitiv Benutzbar & \checkmark & \checkmark & X \\ 
     \hline
-    \textbf{FA6: Übersichtliche Darstellung der Schemata} & X & X & X \\ 
+    FA6: Übersichtliche Darstellung der Schemata & X & X & X \\ 
     \hline
-    \textbf{FA7: Visualisierung der Schema-Variationen} & X & X & X \\ 
+    FA7: Visualisierung der Schema-Variationen & X & X & X \\ 
     \hline
-    \textbf{BA1: Analyse der Datenbanken in unter 10 Sekunden} & - & ? & -\\
+    BA1: Analyse der Datenbanken in unter 10 Sekunden & - & ? & -\\
     \hline
 \end{tabular}
 
-Der MongoDB Data Explorer führt gar keine Analyse-Dauer durch, deshalb kann die Analysedauer für  \nameref{itm:ba1} nicht bestimmt werden.
-MongoDB Compass analysiert immer nur einzelne Collections der Datenbank, und nicht ganze Datenbanken auf einmal, weshalb sich hier die Zeit ebenfalls nicht bestimmen lässt.
-MongoDB Charts analysiert, wie auch der Data Explorer, keine Schemas, weshalb es hier ebenfalls keine Analysedauer gibt.
+Der MongoDB Data Explorer führt gar keine Analyse durch, weshalb die Analysedauer für  \nameref{itm:ba1} nicht bestimmt werden kann.
+MongoDB Compass analysiert immer nur einzelne Collections der Datenbank und nicht ganze Datenbanken auf einmal, weshalb sich hier die Zeit ebenfalls nicht bestimmen lässt.
+MongoDB Charts analysiert, wie auch der Data Explorer, keine Schemas. 
+Deshalb gibt es hier ebenfalls keine Analysedauer.
 
 Keine der Anwendungen erfüllt die Anforderungen \nameref{itm:fa6} und \nameref{itm:fa7}.
-Das Bedeutet, dass keine der Anwendungen die Schemas ausreichend Übersichtlich darstellt, und somit keine der Anwendungen die Problemstellung erfüllt.
+Das bedeutet, dass keine der Anwendungen die Schemas ausreichend Übersichtlich darstellt und somit keine der Anwendungen die Problemstellung erfüllt.
 
 \section{Verwendete Technologien}
 \label{sec:verwendete_technologien}
+
+Im folgenden Abschnitt wird erläutert, aus welchem Grund welche Programmiersprachen, Frameworks und andere Technologien ausgewählt wurden.
 
 \subsection{Backend Technologien}
 \label{sec:verwendete_technologien_backend}
@@ -105,7 +108,7 @@ Die Verbindung mit MongoDB Datenbanken in Spring Data MongoDB erfolgt jedoch mit
 Deshalb ist die Spring Data MongoDB Bibliothek für diese Anwendung nicht geeignet.
 Neben der Spring Data MongoDB Bibliothek gibt es auch noch einen anderen MognoDB Java Client, Java Sync.
 Dieser funktioniert jedoch nicht zusammen mit dem Spring Framework.
-Aus diesem Grund kann Spring sowie andere Java Backend Frameworks nicht genutzt werden.
+Aus diesem Grund sind Spring sowie andere Java Backend Frameworks für dieses Projekt ungeeignet.
 
 Als alternatives Backend Framework mit REST Api bietet sich Flask an.
 Ein großer Vorteil von Flask ist, dass Flask sehr minimal ist und nur mit dem minimum an benötigten Bibliotheken vorkonfiguriert ist.
@@ -113,13 +116,13 @@ Spring ist im Gegensatz dazu ein sehr mächtiges Framework mit vielen Features, 
 Ein weiterer Vorteil von Flask sowie von Python ist die Schlankheit des Codes.
 In Python lässt sich meist die gleiche Funktionalität in weniger Code schreiben als in Java.
 Dazu kommt, dass in Flask sehr viel weniger Boilerplate Code benötigt wird als in Spring.
-Ein minimaler Endpunkt in Flask lässt sich bereits mit 2 Zeilen Code umsetzen.
-Zudem ist die dynamische Typisierung in Python beim Auswerten der MongoDB Dokumente von Vorteil, da man im Voraus nicht weiß, welche Datentypen die Werte in den Dokumenten haben, und die dynamische Typisierung deshalb das Handling dieser Werte vereinfacht.
+Ein minimaler Endpunkt in Flask lässt sich bereits mit zwei Zeilen Code umsetzen.
+Zudem ist die dynamische Typisierung in Python beim Auswerten der MongoDB Dokumente von Vorteil, da man im Voraus nicht weiß, welche Datentypen die Werte in den Dokumenten haben und die dynamische Typisierung deshalb das Handling dieser Werte vereinfacht.
 ~\autocite{khoirom2020comparative}
 
 Jedoch hat Flask nicht nur Vorteile gegenüber Spring:
 Flask ist grundsätzlich deutlich unperformanter als Spring.
-Dies liegt unter anderem daran, dass Python eine interpretierte Sprache ist, und Java eine kompilierte.
+Dies liegt unter anderem daran, dass Python eine interpretierte Sprache ist, Java hingegen eine kompilierte.
 ~\autocite{sverker:rest_comparison}
 Dies widerspricht zunächst der Anforderung ~\nameref{itm:ba1}.
 Die Performance-Probleme lassen sich aber durch Multiprocessing ausgleichen.
@@ -140,21 +143,21 @@ Dies erleichtert die Analyse der Dokumente und hat darüber hinaus den Vorteil, 
 \label{sec:verwendete_technologien_frontend}
 
 Web Apps haben gegenüber Desktop Apps einige Vorteile:
-Web Apps müssen nicht installiert werden, sie müssen nicht für mehrere Betriebssysteme entwickelt werden und der Auslieferungs- Update- und Administrierungsprozess ist deutlich vereinfacht.
+Web Apps müssen nicht installiert werden, sie müssen nicht für mehrere Betriebssysteme und Plattformen entwickelt werden und der Auslieferungs- Update- und Administrierungsprozess ist deutlich vereinfacht.
 Jedoch haben Web Apps oftmals nicht die Interaktionsmöglichkeiten von Desktop Apps, da sie innerhalb eines Browsers laufen.
 ~\autocite{zepeda2007desktop}
-Dies ist in dieser Anwendung jedoch kein großer Nachteil, da die Hauptaufgabe der Anwendung die Visualisierung von Daten ist, und dies nicht viele Interaktionsmöglichkeiten erfordert.
+Dies ist in dieser Anwendung jedoch kein großer Nachteil, da die Hauptaufgabe der Anwendung die Visualisierung von Daten ist und dies nicht viele Interaktionsmöglichkeiten erfordert.
 Deshalb wird das Frontend dieser Anwendung als Webapp entwickelt.
 
 Das ER Modellierungstool benutzt das Frontend Framework React.
 Da das ER Modellierungstool und das MongoDB Visualisierungstool Teil eines Datenbank Toolkits werden sollen, muss das MongoDB Visualisierungstool Frontend ebenfalls in React geschrieben werden, damit Anforderung ~\nameref{itm:fa1} erfüllt werden kann.
 Da React dank React Elements und React Components in seiner Grundstruktur  sehr modular ist, eignet sich React sehr gut, um Anforderung ~\nameref{itm:fa2} zu erfüllen.
 ~\autocite{banks:react}
-Die Tools lassen sich mittels Ordner strukturell voneinander trennen, und trotzdem können die Tools sich Komponenten teilen und diese wiederverwenden.
+Die Tools lassen sich mittels Ordner strukturell voneinander trennen und trotzdem können die Tools sich Komponenten teilen und diese wiederverwenden.
 
 Dank der Komponentenbibliothek Material UI kann man in React vordefinierte Elemente benutzen, was oftmals das Definieren der Komponenten von Hand erspart.
 Dadurch spart man sich einerseits Programmieraufwand, andererseits verringert dies aber auch die Code-Komplexität und verbessert somit die Lesbarkeit des Codes.
-Zudem erleichtert Material UI das Umsetzen eines einheitlichen Designs, da man mithilfe von Material UI global verwendbare Themes erstellen kann.
+Zudem erleichtert Material UI das Umsetzen eines einheitlichen Designs, da man mit Hilfe von Material UI global verwendbare Themes erstellen kann.
 ~\autocite{mui:mui}
 Dies ermöglicht das Erfüllen der Anforderung ~\nameref{itm:fa5}.
 
@@ -162,8 +165,8 @@ Dies ermöglicht das Erfüllen der Anforderung ~\nameref{itm:fa5}.
 \label{sec:rest_schnittstelle}
 Das Backend hat eine einzige Funktion:
 Das Verbinden und Analysieren von MongoDB Datenbanken.
-Aus diesem Grund stellt ~Das Backend nur einen einzigen Endpunkt bereit: 
-\textit{/connect} erwartet im Body des Requests folgende Daten im JSON-Format:
+Aus diesem Grund stellt ~Das Backend nur einen einzigen Endpunkt bereit.
+Der Endpunkt \textit{/connect} erwartet im Body des Requests folgende Daten im JSON-Format:
 \begin{itemize}
     \item connection\_string: Der Connection String zur Verbindung mit der MongoDB Instanz
     \item database: Der Name der Datenbank, die analysiert werden soll
@@ -171,23 +174,23 @@ Aus diesem Grund stellt ~Das Backend nur einen einzigen Endpunkt bereit:
     \item sort\_method: Bestimmt, wie die Dokument-Variationen in einer Collection sortiert werden sollen
 \end{itemize}
 Mithilfe dieser Variablen versucht das Backend, sich mit der MongoDB Datenbank zu verbinden.
-Dafür erstellt es ein Objekt der Klasse DatabaseAnalysis, und ruft die entsprechenden Operationen in diesem Objekt auf.
-Wenn die Verbindung erfolgreich, wird die Datenbank ausgewertet und das Ergebnis als JSON im Response-Body zurückgegeben.
+Dafür erstellt es ein Objekt der Klasse DatabaseAnalysis und ruft die entsprechenden Operationen in diesem Objekt auf.
+Wenn die Verbindung erfolgreich ist, wird die Datenbank ausgewertet und das Ergebnis als JSON im Response-Body zurückgegeben.
 Wenn die Verbindung fehlschlägt, wird der Statuscode 406 zurückgegeben.
-406 ist in diesem Fall ein Willkührlich gewählter, für gewöhnlich selten verwendeter Response Code, da HTTP keinen Response Code für das Fehlschlagen von Verbindungen mit Drittanbietern vorgesehen hat.
+406 ist in diesem Fall ein willkührlich gewählter, für gewöhnlich selten verwendeter Response Code, da HTTP keinen Response Code für das Fehlschlagen von Verbindungen mit Drittanbietern vorgesehen hat.
 
 \section{Analyse der MongoDB Datenbank}
 \label{sec:mongoDB_analyse}
 
 Dokumente in MongoDB sind in einem JSON-Ähnlichen Format geschrieben.
-Da man in Python JSON zu Dictionaries konvertieren kann, kann man mithilfe von PyMongo Dokumente als Dictionaries auslesen.
+Da man in Python JSON zu Dictionaries konvertieren kann, kann man mit Hilfe von PyMongo Dokumente als Dictionaries auslesen.
 Dictionaries beinhalten eine Reihe an Key-Value Paaren.
-Jedes dieser Key-Value Paare wird ausgewertet, und das Ergebnis der Auswertund in dem Objekt Value gespeichert.
+Jedes dieser Key-Value Paare wird ausgewertet und das Ergebnis der Auswertung in dem Objekt Value gespeichert.
 Der Key entspricht dem Name des Feldes und wird direkt im Value-Objekt abgespeichert.
 Aus dem Value des Key-Value Paares wird der Datentyp auslesen.
 Wenn der Datentyp des Values Embedded Document oder Array entspricht, werden rekursiv die Key-Value Paare aus dem Value ausgelesen. 
-Diese rekursiven Verschachtelungen werden ebenfalls in dafür vorgesehenen Variablen im Value-Objekt gespeichert
-Falls es sich um eine ObjectId handelt, und nicht den Key \_id besitzt (Also kein Primary Key ist), dann wird davon ausgegangen, dass es sich bei dem Value um eine Referenz handelt.
+Diese rekursiven Verschachtelungen werden ebenfalls in dafür vorgesehenen Variablen im Value-Objekt gespeichert.
+Falls es sich um eine ObjectId handelt und nicht den Key \_id besitzt (Also kein Primary Key ist), dann wird davon ausgegangen, dass es sich bei dem Value um eine Referenz handelt.
 Je nachdem, ob der Boolean analyse\_ref true ist oder nicht, wird daraufhin versucht, die referenzierte Collection zu finden. 
 
 Alle Values eines Dokuments werden in einem ProcessedDocument Objekt gespeichert, welches das Schema des Dokuments repräsentiert.
@@ -204,28 +207,31 @@ Wenn ProcessedDocuments mehrfach vorkommen, dann wird in das bestehende Processe
 \section{Planung des Frontends}
 \label{sec:planung_frontend}
 
-Um das Frontend zu planen, wurden in Miro, einem funktionsreichen Online-Whiteboard, Wireframes für die Screens des MongoDB Visualisierungstools gezeichnet.
+Um das Frontend zu planen, wurden in Miro, einem vielseitigen Online-Whiteboard, Wireframes für die Screens des MongoDB Visualisierungstools gezeichnet.
 
 Um ein einheitliches Layout und damit Anforderung ~\nameref{itm:fa5} zu gewährleisten, wird das gleiche Grundlayout wie in dem ER-Bildschirm des ER Modellierungstools verwendet.
 Auf der linken Seite gibt es eine Left Sidebar, welche anstatt der ER-Elemente Verbindungsoptionen für die MongoDB Datenbank enthält. 
 Der Hauptscreen in der Mitte zeigt nach erfolgreicher Verbindung die vom Backend extrahierten Hauptschemas jeder Collection als Tabellen an.
 Diese Tabellen enthalten den Key, den Type und optional die referenzierte Collection.
-Wenn der Datentyp Array oder Embedded Document ist, kann man eine Untertabelle aufklappen, welche die verschachtelten Daten enthält.
-
+Wenn der Datentyp des Felds Array oder Embedded Document entspricht, kann eine Untertabelle aufgeklappt werden, welche die verschachtelten Daten enthält.
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{images/wireframe_vis_tool}
+    \fbox{
+        \includegraphics[width=\textwidth]{images/wireframe_vis_tool}
+    }
     \caption{Visualization Tool Wireframe}
     \label{fig:wireframe_vis_tool}
 \end{figure}
 
 Wenn man auf den Titel einer Tabelle in der Schema Übersicht klickt, öffnet sich die Detail View dieser Collection in einem Popup.
 In dieser Detail View werden alle Variationen des Schemas angezeigt.
-Zusätzliche Felder werden grün markiert, und fehlende in rot aufgelistet.
+Zusätzliche Felder werden grün markiert und fehlende in rot aufgelistet.
 Zudem steht über jeder Schemavariation, von wie vielen Dokumenten diese Variation verwendet wird.
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{images/wireframe_detail_view}
+    \fbox{
+        \includegraphics[width=\textwidth]{images/wireframe_detail_view}
+    }
     \caption{Detail View Wireframe}
     \label{fig:wireframe_detail_view}
 \end{figure}
@@ -247,7 +253,9 @@ Zudem gibt es einen Startbildschirm welchem aus diese Anwendungen aufgerufen wer
 Um eine neue Anwendung hinzuzufügen, muss man lediglich ein neues Package in Components erstellen und die benötigten Elemente anlegen, sowie im Startbildschirm einen weiteren Button für die Anwendung hinzufügen.
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{images/wireframe_titlescreen}
+    \fbox{
+        \includegraphics[width=\textwidth]{images/wireframe_titlescreen}
+    }
     \caption{Startbildschirm Wireframe}
     \label{fig:wireframe_titlescreen}
 \end{figure}
