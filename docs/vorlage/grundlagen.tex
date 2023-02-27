@@ -17,6 +17,8 @@ Sie können aber auch das Werkzeug Citavi\autocite{SAS:Citavi} benutzen
 und dort nach \textsc{Bib}\TeX{} exportieren.
 \fi
 
+Im folgenden werden einige Tools und Technologien beschrieben, welche für die Entwicklung des MongoDB Visualisierungstools sowie für die Nachfolgenden Kapitel eine wichtige Rolle spielen.
+
 \section{HTTP}
 \label{sec:http}
 
@@ -144,6 +146,8 @@ Flask ist beispielsweise mit SQL oder NoSQL Datenbanken, aber auch ohne Datenban
 
 JavaScript ist eine High-Level Programmiersprache, die just-in-time kompiliert wird.
 JavaScript ist besonders bekannt als Skriptsprache für Webseiten, wird aber auch für Backendanwendungen, Automatisierungsaufgaben und vieles mehr verwendet.
+Die Besonderheit von JavaScript gegenüber anderen Sprachen ist eine vollständige native Kompatibilität und Integration in HTML und CSS.
+~\autocite{javascript:javascript}
 Die Pakete in JavaScript werden mittels dem Paketmanager npm verwaltet.
 % TODO mehr zu JavaScript schreiben, Quelle fehlt
 
@@ -170,8 +174,8 @@ Außerdem erleichtert Redux es, State Änderungen in Komponenten nachzuvollziehe
 Axios ist ein HTTP-Client für JavaScript.
 Mithilfe von Axios Können HTTP-Requests versendet und die Responses von diesen verarbeitet werden.
 
-\subsection{Docker Container}
-\label{sub:docker}
+\section{Docker Container}
+\label{sec:docker}
 
 Ein Container ist eine virtuelle Umgebung, die, ähnlich wie eine virtuelle Maschine, eine Anwendung in eine isolierte Umgebung verpackt.
 Jedoch wird im Gegensatz zu virtuellen Maschinen nicht das ganze Betriebssystem virtualisiert, sondern nur einzelne Anwendungen.
@@ -180,8 +184,8 @@ Container können dadurch als sogenannte Images auf verschiedenen Systemen ausge
 Docker ist eine weit verbreitete Open-Source Software, welche das Container Prinzip implementiert.
 ~\autocite{devInsider:container}
 
-\subsection{Nginx}
-\label{sub:nginx}
+\section{Nginx}
+\label{sec:nginx}
 
 Nginx, ausgesprochen Engine X, ist ein Open-Source Web Server.
 In Nginx sind einige Features für das Hosten von Webservern integriert, wie beispielsweise Load Balancing, Reverse Proxies, Web Sockets, Mail Server und vieles mehr.
@@ -190,5 +194,13 @@ Die Konfiguration in Nginx erfolgt über Konfigurationsdateien.
 Die Nutzung von Nginx als Webserver nimmt jedes Jahr weiter zu im Vergleich zum Kompetitoren wie Apache.
 Im Januar 2023 liefen 21,20\% der meistgenutzten Seiten über Nginx.
 ~\autocite{nginx:nginx}
+
+\section{Microservice Architektur}
+\label{sec:microservices}
+
+Die Microservice Architektur ist eine Architektur, bei der das Endprodukt aus einer Sammlung einzelner Services besteht.
+Diese Services sind an sich voneinander Unabhängig auslieferbar, und sind nur lose gekoppelt.
+Jeder Service wird von einem einzelnen kleinen Team entwickelt, und muss ohne großen Aufwand testbar und wartbar sein.
+~\autocite{richardson:microservices}
 
 %TODO microservice architecture
