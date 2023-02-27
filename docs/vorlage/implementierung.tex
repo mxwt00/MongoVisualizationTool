@@ -47,13 +47,19 @@ Die konkrete Implementierung sieht dabei wie folgt aus:
 \section{Backend}
 \label{sec:backend}
 
+Im Folgenden werden die einzelnen Dateien und Klassen des Backends beschrieben.
+Begonnen wird mit dem Endpunkt in app.py, von welchem aus das DatabaseAnalysis Objekt erstellt wird.
+Von diesem Ausgehend werden alle weiteren Klassen von Außen nach Innen beleuchtet.
+
 \subsection{Endpunkte}
 \label{sub:ba_endpunkte}
 
 Der bereits beschriebene eine Endpunkt im Backend ließt in Zeile 6 bis 9 alle benötigten Werte aus dem Request Body aus.
 Mit diesen Daten wird dann ein neues Objekt vom Typ DatabaseAnalysis erstellt.
 In diesem Objekt wird anschließend die Funktion connect aufgerufen, welche Versucht, sich mit der spezifizierten MongoDB Datenbank zu verbinden.
-Entsprechend dem Resultat wird entweder ein Fehlercode zurückgegeben oder die Datenbank analysiert und das Resultat der Analyse im JSON-Format im Request Body zurückgegeben.
+Wenn die Verbindung erfolgreich ist, wird die Datenbank anschließend analysiert.
+Das Resultat der Analyse wird als JSON in der Response zurückgegeben
+Im Fehlerfall wird der Response Code 406 zurückgegeben.
 
 \begin{lstlisting}[language=python, caption={app.py},label={lst:backend_app}]
 app = Flask("Mongodb Visualization Tool")
@@ -123,7 +129,7 @@ def analyse(self):
 Die Methode analyse\_references in DatabaseAnalysis wird nur ausgeführt, wenn der im Endpunkt übergebene Wert analyse\_ref auf True gesetzt ist.
 In der Methode selbst werden alle Values aller verarbeiteten Dokumente durchlaufen und überprüft, ob es sich dabei um eine Referenz auf ein anderes Dokument handeln könnte.
 Wenn der Datentyp des Values Object ID ist und der Name des Values nicht \_id entspricht (Es sich also nicht um den Primary Key handelt), wird angenommen, dass der Value eine Referenz ist.
-Wenn dies der Fall ist, werden aus den Originaldokumenten, die im Verarbeiteten Dokument abgespeichert sind, die Werte der soeben identifizierten Referenz ausgelesen.
+Wenn dies der Fall ist, werden aus den Originaldokumenten, die im verarbeiteten Dokument abgespeichert sind, die Werte der soeben identifizierten Referenz ausgelesen.
 Mit diesen Werten wird dann get\_referenced\_collection so lange aufgerufen, bis die Methode einmal nicht None zurückgibt.
 get\_referenced\_collection durchläuft die \_id Werte aller (unverarbeiteten) Dokumente und vergleicht diese mit der übergebenen Object ID.
 Sobald eine Übereinstimmung gefunden wird, wird der Name der Collection zurückgegeben, in der sich das Dokument mit der passenden \_id befindet.
@@ -155,7 +161,7 @@ Da die Bestimmung der Referenzen sonst jedoch sehr komplex und rechenintensiv we
 \subsection{ProcessedCollection}
 \label{sub:ba_processed_collection}
 
-Die Methode add\_doc in der Klasse ProcessedCollection erstellt aus dem übergebenen Dictionary ein neues Objekt der Klasse ProcessedDocument.
+Die Methode add\_doc in der Klasse ProcessedCollection erstellt aus dem übergebenen Dokument in Form eines Dictionary ein neues Objekt der Klasse ProcessedDocument.
 Wenn sich noch kein Objekt mit den gleichen Werten in der aktuellen ProcessedCollection befindet, wird das ProcessedDocument der ProcessedCollection hinzugefügt.
 Ansonsten wird das Attribut count in dem bereits vorhandenen ProcessedDocument Objekt hochgezählt.
 
@@ -219,13 +225,13 @@ def mark_missing_values(self):
 \subsection{ProcessedDocument}
 \label{sub:ba_processed_document}
 
-Sämtliche logik in der ProcessedDocument Klasse steckt im Konstruktor.
+Sämtliche Logik in der ProcessedDocument Klasse steckt im Konstruktor.
 Der Konstruktor nimmt ein Dokument im JSON Format entgegen.
-In diesem Dokument werden mithilfe der Methode analyse\_values in der Datei value.py alle Werte analysiert und die ergebnisse als Liste des eigenen Datentyps Value im ProcessedDocument gespeichert.
-Wenn der Primary Key vom Typ Object ID ist, wird in Zeile 6 bis 8 das alter des dokuments ermittelt und in einer Liste gespeichert.
+In diesem Dokument werden mithilfe der Methode analyse\_values in der Datei value.py alle Werte analysiert und die Ergebnisse als Liste des eigenen Datentyps Value im ProcessedDocument gespeichert.
+Wenn der Primary Key vom Typ Object ID ist, wird in Zeile 6 bis 8 das Alter des Dokuments ermittelt und in einer Liste gespeichert.
 Diese Liste dient später dazu, das Durchschnittsalter des ProcessedDocuments zu berechnen.
-Das bestimmen des Alters eines Dokuments ist nur möglich, wenn der Primary Key vom Typ Object ID ist, da Object IDs einen Zeitstempel beinhalten.
-Des weiteren initialisiert der Konstruktor noch einige Werte, die für die Nachbearbeitung benötigt werden.
+Das Bestimmen des Alters eines Dokuments ist nur möglich, wenn der Primary Key vom Typ Object ID ist, da Object IDs einen Zeitstempel beinhalten.
+Des Weiteren initialisiert der Konstruktor noch einige Werte, die für die Nachbearbeitung benötigt werden.
 
 \begin{lstlisting}[language=python, caption={ProcessedDocument.\_\_init\_\_},label={lst:backend_processed_document_init}]
 def __init__(self, document):
@@ -246,7 +252,7 @@ def __init__(self, document):
 \subsection{Value}
 \label{sub:ba_value}
 
-Die Methode analyse\_values in value.py ist eine factory methode, welche für alle Key Value Paare im übergebenen Dokument-Dictionary einen Value erstellt und als Liste zurückgibt.
+Die Methode analyse\_values in value.py ist eine Factory Methode, welche für alle Key Value Paare im übergebenen Dokument-Dictionary einen Value erstellt und als Liste zurückgibt.
 
 \begin{lstlisting}[language=python, caption={Value.analyse\_values},label={lst:backend_value_analyse_values}]
 def analyse_values(document):
@@ -275,7 +281,8 @@ def __init__(self, key, raw_value):
         self.analyse_array(raw_value)
 \end{lstlisting}
 
-get\_type enthält simple If-Bedingungen, welche Datentypen eines Werts zu Strings mappen.
+get\_type enthält simple If-Bedingungen, welche den Python-Datentyp eines Werts zu einem String mappen.
+Dieser String entspricht dem MongoDB-Datentyp des Werts.
 Wenn der Datentyp nicht von den If-Bedingungen abgedeckt wird, wird eine Exception geworfen.
 
 \begin{lstlisting}[language=python, caption={Value.get\_type},label={lst:backend_value_get_type}]
@@ -299,8 +306,8 @@ def get_type(value):
     raise Exception(f"Type {type(value)} of value {value} is not identifiable!")
 \end{lstlisting}
 
-Wenn es sich bei dem Value um ein Array handelt, wird für jeden Wert im Array ein Value-Objekt erstellt.
-Die Besonderheit bei diesen Value-Objekten ist, dass das Feld Key leer bleibt, da Values in Arrays keinen eigenen Key besitzen.
+Wenn es sich bei dem Datentyp des Values um ein Array handelt, wird für jeden Wert im Array ein Value-Objekt erstellt.
+Die Besonderheit bei Value-Objekten in einem Array ist, dass das Feld Key leer bleibt, da Values in Arrays keinen eigenen Key besitzen.
 Wenn das Array array\_values des darüberliegenden Values noch keinen Value enthält, der den gleichen Datentyp hat, wird das eben erzeugte Value-Objekt in array\_values gespeichert.
 
 \begin{lstlisting}[language=python, caption={Value.analyse\_array},label={lst:backend_value_analyse_array}]
@@ -325,7 +332,7 @@ def add_array_value(self, new_array_value):
 
 Die Gesamtlösung des Frontends besteht aus mehreren Tools, die zu einer Toolbox für Datenbanken zusammengefasst werden.
 Um auswählen zu können, welches Tool man benutzen will, wurde ein Startbildschirm eingefügt.
-Der Startbildschirm ist ein simpes div, welches den Titel der Anwendung sowie Buttons beinhaltet.
+Der Startbildschirm ist ein simples HTML div, welches den Titel der Anwendung sowie Buttons beinhaltet.
 Die Buttons sind mit den Namen der einzelnen Tools beschriftet.
 Die onClick Funktionen der Buttons rufen die Funktion switchAppMode auf, welche als Parameter das enum AppScreen übergeben bekommt.
 AppScreen teilt der Funktion wiederum mit, welches Tool ausgewählt wurde und geladen werden muss.
@@ -355,9 +362,9 @@ Zudem wird der Pfad aller weiteren Screens definiert, über welchen diese dann g
 \label{sub:fe_aufbau}
 Das oberste Element des MongoDB Visualization Tools ist der MongoManager, welcher die MongoLeftSidebar und das MongoDiagram enthält.
 Mithilfe der MongoLeftSideBar kann die Verbindung und Analyse der MongoDB Datenbank konfiguriert und durchgeführt werden.
-Nach dem Verbinden und Analysieren werden in dem MongoManager DocumentTables angezeigt, welche rekursiv geschachtelt wieder DocumentTables enthalten können.
+Nach dem Verbinden und Analysieren werden in dem MongoDiagram DocumentTables angezeigt, welche rekursiv geschachtelt wieder DocumentTables enthalten können.
 Darüber hinaus gibt es noch ein DetailView Popup, welches angezeigt wird, wenn man auf den Titel eines DocumentTables klickt.
-Die DetailView enthält wiederum DocumentTables, welche auch wieder rekursiv geschachtelt sein können.
+Die DetailView enthält ebenfalls DocumentTables, welche auch wieder rekursiv geschachtelt sein können.
 (Das DetailView Popup ist in der nachfolgenden Grafik nicht abgebildet)
 
 \begin{figure}[H]
@@ -373,10 +380,11 @@ Die  MongoLeftSideBar nutzt die Material UI Komponenten Typography, TextField, F
 Diese Informationen werden bei jeder Änderung im State der MongoLeftSideBar gespeichert.
 Nach dem Drücken des Connect-Buttons wird die Methode connectToDB aufgerufen.
 In dieser Methode wird mit den im State gespeicherten Informationen mithilfe von Axios ein HTTP Request an das Backend gesendet.
-Wenn die Verbindung erfolgreich ist, werden daraufhin die analysierten Daten des Backends im ReduxStore gespeichert.
-Dies löst daraufhin das Rendering der DocumentTables im MongoDiagram aus.
+Wenn die Verbindung erfolgreich ist, wird die Methode connectionSuccessful aufgerufen.
+In dieser werden die analysierten Daten des Backends im ReduxStore gespeichert.
+Dies löst im Anschluss das Rendering der DocumentTables im MongoDiagram aus.
 Zudem wird das Feedback Label in der MongoLeftSideBar aktualisiert.
-Im Fehlerfall wird nur das Feedback Label aktualisiert.
+Im Fehlerfall wird nur das Feedback Label in der Methode connectionFailed aktualisiert.
 
 
 %TODO url als Umgebungsvariable abfragen
@@ -395,7 +403,6 @@ function connectToDB() {
 
     axios.post(url, contentToSend).then((response) => {
         connectionSuccessful(response)
-        dispatch(setCollections(response.data))
     }).catch(error => connectionFailed(error))
 }
 
@@ -414,7 +421,7 @@ function connectionFailed(error) {
 \subsection{DocumentTable}
 \label{sub:fe_document_table}
 
-Ein DocumentTable repräsentiert ein Schema von Dokumenten ein einer Collection.
+Ein DocumentTable repräsentiert ein Schema von Dokumenten in einer Collection.
 Es gibt mehrere Arten von DocumentTables, welche je nach Verwendungszweck mit dem Enum DocumentTableType unterschieden werden:
 \begin{itemize}
     \item \textbf{main} ist die standard Tabelle, welche im MongoDiagram benutzt wird, um das Hauptschema einer Collection darzustellen.
@@ -424,7 +431,7 @@ Es gibt mehrere Arten von DocumentTables, welche je nach Verwendungszweck mit de
 \end{itemize}
 
 Dem Element DocumentTable liegt die Material UI Table zugrunde.
-Material UI Tables haben eine Toolbar, welche hier je nach DocumentTableType angepasst wird.
+Material UI Tables haben eine Toolbar, welche hierfür je nach DocumentTableType angepasst wird.
 In der Main DocumentTable besteht die Toolbar aus einem Button, mit dem Namen der dargestellten Collection als Label.
 Die onClick Methode dieses Buttons öffnet die Detail View dieser Collection.
 Wenn der DocumentTableType detail entspricht, zeigt die Toolbar die Anzahl der Dokumente, die dieses Schema benutzen, sowie eventuell die fehlenden Felder gegenüber dem Hauptschema.
@@ -438,6 +445,11 @@ Nach jeder Reihe folgt eine zunächst unsichtbare Reihe.
 Wenn der Datentyp des Werts in dieser Reihe Array oder Embedded document entspricht, wird in dieser unsichtbaren Reihe die entsprechende Untertabelle geladen.
 Diese lässt sich dann mit dem Expand Button ausklappen und anzeigen.
 
+\begin{figure}[H]
+    \includegraphics[width=360]{images/table_types}
+    \caption{Frontend DocumentTable Typen}
+    \label{fig:table_types}
+\end{figure}
 
 \subsection{DetailView Popup}
 \label{sub:fe_detail_view}
@@ -459,11 +471,11 @@ Der DocumentTableType ist in diesen Tabellen jedoch nicht main, sondern detail, 
 
 Der Redux Store dient dem Speichern von States losgelöst von einzelnen React Komponenten.
 Für das Speichern eines States wird ein sogenannter ContentSlice verwendet.
-Die ContentSlices für das MongoDB Visualisation Tool sind grundsätzlich alle gleich aufgebaut:
+Die ContentSlices für das MongoDB Visualisierungstool sind alle grundsätzlich gleich aufgebaut:
 Im initialState wird der Ausgangszustand des States definiert. 
-Im MongoContentSlice wird initial collections auf null gesetzt.
+Im Fall des MongoContentSlice wird initial collections auf null gesetzt.
 Reducer sind Methoden, welche das Beschreiben des States erlauben.
-in diesem Fall wurde der Reducer setCollections definiert, welcher es erlaubt, in collections das argument documents zu schreiben.
+in diesem Fall wurde der Reducer setCollections definiert, welcher es erlaubt, in collections das Argument documents zu schreiben.
 Abschließend werden die actions und die reducer des ContentSlice exportiert, sodass diese global erreichbar sind.
 
 \begin{lstlisting}[language=JavaScript, caption={MongoContentSlice},label={lst:fe_redux_slice}]
@@ -484,7 +496,7 @@ export default mongoContentSlice.reducer
 \end{lstlisting}
 
 Auf diese Weise lassen sich schnell und einfach weitere ContentSlices definieren.
-Um diese ContentSlices zu verwenden, müssen sie nur noch in den Redux Store eingefügt werden.
+Um die ContentSlices zu verwenden, müssen diese nur noch in den Redux Store eingefügt werden.
 
 \begin{lstlisting}[language=JavaScript, caption={Redux Store},label={lst:fe_redux_store}]
 export const store = configureStore({
