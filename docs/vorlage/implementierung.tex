@@ -49,14 +49,14 @@ Die konkrete Implementierung sieht dabei wie folgt aus:
 
 Im Folgenden werden die einzelnen Dateien und Klassen des Backends beschrieben.
 Begonnen wird mit dem Endpunkt in app.py, von welchem aus das DatabaseAnalysis Objekt erstellt wird.
-Von diesem Ausgehend werden alle weiteren Klassen von Außen nach Innen beleuchtet.
+Von diesem ausgehend werden alle weiteren Klassen von außen nach innen beleuchtet.
 
 \subsection{Endpunkte}
 \label{sub:ba_endpunkte}
 
-Der bereits beschriebene eine Endpunkt im Backend ließt in Zeile 6 bis 9 alle benötigten Werte aus dem Request Body aus.
+Der bereits beschriebene einzige Endpunkt im Backend ließt in Zeile 6 bis 9 alle benötigten Werte aus dem Request Body aus.
 Mit diesen Daten wird dann ein neues Objekt vom Typ DatabaseAnalysis erstellt.
-In diesem Objekt wird anschließend die Funktion connect aufgerufen, welche Versucht, sich mit der spezifizierten MongoDB Datenbank zu verbinden.
+In diesem Objekt wird anschließend die Funktion connect aufgerufen, welche versucht, sich mit der spezifizierten MongoDB Datenbank zu verbinden.
 Wenn die Verbindung erfolgreich ist, wird die Datenbank daraufhin analysiert.
 Das Resultat der Analyse wird als JSON in der Response zurückgegeben
 Im Fehlerfall wird der Response Code 406 zurückgegeben.
@@ -104,7 +104,7 @@ Für jeden Namen wird die Collection mit diesem Namen als Dictionary ausgelesen.
 Dieses Dictionary enthält wiederum alle Dokumente der Collection.
 Jedes Dokument wird in der Methdode ProcessedCollection.add\_doc analysiert und, falls noch nicht vorhanden, der ProcessedCollection hinzugefügt.
 Danach werden die ProcessedCollections nachbearbeitet.
-Dies beinhaltet Schritte wie beispielsweise das sortieren der Dokumente und das Markieren der Abweichungen von dem Hauptschema.
+Dies beinhaltet Schritte wie beispielsweise das Sortieren der Dokumente und das Markieren der Abweichungen von dem Hauptschema.
 Wenn alle Dokumente durchlaufen wurden, wird die Verbindung zur Datenbank geschlossen und die ProcessedCollection wird in ein Dictionary umgewandelt und zurückgegeben.
 
 \begin{lstlisting}[language=python, caption={DatabaseAnalysis.analyse},label={lst:backend_analyse}]
@@ -180,7 +180,7 @@ def add_doc(self, document):
 \end{lstlisting}
 
 Darüber hinaus enthält ProcessedCollection die methode post\_processing.
-post\_processing ruft Methoden auf, welche die ProcessedDocuments der ProcessedCollection nachbearbeiten.
+Post\_processing ruft Methoden auf, welche die ProcessedDocuments in dieser ProcessedCollection nachbearbeiten.
 Folgende Nachbearbeitungsschritte werden ausgeführt:
 \begin{enumerate}
     \item Durchschnittliches Alter aller Dokumente eines ProcessedDocuments ausrechnen
@@ -425,7 +425,7 @@ Ein DocumentTable repräsentiert ein Schema von Dokumenten in einer Collection.
 Es gibt mehrere Arten von DocumentTables, welche je nach Verwendungszweck mit dem Enum DocumentTableType unterschieden werden:
 \begin{itemize}
     \item \textbf{main} ist die standard Tabelle, welche im MongoDiagram benutzt wird, um das Hauptschema einer Collection darzustellen.
-    \item \textbf{nested} ist eine veschachtelte Untertabelle, entspricht also dem Datentyp Embedded Document.
+    \item \textbf{nested} ist eine verschachtelte Untertabelle, entspricht also dem Datentyp Embedded Document.
     \item \textbf{array} wird für den Datentyp Array benutzt.
     \item \textbf{detail} wird im DetailView Popup benutzt, um alle Variatonen der Schemas einer Collection darzustellen.
 \end{itemize}
@@ -438,7 +438,7 @@ Wenn der DocumentTableType detail entspricht, zeigt die Toolbar die Anzahl der D
 In allen anderen Fällen bleibt die Toolbar leer.
 
 Die Spaltenüberschriften im Tablehead sind <Leer> - Key - Type - Reference.
-Wenn es sich um ein Array Handelt, wird die Spalte Key weggelassen.
+Wenn es sich um ein Array handelt, wird die Spalte Key weggelassen.
 Die Reihen selbst haben in der ersten Spalte entweder einen Expand Button, mit dem sich Untertabellen und Arrays ausklappen lassen, oder nichts.
 In den nachfolgenden Spalten werden die Daten aus dem Backend eingefüllt.
 Nach jeder Reihe folgt eine zunächst unsichtbare Reihe.

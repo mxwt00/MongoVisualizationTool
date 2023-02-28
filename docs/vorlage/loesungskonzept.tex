@@ -84,7 +84,7 @@ MongoDB Charts analysiert, wie auch der Data Explorer, keine Schemas.
 Deshalb gibt es hier ebenfalls keine Analysedauer.
 
 Keine der Anwendungen erfüllt die Anforderungen \nameref{itm:fa6} und \nameref{itm:fa7}.
-Das bedeutet, dass keine der Anwendungen die Schemas ausreichend Übersichtlich darstellt und somit keine der Anwendungen die Problemstellung erfüllt.
+Das bedeutet, dass keine der Anwendungen die Schemas ausreichend übersichtlich darstellt und somit keine der Anwendungen die Problemstellung erfüllt.
 
 \section{Verwendete Technologien}
 \label{sec:verwendete_technologien}
@@ -165,7 +165,7 @@ Dies ermöglicht das Erfüllen der Anforderung ~\nameref{itm:fa5}.
 \label{sec:rest_schnittstelle}
 Das Backend hat eine einzige Funktion:
 Das Verbinden und Analysieren von MongoDB Datenbanken.
-Aus diesem Grund stellt ~Das Backend nur einen einzigen Endpunkt bereit.
+Aus diesem Grund stellt das Backend nur einen einzigen Endpunkt bereit.
 Der Endpunkt \textit{/connect} erwartet im Body des Requests folgende Daten im JSON-Format:
 \begin{itemize}
     \item connection\_string: Der Connection String zur Verbindung mit der MongoDB Instanz
@@ -187,7 +187,7 @@ Da man in Python JSON zu Dictionaries konvertieren kann, kann man mit Hilfe von 
 Dictionaries beinhalten eine Reihe an Key-Value Paaren.
 Jedes dieser Key-Value Paare wird ausgewertet und das Ergebnis der Auswertung in dem Objekt Value gespeichert.
 Der Key entspricht dem Name des Feldes und wird direkt im Value-Objekt abgespeichert.
-Aus dem Value des Key-Value Paares wird der Datentyp auslesen.
+Aus dem Value des Key-Value Paares wird der Datentyp ausgelesen.
 Wenn der Datentyp des Values Embedded Document oder Array entspricht, werden rekursiv die Key-Value Paare aus dem Value ausgelesen. 
 Diese rekursiven Verschachtelungen werden ebenfalls in dafür vorgesehenen Variablen im Value-Objekt gespeichert.
 Falls es sich um eine ObjectId handelt und nicht den Key \_id besitzt (Also kein Primary Key ist), dann wird davon ausgegangen, dass es sich bei dem Value um eine Referenz handelt.
@@ -249,7 +249,7 @@ Bei einer größeren Anzahl von Anwendungen könnten jedoch auch in diesen Packa
     \label{fig:frontend_package_structure}
 \end{figure}
 
-Zudem gibt es einen Startbildschirm welchem aus diese Anwendungen aufgerufen werden können.
+Zudem gibt es einen Startbildschirm, von welchem aus diese Anwendungen aufgerufen werden können.
 Um eine neue Anwendung hinzuzufügen, muss man lediglich ein neues Package in Components erstellen und die benötigten Elemente anlegen, sowie im Startbildschirm einen weiteren Button für die Anwendung hinzufügen.
 
 \begin{figure}[H]
