@@ -386,13 +386,16 @@ Dies löst im Anschluss das Rendering der DocumentTables im MongoDiagram aus.
 Zudem wird das Feedback Label in der MongoLeftSideBar aktualisiert.
 Im Fehlerfall wird nur das Feedback Label in der Methode connectionFailed aktualisiert.
 
-
-%TODO url als Umgebungsvariable abfragen
 \begin{lstlisting}[language=JavaScript, caption={MongoLeftSideBar.connectToDB},label={lst:mongo_left_side_bar_connect_to_db}]
 function connectToDB() {
     console.log("connecting to db")
     setConnectionState(ConnectionStates.connecting)
     const url = "http://127.0.0.1:5000/connect"
+    const envUrl = process.env.REACT_APP_MVT_BACKEND_URL
+    if (envUrl)
+        url = envUrl
+    url += "/connect"
+
 
     let contentToSend = {
         connection_string: connectionString,
